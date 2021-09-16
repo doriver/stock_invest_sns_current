@@ -37,6 +37,7 @@
 			var isIdCheck = false;
 			var isDuplicateId = true;
 			
+			// <회원가입>
 			$("#signUpForm").on("submit", function(e) {
 				
 				e.preventDefault();
@@ -90,6 +91,7 @@
 					data:{"loginId":loginId, "password":password, "nickName":nickName, "email":email},
 					success:function(data) {
 						if(data.result == "success") {
+							alert("회원가입 성공");
 							location.href="/user/sign_view";
 							
 						} else {
@@ -103,9 +105,11 @@
 					
 				});
 			});
+			// </회원가입>
 			
+			// <중복확인> 
 			$("#isDuplicateBtn").on("click", function() {
-				
+			
 				var loginId = $("#loginIdInput").val();
 				
 				if(loginId == null || loginId == "") {
@@ -138,8 +142,8 @@
 					
 					
 				});
-				
 			})
+			// </중복확인>
 		});
 	
 	</script>

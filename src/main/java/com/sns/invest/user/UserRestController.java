@@ -15,12 +15,13 @@ import com.sns.invest.user.bo.UserBO;
 @RestController
 @RequestMapping("/user")
 public class UserRestController {
+	
 	@Autowired
 	private UserBO userBO;
 	
-	
 	@GetMapping("/is_duplicate_id")
-	public Map<String, Boolean> isDuplicateId(@RequestParam("loginId") String loginId) {
+	public Map<String, Boolean> isDuplicateId (
+			@RequestParam("loginId") String loginId) {
 		
 		Map<String, Boolean> result = new HashMap<>();
 			
@@ -33,7 +34,6 @@ public class UserRestController {
 //		result.put("is_duplicate", userBO.isDuplicateId(loginId));
 		
 		return result;
-		
 	}
 	
 	@PostMapping("/sign_up")
