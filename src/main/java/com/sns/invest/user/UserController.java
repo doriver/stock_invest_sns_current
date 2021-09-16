@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
 	
-	@GetMapping("/sign")
+	@GetMapping("/sign_view")
 	public String signView() {
-		return "user/12";
+		return "user/sign";
 	}
 }
