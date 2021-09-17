@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sns.invest.user.dao.UserDAO;
+import com.sns.invest.user.model.User;
 import com.sns.invest.common.EncryptUtils;
 
 @Service
@@ -24,7 +25,6 @@ public class UserBO {
 	}
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
 	public int signUp(String loginId, String password, String nickName, String email) {
 		
 		String encryptPassword = EncryptUtils.md5(password);	
@@ -35,5 +35,12 @@ public class UserBO {
 		}
 		
 		return userDAO.insertUser(loginId, encryptPassword, nickName, email);
+	}
+	
+	public User signIn(String idForLogin, String passwordForLogin) {
+		// 비밀번호를 암호화 하고 DAO 로 전달한다. 
+		String encryptPassword = EncryptUtils.md5(passwordForLogin);
+		
+		return userDAO.selectUserByIdPassword(idForLogin, encryptPassword);
 	}
 }

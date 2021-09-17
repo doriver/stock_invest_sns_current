@@ -38,5 +38,25 @@
  			, now()
  		)
  	</insert>
+ 	
+	<select id="selectUserByIdPassword" parameterType="map" resultType="com.sns.invest.user.model.User">
+ 		SELECT 
+ 			`id`
+ 			, `loginId`
+ 			, `password`
+ 			, `nickName`
+ 			, `email`
+ 			, `profileImage`
+ 			, `profileStatusMessage`
+ 			, `location`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`user`
+ 		WHERE
+ 			`loginId` = #{idForLogin}
+ 			AND `password` = #{passwordForLogin}
+	</select>
+ 	
  </mapper>
  
