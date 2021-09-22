@@ -17,7 +17,7 @@
 <body>
 	<header class="d-flex justify-content-between">
 		<h2>투자SNS</h2>
-		<button>비로그인 페이지로</button>
+		<a href="/post/guest_view">비로그인화면</a>
 	</header>
 	<hr>
 	
@@ -79,7 +79,7 @@
 					success:function(data) {
 						if(data.result == "success") {
 							alert("로그인 성공");
-							//location.href="/post/invest_view"
+							location.href="/post/invest_view";
 						} else {
 							alert("아이디 비밀번호를 확인하세요");
 						}
