@@ -11,7 +11,7 @@ import com.sns.invest.post.model.Comment;
 public interface CommentDAO {
 	public List<Comment> selectCommentListByPostIdType(
 			@Param("postId") int postId
-			,@Param("type") String type
+			, @Param("type") String type
 			);
 
 }

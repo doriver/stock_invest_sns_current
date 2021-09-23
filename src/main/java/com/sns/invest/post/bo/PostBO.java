@@ -14,6 +14,7 @@ import com.sns.invest.comment.bo.CommentBO;
 import com.sns.invest.common.FileManagerService;
 import com.sns.invest.post.dao.PostDAO;
 
+
 @Service
 public class PostBO {
 	
@@ -23,6 +24,8 @@ public class PostBO {
 	@Autowired
 	private CommentBO commentBO;
 	
+	@Autowired
+	private LikeBO likeBO;
 	
 	public int addPost(int userId, String userNickName, String content, MultipartFile file
 			, String investStyle, String stockItemName, String investmentOpinion, String investmentProcess) {
@@ -47,8 +50,8 @@ public class PostBO {
 		for(InvestPost post:postList) {
 			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
-			boolean isLike = likeBO.existLike(post.getId(), userId);
-			int likeCount = likeBO.countLike(post.getId());
+			boolean isLike = likeBO.existLike(post.getId(), userId, type);
+			int likeCount = likeBO.countLike(post.getId(), type);
 			
 			InvestPostWithOthers postWithOthers = new InvestPostWithOthers();
 			postWithOthers.setPost(post);
