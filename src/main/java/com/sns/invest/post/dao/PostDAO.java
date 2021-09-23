@@ -1,7 +1,11 @@
 package com.sns.invest.post.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import com.sns.invest.post.model.invest.InvestPost;
 
 @Repository
 public interface PostDAO {
@@ -17,4 +21,5 @@ public interface PostDAO {
 			, @Param("investmentProcess") String investmentProcess
 			);
 	
+	public List<InvestPost> selectInvestPostList();
 }
