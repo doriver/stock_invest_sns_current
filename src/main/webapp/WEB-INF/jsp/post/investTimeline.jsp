@@ -43,146 +43,81 @@
 	
 	<section>
 		<div class="col-7">
-			<!-- 투자 게시글 1 -->
-			<div class="card mt-3">
-							
-				<!-- 글 시작부분 -->
-				<div class="d-flex justify-content-between p-2 border-bottom">
+			
+			<c:forEach var="postWithOthers" items="${postList }">
+				
+				<div class="card mt-3">			
+					<!-- 글 시작부분 -->
+					<div class="d-flex justify-content-between p-2 border-bottom">
+						
+						<!-- 글쓴이 -->
+						<div>
+							<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
+							${postWithOthers.investPost.userNickName }
+						</div>
+						
+						<!-- 좋아요 -->
+						<div>
+							<i class="bi bi-heart-fill heart-icon text-danger"></i>
+							<i class="bi bi-heart heart-icon text-dark" ></i>	
+							<span class="middle-size ml-1"> 좋아요 ${postWithOthers.likeCount }개 </span>
+						</div>
+						
+						<%-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 --%>
+						<c:if test="${postWithOthers.investPost.userId eq userId}">
+							<div class="more-icon" >
+								<a href="#" class="text-dark moreBtn"> 
+									<i class="bi bi-three-dots-vertical"></i> 
+								</a>
+							</div>
+						</c:if>
+						
+					</div>
+					<!-- /글 시작부분 -->
 					
-					<!-- 글쓴이 -->
-					<div>
-						<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
-						홍길동
+					<div class="d-flex">
+						<div>${postWithOthers.investPost.investStyle }/</div>
+						<div>${postWithOthers.investPost.stockItemName }/</div>
+						<div>${postWithOthers.investPost.investmentOpinion }/</div>
+						<div>${postWithOthers.investPost.investmentProcess }/</div>
 					</div>
 					
-					<!-- 좋아요 -->
-					<div>
-						<i class="bi bi-heart-fill heart-icon text-danger"></i>
-						<i class="bi bi-heart heart-icon text-dark" ></i>	
-						<span class="middle-size ml-1"> 좋아요 2개 </span>
-					</div>
-					
-					<%-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 --%>
-					<div class="more-icon" >
-						<a href="#" class="text-dark moreBtn"> 
-							<i class="bi bi-three-dots-vertical"></i> 
-						</a>
-					</div>
-					
-				</div>
-				<!-- /글 시작부분 -->
-				
-				<div class="d-flex">
-					<button>카카오게임즈</button>
-					<button>단타x</button>
-					<button>buy</button>
-					<button>분석,공부</button>
-				</div>
-				
-				<!-- 내용 -->
-				<div class="middle-size m-2">
-					떡상각
-					<img src="https://cdn.pixabay.com/photo/2018/01/12/16/16/growth-3078543_960_720.png" width="100">
-				</div>
-				
-				<!-- 댓글 -->
-				<div class="mt-2">
-				
-					<div class="border-bottom m-2">
-						<span class="middle-size">댓글</span>
-					</div>
-					
-					<!--  댓글현황  -->
+					<!-- 내용 -->
 					<div class="middle-size m-2">
-						<div class="mt-1">
-							<b>원빈</b> 진짜?
+						${postWithOthers.investPost.content }
+						<img src="${postWithOthers.investPost.imagePath }" width="100">
+					</div>
+					
+					<!-- 댓글 -->
+					<div class="mt-2">
+					
+						<div class="border-bottom m-2">
+							<span class="middle-size">댓글</span>
 						</div>
-						<div class="mt-1">
-							<b>이나영</b> 나도 살까?
+						
+						<!--  댓글현황  -->
+						<div class="middle-size m-2">
+							<c:forEach var="comment" items="${postWithOthers.commentList }" >
+									<div class="mt-1">
+										<b>${comment.userNickName }</b> ${comment.content }
+									</div>
+							</c:forEach>
 						</div>
-					</div>
-					
-					<!-- 댓글 입력 -->
-					<div class="d-flex mt-2 border-top">
-						<input type="text" class="form-control border-0 ">
-						<button class="btn btn-info ml-2 commentBtn" >게시</button>
-					</div>
-					
-				</div>
-				<!-- /댓글 -->	
-			</div>
-			<!-- /투자 게시글 1 -->
-			
-			<!-- 투자 게시글 2 -->
-			<div class="card border rounded mt-3">
-							
-				<!-- 글 시작부분 -->
-				<div class="d-flex p-2 border-bottom">
-					
-					<!-- 글쓴이 -->
-					<div>
-						<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
-						하정우
-					</div>
-					
-					<!-- 좋아요 -->
-					<div>
-						<i class="bi bi-heart-fill heart-icon text-danger"></i>
-						<i class="bi bi-heart heart-icon text-dark" ></i>	
-						<span class="middle-size ml-1"> 좋아요 0개 </span>
-					</div>
-					
-				</div>
-				<!-- /글 시작부분 -->
-				
-				<div class="d-flex">
-					<button>카카오게임즈</button>
-					<button>단타x</button>
-					<button>buy</button>
-					<button>분석,공부</button>
-				</div>
-				
-				<!-- 내용 -->
-				<div class="middle-size m-2">
-					남자는 한방 올인 간다
-					<img src="https://cdn.pixabay.com/photo/2018/01/12/16/16/growth-3078543_960_720.png" width="100">
-				</div>
-				
-				<!-- 댓글 -->
-				<div class="mt-2">
-				
-					<div class="border-bottom m-2">
-						<span class="middle-size">댓글</span>
-					</div>
-					
-					<!--  댓글현황  -->
-					<div class="middle-size m-2">
-						<div class="mt-1">
-							<b>원빈</b> 응 잘가
+						
+						<!-- 댓글 입력 -->
+						<div class="d-flex mt-2 border-top">
+							<input type="text" class="form-control border-0 ">
+							<button class="btn btn-info ml-2 commentBtn" >게시</button>
 						</div>
-						<div class="mt-1">
-							<b>이나영</b> .......
-						</div>
+						
 					</div>
-					
-					<!-- 댓글 입력 -->
-					<div class="d-flex mt-2 border-top">
-						<input type="text" class="form-control border-0 ">
-						<button class="btn btn-info ml-2 commentBtn" >게시</button>
-					</div>
-					
+					<!-- /댓글 -->	
 				</div>
-				<!-- /댓글 -->	
-			</div>
-			<!-- /투자 게시글 2 -->
-			
-			
+				<!-- /투자 게시글 1 -->
+			</c:forEach>
 			
 		</div>
-	
-		
-		
-		
+
 	</section>
 	
 	<footer>
