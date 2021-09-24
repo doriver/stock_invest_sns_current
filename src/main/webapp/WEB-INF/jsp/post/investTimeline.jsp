@@ -25,7 +25,6 @@
 		
 		<h3>투자게시판</h3>
 		
-		홍길동님//
 		<c:if test="${not empty userNickName }">
 			<div class="mr-4">${userNickName }님 <a href="/user/sign_out">로그아웃</a> </div>
 		</c:if>
@@ -45,7 +44,7 @@
 		<div class="col-7">
 			
 			<c:forEach var="postWithOthers" items="${postList }">
-				
+				<!-- 보여지는 투자 게시글 -->
 				<div class="card mt-3">			
 					<!-- 글 시작부분 -->
 					<div class="d-flex justify-content-between p-2 border-bottom">
@@ -106,14 +105,14 @@
 						
 						<!-- 댓글 입력 -->
 						<div class="d-flex mt-2 border-top">
-							<input type="text" class="form-control border-0 ">
-							<button class="btn btn-info ml-2 commentBtn" >게시</button>
+							<input type="text" class="form-control border-0 " id="commentInput-${postWithComments.post.id }">
+							<button class="btn btn-info ml-2 commentBtn" data-post-id="${postWithComments.post.id }">게시</button>
 						</div>
 						
 					</div>
 					<!-- /댓글 -->	
 				</div>
-				<!-- /투자 게시글 1 -->
+				<!-- /보여지는 투자 게시글 -->
 			</c:forEach>
 			
 		</div>
@@ -259,6 +258,36 @@
 				});
 	        });
 			// </글쓰기 버튼 눌렀을때>
+			
+			// <댓글 입력>
+			$(".commentBtn").on("click", function() {
+				var postId = $(this).data("post-id");
+				// $("#commentInput-1")
+				var comment = $("#commentInput-" + postId).val().trim();
+				
+				if(comment == null || comment == "") {
+					alert("내용을 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"post",
+					url:"/post/comment/create",
+					data:{"postId":postId, "content":comment},
+					success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("댓글 작성 실패");
+						}
+					},
+					error:function(e) {
+						alert("error");
+					}
+					
+				});
+			});
+			// </댓글 입력>
 		});
 	</script>
 </body>
