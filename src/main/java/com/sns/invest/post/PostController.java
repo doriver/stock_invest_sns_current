@@ -40,9 +40,20 @@ public class PostController {
 	}
 	
 	@GetMapping("/my_home_view")
-	public String myHome() {
+	public String myHome(
+			HttpServletRequest request
+			, Model model) {
+
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		List<InvestPostWithOthers> postList = postBO.getInvestPostListByUserId(userId);
+		
+		model.addAttribute("postList", postList);
+
 		return "post/myHome";
 	}
+	
 	@GetMapping("/local_view")
 	public String localTimeline() {
 		return "post/localTimeline";

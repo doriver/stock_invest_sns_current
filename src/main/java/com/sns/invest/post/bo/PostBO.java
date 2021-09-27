@@ -65,5 +65,29 @@ public class PostBO {
 		return postWithOthersList;
 	}
 
+	public List<InvestPostWithOthers> getInvestPostListByUserId(int userId) {
+		List<InvestPost> postList = postDAO.selectInvestPostListByUserId(userId);
+		
+		List<InvestPostWithOthers> postWithOthersList = new ArrayList<>();
+		
+		String type = "invest";
+		for(InvestPost post:postList) {
+			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
+			
+			boolean isLike = likeBO.existLike(post.getId(), userId, type);
+			int likeCount = likeBO.countLike(post.getId(), type);
+			
+			InvestPostWithOthers postWithOthers = new InvestPostWithOthers();
+			postWithOthers.setInvestPost(post);
+			postWithOthers.setCommentList(commentList);
+			postWithOthers.setLike(isLike);
+			postWithOthers.setLikeCount(likeCount);
+			
+			postWithOthersList.add(postWithOthers);
+		}
+		
+		return postWithOthersList;
+	}
+
 	
 }

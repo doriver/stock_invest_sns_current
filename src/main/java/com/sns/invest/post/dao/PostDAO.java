@@ -22,4 +22,7 @@ public interface PostDAO {
 			);
 	
 	public List<InvestPost> selectInvestPostList();
+
+	public List<InvestPost> selectInvestPostListByUserId(
+			@Param("userId") int userId);
 }

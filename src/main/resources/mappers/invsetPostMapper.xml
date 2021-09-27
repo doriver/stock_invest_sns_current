@@ -49,4 +49,24 @@
 			`invest_post`
 		ORDER BY `id` DESC
  	</select>
+
+	<select id="selectInvestPostListByUserId" resultType="com.sns.invest.post.model.invest.InvestPost">
+ 		SELECT 
+ 			`id`
+ 			, `userId`
+ 			, `userNickName`
+ 			, `investStyle`
+ 			, `stockItemName`
+ 			, `investmentOpinion`
+ 			, `investmentProcess`
+ 			, `content`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
+		FROM 
+			`invest_post`
+		WHERE
+			`userId` = #{userId}
+		ORDER BY `id` DESC
+	</select>
  </mapper>

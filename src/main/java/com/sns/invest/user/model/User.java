@@ -8,7 +8,7 @@ public class User {
 	private String password;
 	private String nickName;
 	private String email;
-	private String profileImage;
+	private String profileImagePath;
 	private String profileStatusMessage;
 	private String location;
 	private Date createdAt;
@@ -44,11 +44,11 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getProfileImage() {
-		return profileImage;
+	public String getProfileImagePath() {
+		return profileImagePath;
 	}
-	public void setProfileImage(String profileImage) {
-		this.profileImage = profileImage;
+	public void setProfileImagePath(String profileImagePath) {
+		this.profileImagePath = profileImagePath;
 	}
 	public String getProfileStatusMessage() {
 		return profileStatusMessage;

@@ -25,18 +25,14 @@
 		
 		<h3>투자게시판</h3>
 		
-		<c:if test="${not empty userNickName }">
-			<div class="mr-4">${userNickName }님 <a href="/user/sign_out">로그아웃</a> </div>
-		</c:if>
+		<div class="mr-4">${userNickName }님 <a href="/user/sign_out">로그아웃</a> </div>
 		
 		<img src="https://cdn.pixabay.com/photo/2021/04/23/19/57/yorkshire-terrier-6202621_960_720.jpg" width="30">
 		
 		<a href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
 			글쓰기 
 		</a>
-		<a href="/post/my_home_view">개인 홈</a>
-		
-		
+		<a href="/post/my_home_view">개인 홈</a>		
 	</header>
 	<hr>
 	
@@ -299,6 +295,7 @@
 			});
 			// </댓글 입력>
 			
+			// <좋아요 버튼>
 			$(".likeBtn").on("click", function(e) {
 				e.preventDefault();
 				var postId = $(this).data("post-id");
@@ -323,6 +320,7 @@
 							$("#heartIcon-" + postId).addClass("text-dark");
 							$("#heartIcon-" + postId).removeClass("text-danger");
 						}
+						
 						$("#likeCount-" + postId).text(data.likeCount);
 						
 						//location.reload();
@@ -335,7 +333,7 @@
 				});
 				
 			});
-
+			// </좋아요 버튼>
 			
 			
 		});

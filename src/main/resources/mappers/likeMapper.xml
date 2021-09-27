@@ -5,7 +5,6 @@
  
 <mapper namespace="com.sns.invest.post.dao.LikeDAO">
 	
-	
 	<select id="selectCountLikeByPostIdType" parameterType="map" resultType="int">
 		SELECT
 			count(*)
@@ -26,6 +25,30 @@
 			AND `userId` = #{userId}
 			AND `type` = #{type}
 	</select>
+	
+	<insert id="insertLike" parameterType="map">
+		INSERT INTO `like`
+		(
+			`type`
+			, `postId`
+			, `userId`
+			, `createdAt`
+		) VALUES
+		(
+			#{type}
+			, #{postId}
+			, #{userId}
+			, now()
+		)
+	</insert>
+	
+	<delete id="deleteLike" parameterType="map">
+		DELETE FROM `like`
+		WHERE 
+			`type` = #{type}
+			AND `postId` = #{postId}
+			AND `userId` = #{userId}
+	</delete>
 	
 
 </mapper>
