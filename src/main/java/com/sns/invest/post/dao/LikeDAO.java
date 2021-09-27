@@ -9,11 +9,11 @@ public interface LikeDAO {
 //	public int insertLike(@Param("postId") int postId
 //			, @Param("userId") int userId
 //			, @Param("type") String type);
-//	
-//	public int selectCountLike(@Param("postId") int postId
-//			, @Param("userId") int userId
-//			, @Param("type") String type);
-//
+	
+	public int selectCountLike(@Param("postId") int postId
+			, @Param("userId") int userId
+			, @Param("type") String type);
+
 //	public int deleteLike(@Param("postId") int postId
 //			, @Param("userId") int userId
 //			, @Param("type") String type);

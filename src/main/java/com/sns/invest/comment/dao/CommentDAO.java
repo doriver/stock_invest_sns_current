@@ -13,5 +13,13 @@ public interface CommentDAO {
 			@Param("postId") int postId
 			, @Param("type") String type
 			);
+	
+	public int insertComment(
+			@Param("type") String type
+			, @Param("userId") int userId
+			, @Param("postId") int postId
+			, @Param("userNickName") String userName
+			, @Param("content") String content);
+	
 
 }

@@ -50,13 +50,13 @@ public class PostBO {
 		for(InvestPost post:postList) {
 			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
-			//boolean isLike = likeBO.existLike(post.getId(), userId, type);
+			boolean isLike = likeBO.existLike(post.getId(), userId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
 			
 			InvestPostWithOthers postWithOthers = new InvestPostWithOthers();
 			postWithOthers.setInvestPost(post);
 			postWithOthers.setCommentList(commentList);
-			postWithOthers.setLike(false);
+			postWithOthers.setLike(isLike);
 			postWithOthers.setLikeCount(likeCount);
 			
 			postWithOthersList.add(postWithOthers);

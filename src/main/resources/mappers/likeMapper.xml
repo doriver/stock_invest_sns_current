@@ -16,5 +16,16 @@
 			AND `type` = #{type}
 	</select>
 	
+	<select id="selectCountLike" parameterType="map" resultType="int">
+		SELECT 
+			count(*)
+		FROM
+			`like`
+		WHERE
+			`postId` = #{postId}
+			AND `userId` = #{userId}
+			AND `type` = #{type}
+	</select>
+	
 
 </mapper>
