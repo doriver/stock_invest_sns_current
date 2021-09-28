@@ -10,8 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sns.invest.post.model.invest.InvestPostWithOthers;
+import com.sns.invest.user.bo.UserBO;
+import com.sns.invest.user.model.User;
 import com.sns.invest.post.bo.PostBO;
 
 @Controller
@@ -20,6 +23,9 @@ public class PostController {
 	
 	@Autowired
 	private PostBO postBO;
+	
+	@Autowired
+	private UserBO userBO;
 	
 	@GetMapping("/guest_view")
 	public String firstMeet() {
@@ -39,19 +45,23 @@ public class PostController {
 		return "post/investTimeline";
 	}
 	
-	@GetMapping("/my_home_view")
+	@GetMapping("/individual_home_view")
 	public String myHome(
-			HttpServletRequest request
+			@RequestParam("userId") int userId
+			, HttpServletRequest request
 			, Model model) {
 
 		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
+		int myUserId = (Integer)session.getAttribute("userId");
+
 		
+		User userInfo = userBO.userInformation(userId);
 		List<InvestPostWithOthers> postList = postBO.getInvestPostListByUserId(userId);
 		
 		model.addAttribute("postList", postList);
+		model.addAttribute("userInfo", userInfo);
 
-		return "post/myHome";
+		return "post/individualHome";
 	}
 	
 	@GetMapping("/local_view")

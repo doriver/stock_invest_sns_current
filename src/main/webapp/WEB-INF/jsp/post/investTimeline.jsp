@@ -32,7 +32,7 @@
 		<a href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
 			글쓰기 
 		</a>
-		<a href="/post/my_home_view">개인 홈</a>		
+		<a href="/post/individual_home_view">개인 홈</a>		
 	</header>
 	<hr>
 	
@@ -48,7 +48,9 @@
 						<!-- 글쓴이 -->
 						<div>
 							<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
-							${postWithOthers.investPost.userNickName }
+							<a href="#" class="homeLink">
+								${postWithOthers.investPost.userNickName }
+							</a>
 						</div>
 						
 						<!-- 좋아요 -->
@@ -196,6 +198,16 @@
 	
 	<script>
 		$(document).ready(function() {
+			// <개인홈으로 이동>
+			$(".likeBtn").on("click", function() {
+				$.ajax({
+					type:"get",
+					url:"",
+					data:{},
+				});
+			});
+			// </개인홈으로 이동>
+			
 	        // <글쓰기 버튼 눌렀을때>
 			$("#writeBtn").on("click", function() {
 		    	var investStyle;

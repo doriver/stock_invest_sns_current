@@ -25,6 +25,7 @@ public class UserBO {
 	}
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	public int signUp(String loginId, String password, String nickName, String email) {
 		
 		String encryptPassword = EncryptUtils.md5(password);	
@@ -42,5 +43,9 @@ public class UserBO {
 		String encryptPassword = EncryptUtils.md5(passwordForLogin);
 		
 		return userDAO.selectUserByIdPassword(idForLogin, encryptPassword);
+	}
+	
+	public User userInformation(int userId) {
+		return userDAO.selectUserByUserId(userId);
 	}
 }

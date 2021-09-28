@@ -24,6 +24,17 @@
            <option value="google">구글</option>
        </select>
     
+		<a href="#" class="likeBtn" data-post-id="${postWithOthers.investPost.id }">
+			<c:choose>
+				<c:when test="${postWithOthers.like }" >
+					<i class="bi bi-heart-fill heart-icon text-danger" data-status="like" id="heartIcon-${postWithOthers.investPost.id }"></i>
+				</c:when>
+				<c:otherwise>
+					<i class="bi bi-heart heart-icon text-dark" id="heartIcon-${postWithOthers.investPost.id }"></i>	
+				</c:otherwise>
+			</c:choose>
+		</a>
+    
     <script>
     $(document).ready(function() {
     	var selectVal;
@@ -31,7 +42,45 @@
           selectVal = $("#siteSelect option:selected").val();
           alert(selectVal);
 
-        });	
+        });
+        
+		$(".likeBtn").on("click", function(e) {
+			e.preventDefault();
+			var postId = $(this).data("post-id");
+			
+			$.ajax({
+				type:"get",
+				url:"/post/like",
+				data:{"postId": postId},
+				success:function(data) {
+					// 좋아요
+					if(data.like) {
+						
+						$("#heartIcon-" + postId).removeClass("bi-heart");
+						$("#heartIcon-" + postId).addClass("bi-heart-fill");
+						
+						$("#heartIcon-" + postId).removeClass("text-dark");
+						$("#heartIcon-" + postId).addClass("text-danger");
+					} else { // unlike
+						$("#heartIcon-" + postId).addClass("bi-heart");
+						$("#heartIcon-" + postId).removeClass("bi-heart-fill");
+						
+						$("#heartIcon-" + postId).addClass("text-dark");
+						$("#heartIcon-" + postId).removeClass("text-danger");
+					}
+					
+					$("#likeCount-" + postId).text(data.likeCount);
+					
+					//location.reload();
+						
+				},
+				error:function(e) {
+					alert("error");
+				}
+				
+			});
+			
+		});
     });
     </script>
 </body>

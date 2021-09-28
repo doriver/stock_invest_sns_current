@@ -41,12 +41,14 @@
 			<div class="card col-4">
 				<div class="border-bottom">
 					<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="100">
+					${userInfo.profileImage }
 				</div>
 				<div>
-					<b>nickname</b>
+					<b>닉네임${userInfo.nickName }</b>
 				</div>
 				<div>
 					상태매세지
+					${userInfo.profileStatusMessage }
 					<button>프로필 편집</button>
 				</div>
 			</div>

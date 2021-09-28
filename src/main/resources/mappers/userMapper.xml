@@ -57,6 +57,24 @@
  			`loginId` = #{idForLogin}
  			AND `password` = #{passwordForLogin}
 	</select>
+
+	<select id="selectUserByUserId" parameterType="map" resultType="com.sns.invest.user.model.User">
+ 		SELECT 
+ 			`id`
+ 			, `loginId`
+ 			, `password`
+ 			, `nickName`
+ 			, `email`
+ 			, `profileImage`
+ 			, `profileStatusMessage`
+ 			, `location`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`user`
+ 		WHERE
+ 			`id` = #{userId}
+	</select>
  	
  </mapper>
  
