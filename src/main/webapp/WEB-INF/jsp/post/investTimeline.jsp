@@ -48,8 +48,9 @@
 						<!-- 글쓴이 -->
 						<div>
 							<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
-							<a href="#" class="homeLink">
+							<a href="/post/individual_home_view?userId=${postWithOthers.investPost.userId }" class="homeLink">
 								${postWithOthers.investPost.userNickName }
+								${postWithOthers.investPost.userId }
 							</a>
 						</div>
 						
@@ -198,15 +199,6 @@
 	
 	<script>
 		$(document).ready(function() {
-			// <개인홈으로 이동>
-			$(".likeBtn").on("click", function() {
-				$.ajax({
-					type:"get",
-					url:"",
-					data:{},
-				});
-			});
-			// </개인홈으로 이동>
 			
 	        // <글쓰기 버튼 눌렀을때>
 			$("#writeBtn").on("click", function() {
