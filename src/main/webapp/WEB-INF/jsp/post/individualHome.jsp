@@ -32,7 +32,7 @@
 		<a href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
 			글쓰기 
 		</a>
-		<a href="/post/my_home_view">개인 홈</a>		
+		<a href="/post/individual_home_view?userId=${userId }">개인 홈</a>		
 	</header>
 	<hr>
 	<section>
@@ -49,7 +49,9 @@
 				<div>
 					상태매세지
 					${userInfo.profileStatusMessage }
-					<button>프로필 편집</button>
+					<c:if test="${userId eq userInfo.id }">
+						<button>프로필 편집</button>
+					</c:if>
 				</div>
 			</div>
 			
