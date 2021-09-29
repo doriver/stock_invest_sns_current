@@ -65,8 +65,16 @@ public class PostController {
 	}
 
 	@GetMapping("/gossip_view")
-	public String gossipTimeline() {
-		return "post/gossipList";
+	public String gossipTimeline(
+			HttpServletRequest request
+			, Model model) {
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		List<InvestPostWithOthers> postList = postBO.getInvestPostList(userId);
+		
+		model.addAttribute("postList", postList);
+		
+		return "post/gossipTimeline";
 	}
 	
 	@GetMapping("/local_view")
