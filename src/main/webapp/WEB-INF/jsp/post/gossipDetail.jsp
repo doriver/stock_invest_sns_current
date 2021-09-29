@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h3>가십게시판</h3>
+
 </body>
 </html>

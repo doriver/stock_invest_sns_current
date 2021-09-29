@@ -48,11 +48,11 @@ public class PostController {
 	@GetMapping("/individual_home_view")
 	public String myHome(
 			@RequestParam("userId") int userId
-			, HttpServletRequest request
+//			, HttpServletRequest request
 			, Model model) {
 
-		HttpSession session = request.getSession();
-		int myUserId = (Integer)session.getAttribute("userId");
+//		HttpSession session = request.getSession();
+//		int myUserId = (Integer)session.getAttribute("userId");
 
 		
 		User userInfo = userBO.userInformation(userId);
@@ -64,13 +64,13 @@ public class PostController {
 		return "post/individualHome";
 	}
 
+	@GetMapping("/gossip_view")
+	public String gossipTimeline() {
+		return "post/gossipList";
+	}
 	
 	@GetMapping("/local_view")
 	public String localTimeline() {
 		return "post/localTimeline";
-	}
-	@GetMapping("/gossip_view")
-	public String gossipTimeline() {
-		return "post/gossipTimeline";
 	}
 }
