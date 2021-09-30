@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.post.model.Comment;
+import com.sns.invest.post.model.gossip.GossipPost;
+import com.sns.invest.post.model.gossip.GossipPostWithOthers;
 import com.sns.invest.post.model.invest.InvestPost;
 import com.sns.invest.post.model.invest.InvestPostWithOthers;
 import com.sns.invest.comment.bo.CommentBO;
@@ -90,4 +92,41 @@ public class PostBO {
 	}
 
 	
+	public List<GossipPostWithOthers> getGossipPostList(int userId, String corporation) {
+		
+		//List<GossipPost> postList = new ArrayList<>();
+		List<GossipPost> postList = null;
+		
+		if (corporation == null) {
+			postList = postDAO.selectGossipPostList();
+		} else {
+			postList = postDAO.selectGossipPostListByCorporation(corporation);
+		}
+		
+		List<GossipPostWithOthers> postWithOthersList = new ArrayList<>();
+		
+		String type = "gossip";
+		for(GossipPost post:postList) {
+			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
+			
+			boolean isLike = likeBO.existLike(post.getId(), userId, type);
+			int likeCount = likeBO.countLike(post.getId(), type);
+			
+			GossipPostWithOthers postWithOthers = new GossipPostWithOthers();
+			postWithOthers.setGossipPost(post);
+			postWithOthers.setCommentList(commentList);
+			postWithOthers.setLike(isLike);
+			postWithOthers.setLikeCount(likeCount);
+			
+			postWithOthersList.add(postWithOthers);
+		}
+		
+		return postWithOthersList;
+	}
+	
+	public int addGossipPost(int userId, String userNickName, String corporation, String content) {
+		return postDAO.insertGossipPost(userId, userNickName, corporation, content);
+	}
+
+
 }

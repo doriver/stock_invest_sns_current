@@ -38,6 +38,11 @@
 	<hr>
 	
 	<section>
+		<select id="corporation">
+   			<option>관심종목</option>
+   			<option>카카오게임즈</option>
+   			<option>펄어비스</option>
+        </select>
 		<c:forEach var="postWithOthers" items="${postList }">
 			<!-- 보여지는 가십 게시글 -->
 			<div class="card mt-3">			
@@ -47,30 +52,30 @@
 					<!-- 글쓴이 -->
 					<div>
 						<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
-						<a href="/post/individual_home_view?userId=${postWithOthers.investPost.userId }" class="homeLink">
-							${postWithOthers.investPost.userNickName }
+						<a href="/post/individual_home_view?userId=${postWithOthers.gossipPost.userId }" class="homeLink">
+							${postWithOthers.gossipPost.userNickName }
 						</a>
 					</div>
 					
 					<!-- 좋아요 -->
 					<div>
-						<a href="#" class="likeBtn" data-post-id="${postWithOthers.investPost.id }">
+						<a href="#" class="likeBtn" data-post-id="${postWithOthers.gossipPost.id }">
 							<c:choose>
 								<c:when test="${postWithOthers.like }" >
-									<i class="bi bi-heart-fill heart-icon text-danger" data-status="like" id="heartIcon-${postWithOthers.investPost.id }"></i>
+									<i class="bi bi-heart-fill heart-icon text-danger" data-status="like" id="heartIcon-${postWithOthers.gossipPost.id }"></i>
 								</c:when>
 								<c:otherwise>
-									<i class="bi bi-heart heart-icon text-dark" id="heartIcon-${postWithOthers.investPost.id }"></i>	
+									<i class="bi bi-heart heart-icon text-dark" id="heartIcon-${postWithOthers.gossipPost.id }"></i>	
 								</c:otherwise>
 							</c:choose>
 						</a>
 						<span class="middle-size ml-1"> 
-							좋아요 <span id="likeCount-${postWithOthers.investPost.id }" >${postWithOthers.likeCount }</span>개 
+							좋아요 <span id="likeCount-${postWithOthers.gossipPost.id }" >${postWithOthers.likeCount }</span>개 
 						</span>
 					</div>
 					
 					<%-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 --%>
-					<c:if test="${postWithOthers.investPost.userId eq userId}">
+					<c:if test="${postWithOthers.gossipPost.userId eq userId}">
 						<div class="more-icon" >
 							<a href="#" class="text-dark moreBtn"> 
 								<i class="bi bi-three-dots-vertical"></i> 
@@ -83,7 +88,7 @@
 				
 				<!-- 내용 -->
 				<div class="middle-size m-2">
-					${postWithOthers.investPost.content }
+					${postWithOthers.gossipPost.content }
 				</div>
 				
 				<!-- 댓글 -->
@@ -114,9 +119,97 @@
 			<!-- /보여지는 가십 게시글 -->
 		</c:forEach>
 	</section>
+	
 	<footer>
 	<hr>
 		copyright ~~
 	</footer>
+	
+	<!-- 모달의 a태그에 data-post-id 의 값을 더보기 클릭시마다 바꿔준다.   -->
+	<!-- Modal -->
+	<div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      
+	      <div class="modal-body text-center">
+	        <!--  게시글 작성  -->
+			<div>
+				<h3>가십게시글 작성</h3>
+				<div>
+					<select id="corporationSelect">
+			   			<option>관심종목</option>
+			   			<option>카카오게임즈</option>
+			   			<option>펄어비스</option>
+			        </select>					
+				</div>
+			
+				<div class="border rounded mt-1">
+					<textarea class="form-control w-100 non-resize" rows=4 id="contentInput">
+						텍스트 쓰는곳
+					</textarea>			
+				</div>
+								
+				<button class="btn btn-sm btn-info" id="uploadBtn">업로드</button>
+			</div>
+			<!--  /게시글 작성  -->
+
+	      </div>
+	  
+	    </div>
+	  </div>
+	</div>
+	<!-- /Modal -->
+	
+	<script>
+		$(document).ready(function() {
+			var corporation;
+	        $("#corporation").on("change", function() {
+	        	//corporation = $("#corporation option:selected").val();
+	        	corporation = $(this).val();
+	        	
+	        	location.href="/post/gossip_view?corporation=" + corporation;
+	        });
+	        
+	        // <글쓰기 버튼 눌렀을때>
+			$("#writeBtn").on("click", function() {
+		    	
+				var corporationSelect;
+		    
+		        $("#corporationSelect").on("change", function() {
+		        	corporationSelect = $(this).val();
+		        });
+		       
+		        $("#uploadBtn").on("click", function() {
+					let content = $("#contentInput").val().trim();
+						
+					if(content == null || content == "") {
+						alert("내용을 입력하세요");
+						return ;
+					}
+					
+					$.ajax({
+						type:"POST",
+						url:"/post/create/gossip",
+						data:{"content":content, "corporation":corporationSelect},
+						success:function(data) {
+							if(data.result == "success") {
+								alert("글쓰기 성공");
+								location.reload();
+							} else {
+								alert("글쓰기에 실패했습니다.");
+							}
+							
+						}, error:function(e) {
+							alert("error ");
+						}
+					});
+					
+				});		
+				
+	        });
+			// </글쓰기 버튼 눌렀을때>
+
+		});
+	</script>
 </body>
 </html>

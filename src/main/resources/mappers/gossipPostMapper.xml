@@ -18,4 +18,39 @@
 		ORDER BY `id` DESC
  	</select>
 
+	<select id="selectGossipPostListByCorporation" resultType="com.sns.invest.post.model.gossip.GossipPost">
+ 		SELECT 
+ 			`id`
+ 			, `userId`
+ 			, `userNickName`
+ 			, `corporation`
+ 			, `content`
+ 			, `createdAt`
+ 			, `updatedAt`
+		FROM 
+			`gossip_post`
+		WHERE
+			`corporation` = #{corporation}
+		ORDER BY `id` DESC
+ 	</select>
+ 	
+ 	<insert id="insertGossipPost" parameterType="map">
+ 		INSERT INTO `gossip_post`
+ 		(
+ 			`userId`
+ 			, `userNickName`
+ 			, `corporation`
+ 			, `content`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		) VALUES (
+ 			#{userId}
+ 			, #{userNickName}
+			, #{corporation}
+ 			, #{content}
+ 			, now()
+ 			, now()
+ 		)
+ 	</insert>
+
  </mapper>

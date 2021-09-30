@@ -22,7 +22,7 @@ public class PostCreateController {
 	private PostBO postBO;
 	
 	@PostMapping("/invest")
-	public Map<String, String> create(
+	public Map<String, String> invsetPostCreate(
 			@RequestParam("content") String content
 			, @RequestParam(value = "file") MultipartFile file
 			, @RequestParam("investStyle") String investStyle
@@ -36,6 +36,29 @@ public class PostCreateController {
 		String userNickName = (String)session.getAttribute("userNickName");
 		
 		int count = postBO.addPost(userId, userNickName, content, file, investStyle, stockItemName, investmentOpinion, investmentProcess);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
+
+	@PostMapping("/gossip")
+	public Map<String, String> gossipPostCreate(
+			@RequestParam("content") String content
+			, @RequestParam("corporation") String corporation
+			, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		String userNickName = (String)session.getAttribute("userNickName");
+		
+		int count = postBO.addGossipPost(userId, userNickName, corporation, content);
 		
 		Map<String, String> result = new HashMap<>();
 		

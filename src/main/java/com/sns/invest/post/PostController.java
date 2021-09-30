@@ -1,5 +1,6 @@
 package com.sns.invest.post;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sns.invest.post.model.gossip.GossipPostWithOthers;
 import com.sns.invest.post.model.invest.InvestPostWithOthers;
 import com.sns.invest.user.bo.UserBO;
 import com.sns.invest.user.model.User;
@@ -66,11 +68,13 @@ public class PostController {
 
 	@GetMapping("/gossip_view")
 	public String gossipTimeline(
-			HttpServletRequest request
+			@RequestParam(value = "corporation", required = false) String corporation
+			, HttpServletRequest request
 			, Model model) {
 		HttpSession session = request.getSession();
 		int userId = (Integer)session.getAttribute("userId");
-		List<InvestPostWithOthers> postList = postBO.getInvestPostList(userId);
+		
+		List<GossipPostWithOthers> postList = postBO.getGossipPostList(userId, corporation);
 		
 		model.addAttribute("postList", postList);
 		

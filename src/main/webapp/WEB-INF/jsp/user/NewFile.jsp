@@ -14,73 +14,76 @@
   	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
   	 
   	<link rel="stylesheet" href="/static/css/style.css">
-
 </head>
-<body>
-       <select id="siteSelect">
-           <option>선택하기</option>
-           <option>네이버</option>
-           <option value="daum">다음</option>
-           <option value="google">구글</option>
-       </select>
-    
-		<a href="#" class="likeBtn" data-post-id="${postWithOthers.investPost.id }">
-			<c:choose>
-				<c:when test="${postWithOthers.like }" >
-					<i class="bi bi-heart-fill heart-icon text-danger" data-status="like" id="heartIcon-${postWithOthers.investPost.id }"></i>
-				</c:when>
-				<c:otherwise>
-					<i class="bi bi-heart heart-icon text-dark" id="heartIcon-${postWithOthers.investPost.id }"></i>	
-				</c:otherwise>
-			</c:choose>
-		</a>
-    
-    <script>
-    $(document).ready(function() {
-    	var selectVal;
-        $("#siteSelect").on("change", function() {
-          selectVal = $("#siteSelect option:selected").val();
-          alert(selectVal);
-
-        });
-        
-		$(".likeBtn").on("click", function(e) {
-			e.preventDefault();
-			var postId = $(this).data("post-id");
+		
+	<a href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
+		글쓰기 
+	</a>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      
+	      <div class="modal-body text-center">
+	        <!--  게시글 작성  -->
+			<div>
+				<h3>투자게시글 작성</h3>
+				<div class="d-flex">
+					<select id="investStyle">
+            			<option>투자스타일</option>
+            			<option>단타x</option>
+            			<option>단타</option>
+        			</select>
+					<select id="stockItemName">
+            			<option>관심종목</option>
+            			<option>카카오게임즈</option>
+            			<option>펄어비스</option>
+        			</select>
+					<select id="investmentOpinion">
+            			<option>투자의견</option>
+            			<option>buy</option>
+            			<option>hold</option>
+            			<option>sell</option>
+        			</select>
+					<select id="investmentProcess">
+            			<option>투자과정</option>
+            			<option>분석,공부</option>
+            			<option>매수</option>
+            			<option>매도</option>
+            			<option>영감</option>
+        			</select>
+				</div>
 			
-			$.ajax({
-				type:"get",
-				url:"/post/like",
-				data:{"postId": postId},
-				success:function(data) {
-					// 좋아요
-					if(data.like) {
-						
-						$("#heartIcon-" + postId).removeClass("bi-heart");
-						$("#heartIcon-" + postId).addClass("bi-heart-fill");
-						
-						$("#heartIcon-" + postId).removeClass("text-dark");
-						$("#heartIcon-" + postId).addClass("text-danger");
-					} else { // unlike
-						$("#heartIcon-" + postId).addClass("bi-heart");
-						$("#heartIcon-" + postId).removeClass("bi-heart-fill");
-						
-						$("#heartIcon-" + postId).addClass("text-dark");
-						$("#heartIcon-" + postId).removeClass("text-danger");
-					}
-					
-					$("#likeCount-" + postId).text(data.likeCount);
-					
-					//location.reload();
-						
-				},
-				error:function(e) {
-					alert("error");
-				}
+				<div class="border rounded mt-1">
+					<textarea class="form-control w-100 non-resize" rows=4 id="contentInput">
+						텍스트 쓰는곳
+					</textarea>			
+				</div>
 				
-			});
-			
-		});
+				<!--  이미지  -->
+				<div class="image-input-box border rounded mt-1">
+					이미지 파일 반영되는곳<br>
+					<input type="file" class="input-control" id="fileInput">
+					<a href="#" id="imageUploadBtn"><i class="bi bi-image"></i></a>
+				</div>
+				
+				<button class="btn btn-sm btn-info" id="uploadBtn">업로드</button>
+			</div>
+			<!--  /게시글 작성  -->
+
+	      </div>
+	  
+	    </div>
+	  </div>
+	</div>
+	<!-- /Modal -->
+	
+
+<body>
+     <script>
+    $(document).ready(function() {
+ 
     });
     </script>
 </body>
