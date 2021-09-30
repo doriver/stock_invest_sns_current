@@ -23,10 +23,8 @@ public class PostRestController {
 	@Autowired
 	private LikeBO likeBO;
 
-
-	
-	@GetMapping("/like")
-	public Map<String, Object> like(
+	@GetMapping("/like/invest")
+	public Map<String, Object> likeInvest(
 			@RequestParam("postId") int postId
 			, HttpServletRequest request) {
 		
@@ -34,6 +32,27 @@ public class PostRestController {
 		int userId = (Integer)session.getAttribute("userId");
 		
 		String type = "invest";
+		
+		boolean isLike = likeBO.like(postId, userId, type);
+		int likeCount = likeBO.countLike(postId, type);
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result.put("like", isLike);
+		result.put("likeCount", likeCount);
+		
+		return result;
+	}
+
+	@GetMapping("/like/gossip")
+	public Map<String, Object> likeGossip(
+			@RequestParam("postId") int postId
+			, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		String type = "gossip";
 		
 		boolean isLike = likeBO.like(postId, userId, type);
 		int likeCount = likeBO.countLike(postId, type);

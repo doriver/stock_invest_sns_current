@@ -23,6 +23,7 @@ public class UserController {
 		session.removeAttribute("userId");
 		session.removeAttribute("userLoginId");
 		session.removeAttribute("userNickName");
+		session.removeAttribute("userLocation");
 		
 		return "redirect:/user/sign_view";
 	}

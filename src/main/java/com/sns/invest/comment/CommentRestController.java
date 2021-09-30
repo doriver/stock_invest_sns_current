@@ -21,8 +21,8 @@ public class CommentRestController {
 	@Autowired
 	private CommentBO commentBO;
 	
-	@PostMapping("/create")
-	public Map<String, String> create(@RequestParam("postId") int postId
+	@PostMapping("/create/invest")
+	public Map<String, String> investComment(@RequestParam("postId") int postId
 			, @RequestParam("content") String content
 			, HttpServletRequest request) {
 		
@@ -34,6 +34,31 @@ public class CommentRestController {
 		
 		int count = commentBO.addComment(type, userId, postId, userNickName, content);
 
+		
+		Map<String, String> result = new HashMap<>();
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+		
+	}
+
+	@PostMapping("/create/gossip")
+	public Map<String, String> gossipComment(@RequestParam("postId") int postId
+			, @RequestParam("content") String content
+			, HttpServletRequest request) {
+		
+		HttpSession session  = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		String userNickName = (String)session.getAttribute("userNickName");
+		
+		String type = "gossip";
+		
+		int count = commentBO.addComment(type, userId, postId, userNickName, content);
+		
 		
 		Map<String, String> result = new HashMap<>();
 		if(count == 1) {

@@ -282,7 +282,7 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/comment/create",
+					url:"/comment/create/invest",
 					data:{"postId":postId, "content":comment},
 					success:function(data) {
 						if(data.result == "success") {
@@ -305,7 +305,7 @@
 				
 				$.ajax({
 					type:"get",
-					url:"/post/like",
+					url:"/post/like/invest",
 					data:{"postId": postId},
 					success:function(data) {
 						// 좋아요

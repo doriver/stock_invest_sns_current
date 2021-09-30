@@ -75,6 +75,7 @@ public class UserRestController {
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("userLoginId", user.getLoginId());
 			session.setAttribute("userNickName", user.getNickName());
+			session.setAttribute("userLocation", user.getLocation());
 			
 		} else {
 			result.put("result", "fail");

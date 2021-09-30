@@ -22,7 +22,7 @@ public class PostCreateController {
 	private PostBO postBO;
 	
 	@PostMapping("/invest")
-	public Map<String, String> invsetPostCreate(
+	public Map<String, String> investPostCreate(
 			@RequestParam("content") String content
 			, @RequestParam(value = "file") MultipartFile file
 			, @RequestParam("investStyle") String investStyle
@@ -70,4 +70,28 @@ public class PostCreateController {
 		
 		return result;
 	}
+	
+	@PostMapping("/local")
+	public Map<String, String> localPostCreate(
+			@RequestParam("content") String content
+			, @RequestParam(value = "file", required = false) MultipartFile file
+			, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		String userNickName = (String)session.getAttribute("userNickName");
+		
+		int count = postBO.addPost(userId, userNickName, content, file, investStyle, stockItemName, investmentOpinion, investmentProcess);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
+
 }

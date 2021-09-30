@@ -12,6 +12,8 @@ import com.sns.invest.post.model.gossip.GossipPost;
 import com.sns.invest.post.model.gossip.GossipPostWithOthers;
 import com.sns.invest.post.model.invest.InvestPost;
 import com.sns.invest.post.model.invest.InvestPostWithOthers;
+import com.sns.invest.post.model.local.LocalPost;
+import com.sns.invest.post.model.local.LocalPostWithOthers;
 import com.sns.invest.comment.bo.CommentBO;
 import com.sns.invest.common.FileManagerService;
 import com.sns.invest.post.dao.PostDAO;
@@ -128,5 +130,28 @@ public class PostBO {
 		return postDAO.insertGossipPost(userId, userNickName, corporation, content);
 	}
 
+	public List<LocalPostWithOthers> getLocalPostList(int userId, String userLocation) {
+		List<LocalPost> postList = postDAO.selectLocalPostList(userLocation);
+		
+		List<LocalPostWithOthers> postWithOthersList = new ArrayList<>();
+		
+		String type = "local";
+		for(LocalPost post:postList) {
+			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
+			
+			boolean isLike = likeBO.existLike(post.getId(), userId, type);
+			int likeCount = likeBO.countLike(post.getId(), type);
+			
+			LocalPostWithOthers postWithOthers = new LocalPostWithOthers();
+			postWithOthers.setLocalPost(post);
+			postWithOthers.setCommentList(commentList);
+			postWithOthers.setLike(isLike);
+			postWithOthers.setLikeCount(likeCount);
+			
+			postWithOthersList.add(postWithOthers);
+		}
+		
+		return postWithOthersList;
+	}
 
 }

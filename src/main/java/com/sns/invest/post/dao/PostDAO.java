@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sns.invest.post.model.gossip.GossipPost;
 import com.sns.invest.post.model.invest.InvestPost;
+import com.sns.invest.post.model.local.LocalPost;
 
 @Repository
 public interface PostDAO {
@@ -38,6 +39,9 @@ public interface PostDAO {
 			, @Param("corporation") String corporation
 			, @Param("content")String content
 			);
+
+	public List<LocalPost> selectLocalPostList(
+			@Param("userLocation") String userLocation);
 
 
 }

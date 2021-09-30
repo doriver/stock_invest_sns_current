@@ -43,6 +43,8 @@
    			<option>카카오게임즈</option>
    			<option>펄어비스</option>
         </select>
+        <h3>${corporation }</h3>
+        
 		<c:forEach var="postWithOthers" items="${postList }">
 			<!-- 보여지는 가십 게시글 -->
 			<div class="card mt-3">			
@@ -56,7 +58,7 @@
 							${postWithOthers.gossipPost.userNickName }
 						</a>
 					</div>
-					
+					${postWithOthers.gossipPost.corporation }
 					<!-- 좋아요 -->
 					<div>
 						<a href="#" class="likeBtn" data-post-id="${postWithOthers.gossipPost.id }">
@@ -109,8 +111,8 @@
 					
 					<!-- 댓글 입력 -->
 					<div class="d-flex mt-2 border-top">
-						<input type="text" class="form-control border-0 " id="commentInput-${postWithOthers.investPost.id }">
-						<button class="btn btn-info ml-2 commentBtn" data-post-id="${postWithOthers.investPost.id }">게시</button>
+						<input type="text" class="form-control border-0 " id="commentInput-${postWithOthers.gossipPost.id }">
+						<button class="btn btn-info ml-2 commentBtn" data-post-id="${postWithOthers.gossipPost.id }">게시</button>
 					</div>
 					
 				</div>
@@ -178,7 +180,7 @@
 		        $("#corporationSelect").on("change", function() {
 		        	corporationSelect = $(this).val();
 		        });
-		       
+		     	// <업로드>
 		        $("#uploadBtn").on("click", function() {
 					let content = $("#contentInput").val().trim();
 						
@@ -205,9 +207,79 @@
 					});
 					
 				});		
-				
+		     	// </업로드>
 	        });
 			// </글쓰기 버튼 눌렀을때>
+
+			// <댓글 입력>
+			$(".commentBtn").on("click", function() {
+				var postId = $(this).data("post-id");
+				
+				// $("#commentInput-1")
+				var comment = $("#commentInput-" + postId).val().trim();
+				
+				if(comment == null || comment == "") {
+					alert("내용을 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"post",
+					url:"/comment/create/gossip",
+					data:{"postId":postId, "content":comment},
+					success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("댓글 작성 실패");
+						}
+					},
+					error:function(e) {
+						alert("error");
+					}
+				});
+			});
+			// </댓글 입력>
+			
+			// <좋아요 버튼>
+			$(".likeBtn").on("click", function(e) {
+				e.preventDefault();
+				var postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get",
+					url:"/post/like/gossip",
+					data:{"postId": postId},
+					success:function(data) {
+						// 좋아요
+						if(data.like) {
+							
+							$("#heartIcon-" + postId).removeClass("bi-heart");
+							$("#heartIcon-" + postId).addClass("bi-heart-fill");
+							
+							$("#heartIcon-" + postId).removeClass("text-dark");
+							$("#heartIcon-" + postId).addClass("text-danger");
+						} else { // unlike
+							$("#heartIcon-" + postId).addClass("bi-heart");
+							$("#heartIcon-" + postId).removeClass("bi-heart-fill");
+							
+							$("#heartIcon-" + postId).addClass("text-dark");
+							$("#heartIcon-" + postId).removeClass("text-danger");
+						}
+						
+						$("#likeCount-" + postId).text(data.likeCount);
+						
+						//location.reload();
+							
+					},
+					error:function(e) {
+						alert("error");
+					}
+					
+				});
+				
+			});
+			// </좋아요 버튼>
 
 		});
 	</script>

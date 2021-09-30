@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sns.invest.post.model.gossip.GossipPostWithOthers;
 import com.sns.invest.post.model.invest.InvestPostWithOthers;
+import com.sns.invest.post.model.local.LocalPostWithOthers;
 import com.sns.invest.user.bo.UserBO;
 import com.sns.invest.user.model.User;
 import com.sns.invest.post.bo.PostBO;
@@ -77,12 +78,23 @@ public class PostController {
 		List<GossipPostWithOthers> postList = postBO.getGossipPostList(userId, corporation);
 		
 		model.addAttribute("postList", postList);
+		model.addAttribute("corporation", corporation);
 		
 		return "post/gossipTimeline";
 	}
 	
 	@GetMapping("/local_view")
-	public String localTimeline() {
+	public String localTimeline(
+			HttpServletRequest request
+			, Model model) {
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		String userLocation="신림동";
+		List<LocalPostWithOthers> postList = postBO.getLocalPostList(userId, userLocation);
+		
+		model.addAttribute("postList", postList);
+		
 		return "post/localTimeline";
 	}
 }
