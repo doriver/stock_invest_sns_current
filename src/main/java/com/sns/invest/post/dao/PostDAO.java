@@ -43,5 +43,12 @@ public interface PostDAO {
 	public List<LocalPost> selectLocalPostList(
 			@Param("userLocation") String userLocation);
 
+	public int insertLocalPost(
+			@Param("userId") int userId
+			, @Param("userNickName") String userNickName
+			, @Param("userLocation") String userLocation
+			, @Param("content") String content
+			, @Param("imagePath") String filePath
+			);
 
 }

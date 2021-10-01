@@ -70,4 +70,29 @@ public class CommentRestController {
 		return result;
 		
 	}
+
+	@PostMapping("/create/local")
+	public Map<String, String> localComment(@RequestParam("postId") int postId
+			, @RequestParam("content") String content
+			, HttpServletRequest request) {
+		
+		HttpSession session  = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		String userNickName = (String)session.getAttribute("userNickName");
+		
+		String type = "local";
+		
+		int count = commentBO.addComment(type, userId, postId, userNickName, content);
+		
+		
+		Map<String, String> result = new HashMap<>();
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+		
+	}
 }

@@ -89,8 +89,8 @@ public class PostController {
 			, Model model) {
 		HttpSession session = request.getSession();
 		int userId = (Integer)session.getAttribute("userId");
+		String userLocation = (String)session.getAttribute("userLocation");
 		
-		String userLocation="신림동";
 		List<LocalPostWithOthers> postList = postBO.getLocalPostList(userId, userLocation);
 		
 		model.addAttribute("postList", postList);

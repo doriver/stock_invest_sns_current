@@ -65,4 +65,25 @@ public class PostRestController {
 		return result;
 	}
 
+	@GetMapping("/like/local")
+	public Map<String, Object> likeLocal(
+			@RequestParam("postId") int postId
+			, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		String type = "local";
+		
+		boolean isLike = likeBO.like(postId, userId, type);
+		int likeCount = likeBO.countLike(postId, type);
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		result.put("like", isLike);
+		result.put("likeCount", likeCount);
+		
+		return result;
+	}
+
 }

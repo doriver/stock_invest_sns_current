@@ -20,4 +20,26 @@
 			`userLocation` = #{userLocation}		
 		ORDER BY `id` DESC
  	</select>
+ 	
+ 	<insert id="insertLocalPost" parameterType="map">
+ 		INSERT INTO `local_post`
+ 		(
+ 			`userId`
+ 			, `userNickName`
+ 			, `userLocation`
+ 			, `content`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		) VALUES (
+ 			#{userId}
+ 			, #{userNickName}
+ 			, #{userLocation}
+ 			, #{content}
+ 			, #{imagePath}
+ 			, now()
+ 			, now()
+ 		)
+ 	</insert>
+ 	
  </mapper>

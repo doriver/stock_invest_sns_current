@@ -154,4 +154,18 @@ public class PostBO {
 		return postWithOthersList;
 	}
 
+	public int addLocalPost(int userId, String userNickName, String userLocation,
+			String content, MultipartFile file) {
+		
+		FileManagerService fileManager = new FileManagerService();
+		
+		String filePath = fileManager.saveFile(userId, file);
+		
+		if(filePath == null) {
+			return -1;
+		}
+		
+		return postDAO.insertLocalPost(userId, userNickName, userLocation, content, filePath);
+	}
+
 }
