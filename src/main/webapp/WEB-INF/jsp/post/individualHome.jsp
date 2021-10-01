@@ -53,6 +53,19 @@
 						<button>프로필 편집</button>
 					</c:if>
 				</div>
+				<c:if test="${userId eq userInfo.id }">
+					<div>
+						<input type="file" class="input-control" id="profileImageInput">
+						<textarea class="form-control w-100 non-resize" rows=4 id="profileStatusMessageInput">
+							텍스트 쓰는곳
+						</textarea>
+						<button class="btn" id="profileCompletion">편집완료</button>			
+					</div>
+					<div>
+						<input type="text" class="form-control" id="locationInput">
+						<button id="locationCompletion">위치설정 완료</button>
+					</div>
+				</c:if>
 			</div>
 			
 			<!-- 개인의 투자 게시글 -->
@@ -345,6 +358,23 @@
 			});
 			// </좋아요 버튼>
 
+			// <위치설정>
+			$("#locationCompletion").on("click", function() {
+				var location = $("#locationInput").val().trim();
+				
+				$.ajax({
+					type:"get",
+					url:"",
+					data:{"location":location},
+					success:function(data) {
+						alert("위치설정 성공");
+						location.reload();
+					},
+					error:function(e) {
+						alert("error");
+					}
+				});
+			});
 		});
 	</script>
 </body>

@@ -76,5 +76,10 @@
  			`id` = #{userId}
 	</select>
  	
+ 	<update id="">
+ 		UPDATE `user`
+ 		SET `location` = #{location}
+ 		WHERE `id` = #{userId}
+ 	</update>
  </mapper>
  
