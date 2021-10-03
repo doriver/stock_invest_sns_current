@@ -22,4 +22,12 @@ public interface UserDAO {
 
 	public User selectUserByUserId(@Param("userId") int userId);
 	
+	public int updateUserLocation(
+			@Param("userId") int userId
+			, @Param("location") String location);
+
+	public int updateUserProfile(
+			@Param("userId") int userId
+			, @Param("profileStatusMessage") String profileStatusMessage
+			, @Param("filePath") String filePath);
 }

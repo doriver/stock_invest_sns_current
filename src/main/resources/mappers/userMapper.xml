@@ -76,10 +76,22 @@
  			`id` = #{userId}
 	</select>
  	
- 	<update id="">
+ 	<update id="updateUserLocation" parameterType="map">
  		UPDATE `user`
- 		SET `location` = #{location}
+ 		SET 
+ 			`location` = #{location}
+ 			, `updatedAt` = now()
  		WHERE `id` = #{userId}
  	</update>
+
+	<update id="updateUserProfile" parameterType="map">
+ 		UPDATE `user`
+ 		SET 
+ 			`profileImage` = #{filePath}
+ 			, `profileStatusMessage` = #{profileStatusMessage}
+ 			, `updatedAt` = now()
+ 		WHERE `id` = #{userId}
+ 	</update>
+ 	
  </mapper>
  

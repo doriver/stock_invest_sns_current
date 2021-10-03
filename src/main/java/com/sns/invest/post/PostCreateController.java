@@ -24,7 +24,7 @@ public class PostCreateController {
 	@PostMapping("/invest")
 	public Map<String, String> investPostCreate(
 			@RequestParam("content") String content
-			, @RequestParam(value = "file") MultipartFile file
+			, @RequestParam(value = "file", required = false) MultipartFile file
 			, @RequestParam("investStyle") String investStyle
 			, @RequestParam("stockItemName") String stockItemName
 			, @RequestParam("investmentOpinion") String investmentOpinion

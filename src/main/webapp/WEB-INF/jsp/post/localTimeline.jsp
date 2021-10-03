@@ -23,11 +23,18 @@
 		<a href="/post/local_view">지역커뮤니티//</a>
 		<a href="/post/gossip_view">가십게시판</a>
 		
-		<h3>가십게시판</h3>
+		<h3>지역커뮤니티</h3>
 		
 		<div class="mr-4">${userNickName }님 <a href="/user/sign_out">로그아웃</a> </div>
 		
-		<img src="https://cdn.pixabay.com/photo/2021/04/23/19/57/yorkshire-terrier-6202621_960_720.jpg" width="30">
+		<c:choose>
+			<c:when test="${!empty myInfo.profileImage }" >
+				<img src="${myInfo.profileImage }" width="30">
+			</c:when>
+			<c:otherwise>
+				<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
+			</c:otherwise>
+		</c:choose>
 		
 		<a href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
 			글쓰기 
@@ -38,15 +45,13 @@
 	<hr>
 	
 	<section>
-        <h3>${userLocation }</h3>
+        <h3>${myInfo.location }</h3>
         <!--  -->
         <c:choose>
-	        <c:when test="${empty userLocation }">
+	        <c:when test="${empty myInfo.location }">
 	        	<h3>위치설정이 안돼있어요, 위치설정을 하면 게시글들이 보입니다</h3>
 	        </c:when>
 	        <c:otherwise>
-	        </c:otherwise>
-        </c:choose>
         		<c:forEach var="postWithOthers" items="${postList }">
 					<!-- 보여지는 지역커뮤니티 게시글 -->
 					<div class="card mt-3">			
@@ -93,6 +98,7 @@
 						<!-- 내용 -->
 						<div class="middle-size m-2">
 							${postWithOthers.localPost.content }
+							<img src="${postWithOthers.localPost.imagePath }" width="100">
 						</div>
 						
 						<!-- 댓글 -->
@@ -120,8 +126,10 @@
 						</div>
 						<!-- /댓글 -->	
 					</div>
-					<!-- /보여지는 가십 게시글 -->
+					<!-- /보여지는 지역커뮤니티 게시글-->
 				</c:forEach>
+	        </c:otherwise>
+        </c:choose>
         
 	</section>
 	
@@ -175,11 +183,7 @@
 					alert("내용을 입력하세요");
 					return ;
 				}
-		
-				if($("#fileInput")[0].files.length == 0) {
-					alert("파일을 추가하세요");
-					return ;
-				}
+
 				
 				var formData = new FormData();
 				formData.append("file", $("#fileInput")[0].files[0]);

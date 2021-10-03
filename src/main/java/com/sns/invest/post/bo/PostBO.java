@@ -34,13 +34,24 @@ public class PostBO {
 	public int addPost(int userId, String userNickName, String content, MultipartFile file
 			, String investStyle, String stockItemName, String investmentOpinion, String investmentProcess) {
 		
-		FileManagerService fileManager = new FileManagerService();
+		String filePath = null;
 		
-		String filePath = fileManager.saveFile(userId, file);
-		
-		if(filePath == null) {
-			return -1;
+		if(file != null) {
+			FileManagerService fileManager = new FileManagerService();
+			
+			filePath = fileManager.saveFile(userId, file);
+			
+			if(filePath == null) {
+				return -1;
+			}	
 		}
+//		FileManagerService fileManager = new FileManagerService();
+//		
+//		String filePath = fileManager.saveFile(userId, file);
+//		
+//		if(filePath == null) {
+//			return -1;
+//		}
 		
 		return postDAO.insertInvestPost(userId, userNickName, content, filePath, investStyle, stockItemName, investmentOpinion, investmentProcess);
 	}
@@ -157,13 +168,24 @@ public class PostBO {
 	public int addLocalPost(int userId, String userNickName, String userLocation,
 			String content, MultipartFile file) {
 		
-		FileManagerService fileManager = new FileManagerService();
+		String filePath = null;
 		
-		String filePath = fileManager.saveFile(userId, file);
-		
-		if(filePath == null) {
-			return -1;
+		if(file != null) {
+			FileManagerService fileManager = new FileManagerService();
+			
+			filePath = fileManager.saveFile(userId, file);
+			
+			if(filePath == null) {
+				return -1;
+			}	
 		}
+//		FileManagerService fileManager = new FileManagerService();
+//		
+//		String filePath = fileManager.saveFile(userId, file);
+//		
+//		if(filePath == null) {
+//			return -1;
+//		}
 		
 		return postDAO.insertLocalPost(userId, userNickName, userLocation, content, filePath);
 	}

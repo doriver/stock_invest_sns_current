@@ -27,8 +27,15 @@
 		
 		<div class="mr-4">${userNickName }님 <a href="/user/sign_out">로그아웃</a> </div>
 		
-		<img src="https://cdn.pixabay.com/photo/2021/04/23/19/57/yorkshire-terrier-6202621_960_720.jpg" width="30">
-		
+		<c:choose>
+			<c:when test="${!empty userInfo.profileImage }" >
+				<img src="${userInfo.profileImage }" width="30">
+			</c:when>
+			<c:otherwise>
+				<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
+			</c:otherwise>
+		</c:choose>
+
 		<a href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
 			글쓰기 
 		</a>
@@ -40,19 +47,52 @@
 			<!-- 개인 프로필 -->
 			<div class="card col-4">
 				<div class="border-bottom">
-					<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="100">
-					${userInfo.profileImage }
+					<c:choose>
+						<c:when test="${!empty userInfo.profileImage }" >
+							<img src="${userInfo.profileImage }" width="100">
+						</c:when>
+						<c:otherwise>
+							<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="100">
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<div>
-					<b>닉네임${userInfo.nickName }</b>
+					<b>${userInfo.nickName }</b>
 				</div>
 				<div>
-					상태매세지
-					${userInfo.profileStatusMessage }
-					<c:if test="${userId eq userInfo.id }">
-						<button>프로필 편집</button>
-					</c:if>
+					<div>
+						<c:choose>
+							<c:when test="${!empty userInfo.profileStatusMessage }" >
+								${userInfo.profileStatusMessage }
+							</c:when>
+							<c:otherwise>
+								상태메세지
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<div>
+						<c:if test="${userId eq userInfo.id }">
+							<button>프로필 편집</button>
+						</c:if>
+					</div>
+					<div>
+						<c:choose>
+							<c:when test="${!empty userInfo.location }" >
+								설정된 위치 : ${userInfo.location }
+							</c:when>
+							<c:otherwise>
+								위치설정 안되있음
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<div>
+						<c:if test="${userId eq userInfo.id }">
+							<button>위치설정</button>
+						</c:if>
+					</div>
 				</div>
+				
+				<!-- 프로필 편집 -->
 				<c:if test="${userId eq userInfo.id }">
 					<div>
 						<input type="file" class="input-control" id="profileImageInput">
@@ -67,6 +107,7 @@
 					</div>
 				</c:if>
 			</div>
+			<!-- /개인 프로필 -->
 			
 			<!-- 개인의 투자 게시글 -->
 			<div class="col-7">
@@ -246,11 +287,7 @@
 						alert("내용을 입력하세요");
 						return ;
 					}
-					
-					if($("#fileInput")[0].files.length == 0) {
-						alert("파일을 추가하세요");
-						return ;
-					}
+	
 					
 					var formData = new FormData();
 					formData.append("file", $("#fileInput")[0].files[0]);
@@ -364,17 +401,54 @@
 				
 				$.ajax({
 					type:"get",
-					url:"",
+					url:"/user/location",
 					data:{"location":location},
 					success:function(data) {
-						alert("위치설정 성공");
-						location.reload();
+						if(data.result == "success") {
+							alert("위치설정 성공");
+							location.reload();
+						} else {
+							alert("위치설정 실패");
+						}
 					},
 					error:function(e) {
 						alert("error");
 					}
 				});
 			});
+			// </위치설정>
+			
+			// <프로필 설정>
+			$("#profileCompletion").on("click", function() {
+				let profileStatusMessage = $("#profileStatusMessageInput").val().trim();
+				
+				var formData = new FormData();
+				formData.append("file", $("#profileImageInput")[0].files[0]);
+				formData.append("profileStatusMessage", profileStatusMessage);
+				
+				$.ajax({
+					enctype: 'multipart/form-data', // 필수
+					type:"post",
+					url:"/user/profile",
+					processData: false, // 필수 
+					contentType: false, // 필수
+					data:formData,
+					success:function(data) {
+						if(data.result == "success") {
+							alert("프로필설정 성공");
+							location.reload();
+						} else {
+							alert("프로필설정 실패");
+						}
+					},
+					error:function(e) {
+						alert("error");
+					}
+				});
+			});
+			
+			// </프로필 설정>			
+			
 		});
 	</script>
 </body>

@@ -27,7 +27,14 @@
 		
 		<div class="mr-4">${userNickName }님 <a href="/user/sign_out">로그아웃</a> </div>
 		
-		<img src="https://cdn.pixabay.com/photo/2021/04/23/19/57/yorkshire-terrier-6202621_960_720.jpg" width="30">
+		<c:choose>
+			<c:when test="${!empty myInfo.profileImage }" >
+				<img src="${myInfo.profileImage }" width="30">
+			</c:when>
+			<c:otherwise>
+				<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
+			</c:otherwise>
+		</c:choose>
 		
 		<a href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
 			글쓰기 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.user.model.User;
 import com.sns.invest.user.bo.UserBO;
@@ -80,7 +81,49 @@ public class UserRestController {
 		} else {
 			result.put("result", "fail");
 		}
-		return result;
-		
+		return result;	
 	}
+	
+	@GetMapping("/location")
+	public Map<String, String> userLocation(
+			@RequestParam("location") String location
+			, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		int count = userBO.editLocation(userId, location);
+		Map<String, String> result = new HashMap<>();
+		
+		if (count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
+	
+	@PostMapping("/profile")
+	public Map<String, String> userProfile(
+			@RequestParam("profileStatusMessage") String profileStatusMessage
+			, @RequestParam(value = "file", required = false) MultipartFile file
+			, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		int count = userBO.editProfile(userId, file, profileStatusMessage);
+		Map<String, String> result = new HashMap<>();
+		
+		if (count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+
+	}
+	
 }
