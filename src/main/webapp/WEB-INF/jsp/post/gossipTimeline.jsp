@@ -51,82 +51,85 @@
    			<option>펄어비스</option>
         </select>
         <h3>${corporation }</h3>
-        
-		<c:forEach var="postWithOthers" items="${postList }">
-			<!-- 보여지는 가십 게시글 -->
-			<div class="card mt-3">			
-				<!-- 글 시작부분 -->
-				<div class="d-flex justify-content-between p-2 border-bottom">
-					
-					<!-- 글쓴이 -->
-					<div>
-						<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
-						<a href="/post/individual_home_view?userId=${postWithOthers.gossipPost.userId }" class="homeLink">
-							${postWithOthers.gossipPost.userNickName }
-						</a>
-					</div>
-					${postWithOthers.gossipPost.corporation }
-					<!-- 좋아요 -->
-					<div>
-						<a href="#" class="likeBtn" data-post-id="${postWithOthers.gossipPost.id }">
-							<c:choose>
-								<c:when test="${postWithOthers.like }" >
-									<i class="bi bi-heart-fill heart-icon text-danger" data-status="like" id="heartIcon-${postWithOthers.gossipPost.id }"></i>
-								</c:when>
-								<c:otherwise>
-									<i class="bi bi-heart heart-icon text-dark" id="heartIcon-${postWithOthers.gossipPost.id }"></i>	
-								</c:otherwise>
-							</c:choose>
-						</a>
-						<span class="middle-size ml-1"> 
-							좋아요 <span id="likeCount-${postWithOthers.gossipPost.id }" >${postWithOthers.likeCount }</span>개 
-						</span>
-					</div>
-					
-					<%-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 --%>
-					<c:if test="${postWithOthers.gossipPost.userId eq userId}">
-						<div class="more-icon" >
-							<a href="#" class="text-dark moreBtn"> 
-								<i class="bi bi-three-dots-vertical"></i> 
-							</a>
-						</div>
-					</c:if>
-					
-				</div>
-				<!-- /글 시작부분 -->
-				
-				<!-- 내용 -->
-				<div class="middle-size m-2">
-					${postWithOthers.gossipPost.content }
-				</div>
-				
-				<!-- 댓글 -->
-				<div class="mt-2">
-				
-					<div class="border-bottom m-2">
-						<span class="middle-size">댓글</span>
-					</div>
-					
-					<!--  댓글현황  -->
-					<div class="middle-size m-2">
-						<c:forEach var="comment" items="${postWithOthers.commentList }" >
-								<div class="mt-1">
-									<b>${comment.userNickName }</b> ${comment.content }
+        <div class="d-flex justify-content-center">
+	        <div class="post-timeline-box">
+				<c:forEach var="postWithOthers" items="${postList }">
+					<!-- 보여지는 가십 게시글 -->
+					<div class="card mt-3">			
+						<!-- 글 시작부분 -->
+						<div class="d-flex justify-content-between p-2 border-bottom">
+							
+							<!-- 글쓴이 -->
+							<div>
+								<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
+								<a href="/post/individual_home_view?userId=${postWithOthers.gossipPost.userId }" class="homeLink">
+									${postWithOthers.gossipPost.userNickName }
+								</a>
+							</div>
+							${postWithOthers.gossipPost.corporation }
+							<!-- 좋아요 -->
+							<div>
+								<a href="#" class="likeBtn" data-post-id="${postWithOthers.gossipPost.id }">
+									<c:choose>
+										<c:when test="${postWithOthers.like }" >
+											<i class="bi bi-heart-fill heart-icon text-danger" data-status="like" id="heartIcon-${postWithOthers.gossipPost.id }"></i>
+										</c:when>
+										<c:otherwise>
+											<i class="bi bi-heart heart-icon text-dark" id="heartIcon-${postWithOthers.gossipPost.id }"></i>	
+										</c:otherwise>
+									</c:choose>
+								</a>
+								<span class="middle-size ml-1"> 
+									좋아요 <span id="likeCount-${postWithOthers.gossipPost.id }" >${postWithOthers.likeCount }</span>개 
+								</span>
+							</div>
+							
+							<%-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 --%>
+							<c:if test="${postWithOthers.gossipPost.userId eq userId}">
+								<div class="more-icon" >
+									<a href="#" class="text-dark moreBtn"> 
+										<i class="bi bi-three-dots-vertical"></i> 
+									</a>
 								</div>
-						</c:forEach>
+							</c:if>
+							
+						</div>
+						<!-- /글 시작부분 -->
+						
+						<!-- 내용 -->
+						<div class="middle-size m-2">
+							${postWithOthers.gossipPost.content }
+						</div>
+						
+						<!-- 댓글 -->
+						<div class="mt-2">
+						
+							<div class="border-bottom m-2">
+								<span class="middle-size">댓글</span>
+							</div>
+							
+							<!--  댓글현황  -->
+							<div class="middle-size m-2">
+								<c:forEach var="comment" items="${postWithOthers.commentList }" >
+										<div class="mt-1">
+											<b>${comment.userNickName }</b> ${comment.content }
+										</div>
+								</c:forEach>
+							</div>
+							
+							<!-- 댓글 입력 -->
+							<div class="d-flex mt-2 border-top">
+								<input type="text" class="form-control border-0 " id="commentInput-${postWithOthers.gossipPost.id }">
+								<button class="btn btn-info ml-2 commentBtn" data-post-id="${postWithOthers.gossipPost.id }">게시</button>
+							</div>
+							
+						</div>
+						<!-- /댓글 -->	
 					</div>
-					
-					<!-- 댓글 입력 -->
-					<div class="d-flex mt-2 border-top">
-						<input type="text" class="form-control border-0 " id="commentInput-${postWithOthers.gossipPost.id }">
-						<button class="btn btn-info ml-2 commentBtn" data-post-id="${postWithOthers.gossipPost.id }">게시</button>
-					</div>
-					
-				</div>
-				<!-- /댓글 -->	
-			</div>
-			<!-- /보여지는 가십 게시글 -->
-		</c:forEach>
+					<!-- /보여지는 가십 게시글 -->
+				</c:forEach>
+	        </div>
+        </div>
 	</section>
 	
 	<footer>

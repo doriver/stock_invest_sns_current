@@ -17,45 +17,55 @@
   	<link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-	<header class="d-flex">
-		<h2>투자SNS</h2>
-		<a href="/post/invest_view">투자게시판//</a>
-		<a href="/post/local_view">지역커뮤니티//</a>
-		<a href="/post/gossip_view">가십게시판</a>
+	<header class="d-flex justify-content-between">
+		<div class="d-flex ml-2 mt-2">
+			<h2 class="mr-3 text-danger">투자SNS</h2>
+			<div>
+				<a href="/post/invest_view" class="text-danger mr-2">투자게시판</a>
+				<a href="/post/local_view" class="text-danger mr-2">지역커뮤니티</a>
+				<a href="/post/gossip_view" class="text-danger">가십게시판</a>
+			</div>
+		</div>
 		
-		<h3>투자게시판</h3>
+		<h3 class="mt-2 text-danger">투자게시판</h3>
 		
-		<div class="mr-4">${userNickName }님 <a href="/user/sign_out">로그아웃</a> </div>
-		
-		<c:choose>
-			<c:when test="${!empty myInfo.profileImage }" >
-				<img src="${myInfo.profileImage }" width="30">
-			</c:when>
-			<c:otherwise>
-				<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
-			</c:otherwise>
-		</c:choose>
-
-		<a href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
-			글쓰기 
-		</a>
-		<a href="/post/individual_home_view?userId=${userId }">개인 홈</a>		
+		<div class="d-flex">
+		 	${userNickName }님
+			<div class="dropdown">
+			  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">				
+				<c:choose>
+					<c:when test="${!empty myInfo.profileImage }" >
+						<img src="${myInfo.profileImage }" width="80">
+					</c:when>
+					<c:otherwise>
+						<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
+					</c:otherwise>
+				</c:choose> 
+			  </a>
+			  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+			    <a class="dropdown-item" href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
+						글쓰기 
+				</a>
+			    <a class="dropdown-item" href="/post/individual_home_view?userId=${userId }">개인 홈</a>
+			    <a class="dropdown-item" href="/user/sign_out">로그아웃</a>
+			  </div>
+			</div>
+		</div>
 	</header>
 	<hr>
 	
-	<section>
-		<div class="col-7">
-			
+	<section class="d-flex justify-content-center">
+		<div class="post-timeline-box">
 			<c:forEach var="postWithOthers" items="${postList }">
 				<!-- 보여지는 투자 게시글 -->
 				<div class="card mt-3">			
 					<!-- 글 시작부분 -->
-					<div class="d-flex justify-content-between p-2 border-bottom">
+					<div class="d-flex justify-content-between p-1 border-bottom">
 						
 						<!-- 글쓴이 -->
 						<div>							
 							<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
-							<a href="/post/individual_home_view?userId=${postWithOthers.investPost.userId }" class="homeLink">
+							<a href="/post/individual_home_view?userId=${postWithOthers.investPost.userId }" class="font-weight-bold text-dark">
 								${postWithOthers.investPost.userNickName }
 							</a>
 						</div>
@@ -89,17 +99,21 @@
 					</div>
 					<!-- /글 시작부분 -->
 					
-					<div class="d-flex">
-						<div>${postWithOthers.investPost.investStyle }/</div>
-						<div>${postWithOthers.investPost.stockItemName }/</div>
-						<div>${postWithOthers.investPost.investmentOpinion }/</div>
-						<div>${postWithOthers.investPost.investmentProcess }/</div>
+					<div class="d-flex justify-content-around border-bottom p-1">
+						<div class="font-weight-bold">${postWithOthers.investPost.investStyle }</div>
+						<div class="font-weight-bold">${postWithOthers.investPost.stockItemName }</div>
+						<div class="font-weight-bold">${postWithOthers.investPost.investmentOpinion }</div>
+						<div class="font-weight-bold">${postWithOthers.investPost.investmentProcess }</div>
 					</div>
 					
 					<!-- 내용 -->
-					<div class="middle-size m-2">
-						${postWithOthers.investPost.content }
-						<img src="${postWithOthers.investPost.imagePath }" width="100">
+					<div class="middle-size m-2 d-flex justify-content-between">
+						<div>
+							${postWithOthers.investPost.content }
+						</div>
+						<div>
+							<img src="${postWithOthers.investPost.imagePath }" width="285">
+						</div>
 					</div>
 					
 					<!-- 댓글 -->
