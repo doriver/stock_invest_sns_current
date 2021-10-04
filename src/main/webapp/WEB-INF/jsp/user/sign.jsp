@@ -16,8 +16,11 @@
 </head>
 <body>
 	<header class="d-flex justify-content-between">
-		<h2>투자SNS</h2>
-		<a href="/post/guest_view">비로그인화면</a>
+		<div class="d-flex pt-1 pl-2">
+			<img src="https://cdn.pixabay.com/photo/2021/09/09/04/26/coins-6609452_960_720.jpg" width="50" height="50">
+			<h2 class="text-danger mt-2">투자SNS</h2>
+		</div>
+		<a href="/post/guest_view" class="text-danger mr-2 mt-3">비로그인화면</a>
 	</header>
 	<hr>
 	

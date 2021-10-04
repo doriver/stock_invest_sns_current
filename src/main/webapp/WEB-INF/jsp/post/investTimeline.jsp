@@ -17,25 +17,33 @@
   	<link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-	<header class="d-flex justify-content-between">
-		<div class="d-flex ml-2 mt-2">
-			<h2 class="mr-3 text-danger">투자SNS</h2>
-			<div>
-				<a href="/post/invest_view" class="text-danger mr-2">투자게시판</a>
-				<a href="/post/local_view" class="text-danger mr-2">지역커뮤니티</a>
-				<a href="/post/gossip_view" class="text-danger">가십게시판</a>
+	<header class="d-flex">
+		<div class="col-4 d-flex">
+			<div class="dropdown">
+			  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">				
+			  	<img src="https://cdn.pixabay.com/photo/2021/09/09/04/26/coins-6609452_960_720.jpg" width="50" height="50">
+			  </a>
+			  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				<a class="dropdown-item" href="/post/invest_view">투자게시판</a>
+			    <a class="dropdown-item" href="/post/local_view">지역커뮤니티</a>
+			    <a class="dropdown-item" href="/post/gossip_view">가십게시판</a>
+			  </div>
 			</div>
+			<h2 class="text-danger pt-2">투자SNS</h2>
+		</div>
+		<div class="col-4 d-flex justify-content-center">
+			<h3 class="pt-3 text-danger">투자게시판</h3>
 		</div>
 		
-		<h3 class="mt-2 text-danger">투자게시판</h3>
-		
-		<div class="d-flex">
-		 	${userNickName }님
+		<div class="col-4 d-flex justify-content-end">
+		 	<div class="pt-4 user">
+			 	${userNickName }님
+		 	</div>
 			<div class="dropdown">
 			  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">				
 				<c:choose>
 					<c:when test="${!empty myInfo.profileImage }" >
-						<img src="${myInfo.profileImage }" width="80">
+						<img src="${myInfo.profileImage }" width="50" height="50">
 					</c:when>
 					<c:otherwise>
 						<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">

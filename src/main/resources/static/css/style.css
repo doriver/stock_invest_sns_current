@@ -8,10 +8,21 @@
 	width:600px;
 }
 
-.board {
-	color:black;
+.profile-box {
+	width:220px;
 }
 
-.writer {
-	color:black;
+.status-message-box {
+	height:80px;
+}
+body {
+	min-width:800px;
+}
+header {
+	height:60px;
+	padding-top: 8px;
+}
+
+.user {
+	font-size:20px;
 }

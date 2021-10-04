@@ -18,80 +18,94 @@
 </head>
 <body>
 	<header class="d-flex">
-		<h2>투자SNS</h2>
-		<a href="/post/invest_view">투자게시판//</a>
-		<a href="/post/local_view">지역커뮤니티//</a>
-		<a href="/post/gossip_view">가십게시판</a>
+		<div class="col-4 d-flex">
+			<div class="dropdown">
+			  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">				
+			  	<img src="https://cdn.pixabay.com/photo/2021/09/09/04/26/coins-6609452_960_720.jpg" width="50" height="50">
+			  </a>
+			  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				<a class="dropdown-item" href="/post/invest_view">투자게시판</a>
+			    <a class="dropdown-item" href="/post/local_view">지역커뮤니티</a>
+			    <a class="dropdown-item" href="/post/gossip_view">가십게시판</a>
+			  </div>
+			</div>
+			<h2 class="text-danger pt-2">투자SNS</h2>
+		</div>
+		<div class="col-4 d-flex justify-content-center">
+			<h3 class="pt-3 text-danger">개인홈</h3>
+		</div>
 		
-		<h3>개인홈</h3>
-		
-		<div class="mr-4">${userNickName }님 <a href="/user/sign_out">로그아웃</a> </div>
-		
-		<c:choose>
-			<c:when test="${!empty userInfo.profileImage }" >
-				<img src="${userInfo.profileImage }" width="30">
-			</c:when>
-			<c:otherwise>
-				<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
-			</c:otherwise>
-		</c:choose>
+		<div class="col-4 d-flex justify-content-end">
+		 	<div class="pt-4 user">
+			 	${userNickName }님
+		 	</div>
+			<div class="dropdown">
+			  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">				
+				<c:choose>
+					<c:when test="${!empty userInfo.profileImage }" >
+						<img src="${userInfo.profileImage }" width="50" height="50">
+					</c:when>
+					<c:otherwise>
+						<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
+					</c:otherwise>
+				</c:choose> 
+			  </a>
+			  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+			    <a class="dropdown-item" href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
+						글쓰기 
+				</a>
+			    <a class="dropdown-item" href="/post/individual_home_view?userId=${userId }">개인 홈</a>
+			    <a class="dropdown-item" href="/user/sign_out">로그아웃</a>
+			  </div>
+			</div>
+		</div>
 
-		<a href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
-			글쓰기 
-		</a>
-		<a href="/post/individual_home_view?userId=${userId }">개인 홈</a>		
 	</header>
 	<hr>
 	<section>
 		<div class="d-flex">
 			<!-- 개인 프로필 -->
-			<div class="card col-4">
-				<div class="border-bottom">
-					<c:choose>
-						<c:when test="${!empty userInfo.profileImage }" >
-							<img src="${userInfo.profileImage }" width="100">
-						</c:when>
-						<c:otherwise>
-							<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="100">
-						</c:otherwise>
-					</c:choose>
-				</div>
-				<div>
-					<b>${userInfo.nickName }</b>
-				</div>
-				<div>
-					<div>
+			<div class="profile-box">
+				<div class="card">
+					<div class="p-2">
 						<c:choose>
-							<c:when test="${!empty userInfo.profileStatusMessage }" >
-								${userInfo.profileStatusMessage }
+							<c:when test="${!empty userInfo.profileImage }" >
+								<img src="${userInfo.profileImage }" width="200" height="200">
 							</c:when>
 							<c:otherwise>
-								상태메세지
+								<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="200" height="200">
 							</c:otherwise>
 						</c:choose>
 					</div>
-					<div>
+					<div class="pl-2">
+						<b class="user">${userInfo.nickName }</b>
 						<c:if test="${userId eq userInfo.id }">
-							<button>프로필 편집</button>
+								<button>프로필</button><button>위치</button>
 						</c:if>
 					</div>
-					<div>
+					<div class="border-bottom">
 						<c:choose>
 							<c:when test="${!empty userInfo.location }" >
-								설정된 위치 : ${userInfo.location }
+								<b>설정된 위치 : ${userInfo.location }</b>
 							</c:when>
 							<c:otherwise>
-								위치설정 안되있음
+								<b>위치설정 안되있음</b>
 							</c:otherwise>
 						</c:choose>
 					</div>
 					<div>
-						<c:if test="${userId eq userInfo.id }">
-							<button>위치설정</button>
-						</c:if>
+						<div class="status-message-box border-bottom">
+							<c:choose>
+								<c:when test="${!empty userInfo.profileStatusMessage }" >
+									${userInfo.profileStatusMessage }
+								</c:when>
+								<c:otherwise>
+									상태메세지
+								</c:otherwise>
+							</c:choose>
+						</div>
 					</div>
 				</div>
-				
 				<!-- 프로필 편집 -->
 				<c:if test="${userId eq userInfo.id }">
 					<div>
@@ -106,11 +120,12 @@
 						<button id="locationCompletion">위치설정 완료</button>
 					</div>
 				</c:if>
+			
 			</div>
 			<!-- /개인 프로필 -->
 			
 			<!-- 개인의 투자 게시글 -->
-			<div class="col-7">
+			<div class="post-timeline-box">
 				<c:forEach var="postWithOthers" items="${postList }">
 					<div class="card mt-3">			
 						<!-- 글 시작부분 -->

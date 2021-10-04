@@ -18,28 +18,48 @@
 </head>
 <body>
 	<header class="d-flex">
-		<h2>투자SNS</h2>
-		<a href="/post/invest_view">투자게시판//</a>
-		<a href="/post/local_view">지역커뮤니티//</a>
-		<a href="/post/gossip_view">가십게시판</a>
+		<div class="col-4 d-flex">
+			<div class="dropdown">
+			  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">				
+			  	<img src="https://cdn.pixabay.com/photo/2021/09/09/04/26/coins-6609452_960_720.jpg" width="50" height="50">
+			  </a>
+			  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				<a class="dropdown-item" href="/post/invest_view">투자게시판</a>
+			    <a class="dropdown-item" href="/post/local_view">지역커뮤니티</a>
+			    <a class="dropdown-item" href="/post/gossip_view">가십게시판</a>
+			  </div>
+			</div>
+			<h2 class="text-danger pt-2">투자SNS</h2>
+		</div>
 		
-		<h3>지역커뮤니티</h3>
-		
-		<div class="mr-4">${userNickName }님 <a href="/user/sign_out">로그아웃</a> </div>
-		
-		<c:choose>
-			<c:when test="${!empty myInfo.profileImage }" >
-				<img src="${myInfo.profileImage }" width="30">
-			</c:when>
-			<c:otherwise>
-				<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
-			</c:otherwise>
-		</c:choose>
-		
-		<a href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
-			글쓰기 
-		</a>
-		<a href="/post/individual_home_view?userId=${userId }">개인 홈</a>		
+		<div class="col-4 d-flex justify-content-center">
+			<h3 class="pt-3 text-danger">지역커뮤니티</h3>
+		</div>
+
+		<div class="col-4 d-flex justify-content-end">
+		 	<div class="pt-4 user">
+			 	${userNickName }님
+		 	</div>
+			<div class="dropdown">
+			  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">				
+				<c:choose>
+					<c:when test="${!empty myInfo.profileImage }" >
+						<img src="${myInfo.profileImage }" width="50" height="50">
+					</c:when>
+					<c:otherwise>
+						<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
+					</c:otherwise>
+				</c:choose> 
+			  </a>
+			  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+			    <a class="dropdown-item" href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
+						글쓰기 
+				</a>
+			    <a class="dropdown-item" href="/post/individual_home_view?userId=${userId }">개인 홈</a>
+			    <a class="dropdown-item" href="/user/sign_out">로그아웃</a>
+			  </div>
+			</div>
+		</div>
 	</header>
 	
 	<hr>
