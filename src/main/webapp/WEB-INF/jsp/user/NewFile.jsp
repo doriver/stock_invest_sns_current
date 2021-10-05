@@ -16,7 +16,7 @@
   	<link rel="stylesheet" href="/static/css/style.css">
 </head>
 		
-	<a href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
+	<a href="#" data-toggle="modal" data-target="#writeModal"> 
 		글쓰기 
 	</a>
 	
@@ -26,51 +26,6 @@
 	    <div class="modal-content">
 	      
 	      <div class="modal-body text-center">
-	        <!--  게시글 작성  -->
-			<div>
-				<h3>투자게시글 작성</h3>
-				<div class="d-flex">
-					<select id="investStyle">
-            			<option>투자스타일</option>
-            			<option>단타x</option>
-            			<option>단타</option>
-        			</select>
-					<select id="stockItemName">
-            			<option>관심종목</option>
-            			<option>카카오게임즈</option>
-            			<option>펄어비스</option>
-        			</select>
-					<select id="investmentOpinion">
-            			<option>투자의견</option>
-            			<option>buy</option>
-            			<option>hold</option>
-            			<option>sell</option>
-        			</select>
-					<select id="investmentProcess">
-            			<option>투자과정</option>
-            			<option>분석,공부</option>
-            			<option>매수</option>
-            			<option>매도</option>
-            			<option>영감</option>
-        			</select>
-				</div>
-			
-				<div class="border rounded mt-1">
-					<textarea class="form-control w-100 non-resize" rows=4 id="contentInput">
-						텍스트 쓰는곳
-					</textarea>			
-				</div>
-				
-				<!--  이미지  -->
-				<div class="image-input-box border rounded mt-1">
-					이미지 파일 반영되는곳<br>
-					<input type="file" class="input-control" id="fileInput">
-					<a href="#" id="imageUploadBtn"><i class="bi bi-image"></i></a>
-				</div>
-				
-				<button class="btn btn-sm btn-info" id="uploadBtn">업로드</button>
-			</div>
-			<!--  /게시글 작성  -->
 
 	      </div>
 	  
@@ -79,11 +34,60 @@
 	</div>
 	<!-- /Modal -->
 	
+	<div class="more-icon" >
+		<a class="text-dark moreBtn" href="#"  data-toggle="modal" data-target="#deleteModal" data-post-id="${postWithComments.post.id }"> 
+			<i class="bi bi-three-dots-vertical"></i> 
+		</a>
+	</div>
+	
+	<!-- 모달의 a태그에 data-post-id 의 값을 더보기 클릭시마다 바꿔준다.   -->
+	<!-- Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      
+	      <div class="modal-body text-center">
+	        <a href="#" id="deleteBtn" >삭제하기 </a>
+	      </div>
+	  
+	    </div>
+	  </div>
+	</div>
+	
 
 <body>
      <script>
     $(document).ready(function() {
- 
+		$(".moreBtn").on("click", function() {
+			// postId를 모델에 삭제 버튼에 주입한다. 
+			
+			var postId = $(this).data("post-id");
+							
+			$("#deleteBtn").data("post-id", postId);
+			
+		});
+		
+		$("#deleteBtn").on("click", function(e) {
+			e.preventDefault();
+			var postId = $(this).data("post-id");
+			
+			$.ajax({
+				type:"get",
+				url:"/post/delete",
+				data:{"postId":postId},
+				success:function(data) {
+					if(data.result == "success") {
+						location.reload();
+					} else {
+						alert("삭제 실패");
+					}
+				}, 
+				error:function(e) {
+					alert("error");	
+				}
+			})
+		});
+
     });
     </script>
 </body>

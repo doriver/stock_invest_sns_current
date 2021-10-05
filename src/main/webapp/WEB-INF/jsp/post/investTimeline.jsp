@@ -37,7 +37,7 @@
 		
 		<div class="col-4 d-flex justify-content-end">
 		 	<div class="pt-4 user">
-			 	${userNickName }님
+			 	<b>${userNickName }님</b>
 		 	</div>
 			<div class="dropdown">
 			  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">				
@@ -46,7 +46,7 @@
 						<img src="${myInfo.profileImage }" width="50" height="50">
 					</c:when>
 					<c:otherwise>
-						<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
+						<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="50" height="50">
 					</c:otherwise>
 				</c:choose> 
 			  </a>
@@ -98,7 +98,7 @@
 						<%-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 --%>
 						<c:if test="${postWithOthers.investPost.userId eq userId}">
 							<div class="more-icon" >
-								<a href="#" class="text-dark moreBtn"> 
+								<a href="#" class="text-dark moreBtn" data-toggle="modal" data-target="#postEditModal" data-post-id="${postWithOthers.investPost.id }"> 
 									<i class="bi bi-three-dots-vertical"></i> 
 								</a>
 							</div>
@@ -161,12 +161,7 @@
 		copyright ~~
 	</footer>
 	
-
-
-
-	
-	<!-- 모달의 a태그에 data-post-id 의 값을 더보기 클릭시마다 바꿔준다.   -->
-	<!-- Modal -->
+	<!-- 글쓰기Modal -->
 	<div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
@@ -217,13 +212,28 @@
 				<button class="btn btn-sm btn-info" id="uploadBtn">업로드</button>
 			</div>
 			<!--  /게시글 작성  -->
-
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- /글쓰기Modal -->
+	
+	<!-- 모달의 a태그에 data-post-id 의 값을 더보기 클릭시마다 바꿔준다.  -->
+	<!-- 글수정Modal -->
+	<div class="modal fade" id="postEditModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      
+	      <div class="modal-body text-center">
+	        <a href="#" id="deleteBtn" >삭제하기 </a>
+	        <hr>
+	        <a href="#">수정하기</a>
 	      </div>
 	  
 	    </div>
 	  </div>
 	</div>
-	<!-- /Modal -->
+	<!-- /글수정Modal -->	
 	
 	<script>
 		$(document).ready(function() {

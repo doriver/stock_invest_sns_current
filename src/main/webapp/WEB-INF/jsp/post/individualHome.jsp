@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +38,7 @@
 		
 		<div class="col-4 d-flex justify-content-end">
 		 	<div class="pt-4 user">
-			 	${userNickName }님
+			 	<b>${userNickName }님</b>
 		 	</div>
 			<div class="dropdown">
 			  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">				
@@ -46,7 +47,7 @@
 						<img src="${userInfo.profileImage }" width="50" height="50">
 					</c:when>
 					<c:otherwise>
-						<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
+						<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="50" height="50">
 					</c:otherwise>
 				</c:choose> 
 			  </a>
@@ -64,149 +65,144 @@
 	<hr>
 	<section>
 		<div class="d-flex">
-			<!-- 개인 프로필 -->
-			<div class="profile-box">
-				<div class="card">
-					<div class="p-2">
-						<c:choose>
-							<c:when test="${!empty userInfo.profileImage }" >
-								<img src="${userInfo.profileImage }" width="200" height="200">
-							</c:when>
-							<c:otherwise>
-								<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="200" height="200">
-							</c:otherwise>
-						</c:choose>
-					</div>
-					<div class="pl-2">
-						<b class="user">${userInfo.nickName }</b>
-						<c:if test="${userId eq userInfo.id }">
-								<button>프로필</button><button>위치</button>
-						</c:if>
-					</div>
-					<div class="border-bottom">
-						<c:choose>
-							<c:when test="${!empty userInfo.location }" >
-								<b>설정된 위치 : ${userInfo.location }</b>
-							</c:when>
-							<c:otherwise>
-								<b>위치설정 안되있음</b>
-							</c:otherwise>
-						</c:choose>
-					</div>
-					<div>
-						<div class="status-message-box border-bottom">
+			
+			<div class="col-2 d-flex justify-content-center">
+				<!-- 개인 프로필 -->
+				<div class="profile-box">
+					<h3>프로필</h3>
+					<div class="card">
+						<div class="p-2">
 							<c:choose>
-								<c:when test="${!empty userInfo.profileStatusMessage }" >
-									${userInfo.profileStatusMessage }
+								<c:when test="${!empty userInfo.profileImage }" >
+									<img src="${userInfo.profileImage }" width="200" height="200">
 								</c:when>
 								<c:otherwise>
-									상태메세지
+									<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="200" height="200">
 								</c:otherwise>
 							</c:choose>
 						</div>
-					</div>
-				</div>
-				<!-- 프로필 편집 -->
-				<c:if test="${userId eq userInfo.id }">
-					<div>
-						<input type="file" class="input-control" id="profileImageInput">
-						<textarea class="form-control w-100 non-resize" rows=4 id="profileStatusMessageInput">
-							텍스트 쓰는곳
-						</textarea>
-						<button class="btn" id="profileCompletion">편집완료</button>			
-					</div>
-					<div>
-						<input type="text" class="form-control" id="locationInput">
-						<button id="locationCompletion">위치설정 완료</button>
-					</div>
-				</c:if>
-			
-			</div>
-			<!-- /개인 프로필 -->
-			
-			<!-- 개인의 투자 게시글 -->
-			<div class="post-timeline-box">
-				<c:forEach var="postWithOthers" items="${postList }">
-					<div class="card mt-3">			
-						<!-- 글 시작부분 -->
-						<div class="d-flex justify-content-between p-2 border-bottom">
-							
-							<!-- 작성,업데이트 시간 -->
-							<div>
-								작성시간 : ${postWithOthers.investPost.createdAt }
-							</div>
-							<div>
-								업데이트 시간 : ${postWithOthers.investPost.updatedAt }
-							</div>
-							
-							<!-- 좋아요 -->
-							<div>
-								<a href="#" class="likeBtn" data-post-id="${postWithOthers.investPost.id }">
-									<c:choose>
-										<c:when test="${postWithOthers.like }" >
-											<i class="bi bi-heart-fill heart-icon text-danger" data-status="like" id="heartIcon-${postWithOthers.investPost.id }"></i>
-										</c:when>
-										<c:otherwise>
-											<i class="bi bi-heart heart-icon text-dark" id="heartIcon-${postWithOthers.investPost.id }"></i>	
-										</c:otherwise>
-									</c:choose>
-								</a>
-								<span class="middle-size ml-1"> 
-									좋아요 <span id="likeCount-${postWithOthers.investPost.id }" >${postWithOthers.likeCount }</span>개 
-								</span>
-							</div>
-				
-							<%-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 --%>
-							<c:if test="${postWithOthers.investPost.userId eq userId}">
-								<div class="more-icon" >
-									<a href="#" class="text-dark moreBtn"> 
-										<i class="bi bi-three-dots-vertical"></i> 
+						<div class="pl-2">
+							<b class="user">${userInfo.nickName }</b>
+							<c:if test="${userId eq userInfo.id }">
+									<a href="#" data-toggle="modal" data-target="#profileEditModal"> 
+										프로필 편집
 									</a>
-								</div>
 							</c:if>
 						</div>
-						<!-- /글 시작부분 -->
-						
-						<div class="d-flex">
-							<div>${postWithOthers.investPost.investStyle }/</div>
-							<div>${postWithOthers.investPost.stockItemName }/</div>
-							<div>${postWithOthers.investPost.investmentOpinion }/</div>
-							<div>${postWithOthers.investPost.investmentProcess }/</div>
+						<div class="border-bottom">
+							<c:choose>
+								<c:when test="${!empty userInfo.location }" >
+									<b>설정된 위치 : ${userInfo.location }</b>
+								</c:when>
+								<c:otherwise>
+									<b>위치설정 안되있음</b>
+								</c:otherwise>
+							</c:choose>
 						</div>
-						
-						<!-- 내용 -->
-						<div class="middle-size m-2">
-							${postWithOthers.investPost.content }
-							<img src="${postWithOthers.investPost.imagePath }" width="100">
+						<div>
+							<div class="status-message-box border-bottom">
+								<c:choose>
+									<c:when test="${!empty userInfo.profileStatusMessage }" >
+										${userInfo.profileStatusMessage }
+									</c:when>
+									<c:otherwise>
+										상태메세지
+									</c:otherwise>
+								</c:choose>
+							</div>
 						</div>
-						
-						<!-- 댓글 -->
-						<div class="mt-2">
-						
-							<div class="border-bottom m-2">
-								<span class="middle-size">댓글</span>
-							</div>
-							
-							<!--  댓글현황  -->
-							<div class="middle-size m-2">
-								<c:forEach var="comment" items="${postWithOthers.commentList }" >
-										<div class="mt-1">
-											<b>${comment.userNickName }</b> ${comment.content }
-										</div>
-								</c:forEach>
-							</div>
-							
-							<!-- 댓글 입력 -->
-							<div class="d-flex mt-2 border-top">
-								<input type="text" class="form-control border-0 " id="commentInput-${postWithOthers.investPost.id }">
-								<button class="btn btn-info ml-2 commentBtn" data-post-id="${postWithOthers.investPost.id }">게시</button>
-							</div>
-							
-						</div>
-						<!-- /댓글 -->	
 					</div>
-					<!-- /보여지는 투자 게시글 -->
-				</c:forEach>
+				</div>
+				<!-- /개인 프로필 -->
+			</div>
+			
+			<div class="col-8 d-flex justify-content-center">
+				<!-- 개인의 투자 게시글 -->
+				<div class="post-timeline-box">
+					<h3>${userInfo.nickName }님이 쓴 글들</h3>
+					<c:forEach var="postWithOthers" items="${postList }">
+						<div class="card mt-3">			
+							<!-- 글 시작부분 -->
+							<div class="d-flex justify-content-between p-2 border-bottom">
+								
+								<!-- 작성,업데이트 시간 -->
+								<div>
+									작성:<fmt:formatDate value="${postWithOthers.investPost.createdAt }" pattern="yy년 M월 d일 HH시 mm분" /> 
+									<br>
+									업데이트:<fmt:formatDate value="${postWithOthers.investPost.updatedAt }" pattern="M월 d일 HH시 mm분" /> 	
+								</div>
+								
+								<!-- 좋아요 -->
+								<div>
+									<a href="#" class="likeBtn" data-post-id="${postWithOthers.investPost.id }">
+										<c:choose>
+											<c:when test="${postWithOthers.like }" >
+												<i class="bi bi-heart-fill heart-icon text-danger" data-status="like" id="heartIcon-${postWithOthers.investPost.id }"></i>
+											</c:when>
+											<c:otherwise>
+												<i class="bi bi-heart heart-icon text-dark" id="heartIcon-${postWithOthers.investPost.id }"></i>	
+											</c:otherwise>
+										</c:choose>
+									</a>
+									<span class="middle-size ml-1"> 
+										좋아요 <span id="likeCount-${postWithOthers.investPost.id }" >${postWithOthers.likeCount }</span>개 
+									</span>
+								</div>
+					
+								<%-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 --%>
+								<c:if test="${postWithOthers.investPost.userId eq userId}">
+									<div class="more-icon" >
+										<a href="#" class="text-dark moreBtn"> 
+											<i class="bi bi-three-dots-vertical"></i> 
+										</a>
+									</div>
+								</c:if>
+							</div>
+							<!-- /글 시작부분 -->
+							
+							<div class="d-flex justify-content-around border-bottom p-1">
+								<div class="font-weight-bold">${postWithOthers.investPost.investStyle }</div>
+								<div class="font-weight-bold">${postWithOthers.investPost.stockItemName }</div>
+								<div class="font-weight-bold">${postWithOthers.investPost.investmentOpinion }</div>
+								<div class="font-weight-bold">${postWithOthers.investPost.investmentProcess }</div>
+							</div>
+							
+							<!-- 내용 -->
+							<div class="middle-size m-2">
+								${postWithOthers.investPost.content }
+								<img src="${postWithOthers.investPost.imagePath }" width="100">
+							</div>
+							
+							<!-- 댓글 -->
+							<div class="mt-2">
+							
+								<div class="border-bottom m-2">
+									<span class="middle-size">댓글</span>
+								</div>
+								
+								<!--  댓글현황  -->
+								<div class="middle-size m-2">
+									<c:forEach var="comment" items="${postWithOthers.commentList }" >
+											<div class="mt-1">
+												<b>${comment.userNickName }</b> ${comment.content }
+											</div>
+									</c:forEach>
+								</div>
+								
+								<!-- 댓글 입력 -->
+								<div class="d-flex mt-2 border-top">
+									<input type="text" class="form-control border-0 " id="commentInput-${postWithOthers.investPost.id }">
+									<button class="btn btn-info ml-2 commentBtn" data-post-id="${postWithOthers.investPost.id }">게시</button>
+								</div>
+								
+							</div>
+							<!-- /댓글 -->	
+						</div>
+						<!-- /보여지는 투자 게시글 -->
+					</c:forEach>
+				</div>
+			</div>
+			<div class="col-2">
 			</div>
 		</div>
 	</section>
@@ -216,7 +212,7 @@
 		copyright ~~
 	</footer>
 	
-	<!-- Modal -->
+	<!-- 글쓰기Modal -->
 	<div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
@@ -271,7 +267,33 @@
 	    </div>
 	  </div>
 	</div>
-	<!-- /Modal -->
+	<!-- /글쓰기Modal -->
+	
+	<!-- 프로필Modal -->
+	<div class="modal fade" id="profileEditModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+	    	<div class="modal-content">
+	      		<div class="modal-body text-center">
+					<div>
+						<b>프로필 이미지</b>
+						<input type="file" class="input-control" id="profileImageInput">
+						<br>
+						<b>프로필 상태메세지</b>
+						<textarea class="form-control w-100 non-resize" rows=4 id="profileStatusMessageInput">
+							텍스트 쓰는곳
+						</textarea>
+						<button class="btn" id="profileCompletion">편집완료</button>			
+					</div>
+					<div>
+						<b>위치설정</b>
+						<input type="text" class="form-control" id="locationInput">
+						<button id="locationCompletion">위치설정 완료</button>
+					</div>
+	      		</div>
+	    	</div>
+		</div>
+	</div>
+	<!-- /프로필Modal -->	
 	
 	<script>
 		$(document).ready(function() {
