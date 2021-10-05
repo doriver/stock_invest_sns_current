@@ -40,10 +40,10 @@ public class PostController {
 			HttpServletRequest request
 			, Model model) {
 		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
-		List<InvestPostWithOthers> postList = postBO.getInvestPostList(userId);
+		int myUserId = (Integer)session.getAttribute("userId");
+		List<InvestPostWithOthers> postList = postBO.getInvestPostList(myUserId);
 		
-		User myInfo = userBO.userInformation(userId);
+		User myInfo = userBO.userInformation(myUserId);
 	
 		model.addAttribute("postList", postList);
 		model.addAttribute("myInfo", myInfo);
@@ -76,11 +76,11 @@ public class PostController {
 			, HttpServletRequest request
 			, Model model) {
 		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
+		int myUserId = (Integer)session.getAttribute("userId");
 		
-		List<GossipPostWithOthers> postList = postBO.getGossipPostList(userId, corporation);
+		List<GossipPostWithOthers> postList = postBO.getGossipPostList(myUserId, corporation);
 		
-		User myInfo = userBO.userInformation(userId);
+		User myInfo = userBO.userInformation(myUserId);
 		
 		model.addAttribute("postList", postList);
 		model.addAttribute("corporation", corporation);
@@ -95,13 +95,13 @@ public class PostController {
 			, Model model) {
 		
 		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
+		int myUserId = (Integer)session.getAttribute("userId");
 		
-		User myInfo = userBO.userInformation(userId);
+		User myInfo = userBO.userInformation(myUserId);
 		
 		String userLocation = myInfo.getLocation();
 		
-		List<LocalPostWithOthers> postList = postBO.getLocalPostList(userId, userLocation);
+		List<LocalPostWithOthers> postList = postBO.getLocalPostList(myUserId, userLocation);
 		
 		
 		

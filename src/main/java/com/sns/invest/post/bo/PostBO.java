@@ -56,7 +56,7 @@ public class PostBO {
 		return postDAO.insertInvestPost(userId, userNickName, content, filePath, investStyle, stockItemName, investmentOpinion, investmentProcess);
 	}
 	
-	public List<InvestPostWithOthers> getInvestPostList(int userId) {
+	public List<InvestPostWithOthers> getInvestPostList(int myUserId) {
 		List<InvestPost> postList = postDAO.selectInvestPostList();
 		
 		List<InvestPostWithOthers> postWithOthersList = new ArrayList<>();
@@ -65,7 +65,7 @@ public class PostBO {
 		for(InvestPost post:postList) {
 			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
-			boolean isLike = likeBO.existLike(post.getId(), userId, type);
+			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
 			
 			InvestPostWithOthers postWithOthers = new InvestPostWithOthers();
@@ -105,7 +105,7 @@ public class PostBO {
 	}
 
 	
-	public List<GossipPostWithOthers> getGossipPostList(int userId, String corporation) {
+	public List<GossipPostWithOthers> getGossipPostList(int myUserId, String corporation) {
 		
 		//List<GossipPost> postList = new ArrayList<>();
 		List<GossipPost> postList = null;
@@ -122,7 +122,7 @@ public class PostBO {
 		for(GossipPost post:postList) {
 			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
-			boolean isLike = likeBO.existLike(post.getId(), userId, type);
+			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
 			
 			GossipPostWithOthers postWithOthers = new GossipPostWithOthers();
@@ -141,7 +141,7 @@ public class PostBO {
 		return postDAO.insertGossipPost(userId, userNickName, corporation, content);
 	}
 
-	public List<LocalPostWithOthers> getLocalPostList(int userId, String userLocation) {
+	public List<LocalPostWithOthers> getLocalPostList(int myUserId, String userLocation) {
 		List<LocalPost> postList = postDAO.selectLocalPostList(userLocation);
 		
 		List<LocalPostWithOthers> postWithOthersList = new ArrayList<>();
@@ -150,7 +150,7 @@ public class PostBO {
 		for(LocalPost post:postList) {
 			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
-			boolean isLike = likeBO.existLike(post.getId(), userId, type);
+			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
 			
 			LocalPostWithOthers postWithOthers = new LocalPostWithOthers();
