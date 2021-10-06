@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sns.invest.post.model.gossip.GossipPost;
 import com.sns.invest.post.model.invest.InvestPost;
@@ -27,6 +28,13 @@ public interface PostDAO {
 
 	public List<InvestPost> selectInvestPostListByUserId(
 			@Param("userId") int userId);
+
+	public List<InvestPost> selectFilteredInvestPostList(
+			@Param("investStyleForFiltering") String investStyleForFiltering
+			, @Param("stockItemNameForFiltering") String stockItemNameForFiltering
+			, @Param("investmentOpinionForFiltering") String investmentOpinionForFiltering
+			, @Param("investmentProcessForFiltering") String investmentProcessForFiltering
+			);
 
 	public List<GossipPost> selectGossipPostList();
 

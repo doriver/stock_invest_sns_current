@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -49,6 +50,33 @@ public class PostController {
 		model.addAttribute("myInfo", myInfo);
 		
 		return "post/investTimeline";
+	}
+
+	@PostMapping("/invest_view_filtering")
+	public String investTimelineFiltering(
+			@RequestParam(value = "investStyleForFiltering", required = false) String investStyleForFiltering
+			, @RequestParam(value = "stockItemNameForFiltering", required = false) String stockItemNameForFiltering
+			, @RequestParam(value = "investmentOpinionForFiltering", required = false) String investmentOpinionForFiltering
+			, @RequestParam(value = "investmentProcessForFiltering", required = false) String investmentProcessForFiltering
+			, HttpServletRequest request
+			, Model model) {
+		
+		HttpSession session = request.getSession();
+		int myUserId = (Integer)session.getAttribute("userId");
+		
+		List<InvestPostWithOthers> postList = postBO.getFilteredInvestPostList(myUserId, investStyleForFiltering, stockItemNameForFiltering,
+				investmentOpinionForFiltering, investmentProcessForFiltering);
+		
+		User myInfo = userBO.userInformation(myUserId);
+		
+		model.addAttribute("postList", postList);
+		model.addAttribute("myInfo", myInfo);
+		model.addAttribute("investStyleForFiltering", investStyleForFiltering);
+		model.addAttribute("stockItemNameForFiltering", stockItemNameForFiltering);
+		model.addAttribute("investmentOpinionForFiltering", investmentOpinionForFiltering);
+		model.addAttribute("investmentProcessForFiltering", investmentProcessForFiltering);
+		
+		return "post/filteredInvestTimeline";
 	}
 	
 	@GetMapping("/individual_home_view")

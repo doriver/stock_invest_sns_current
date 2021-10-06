@@ -111,6 +111,34 @@ public class PostBO {
 		return postWithOthersList;
 	}
 
+	public List<InvestPostWithOthers> getFilteredInvestPostList(int myUserId
+			, String investStyleForFiltering, String stockItemNameForFiltering
+			, String investmentOpinionForFiltering, String investmentProcessForFiltering) {
+		
+		List<InvestPost> postList = postDAO.selectFilteredInvestPostList(investStyleForFiltering, stockItemNameForFiltering
+				, investmentOpinionForFiltering, investmentProcessForFiltering);
+		
+		List<InvestPostWithOthers> postWithOthersList = new ArrayList<>();
+		
+		String type = "invest";
+		for(InvestPost post:postList) {
+			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
+			
+			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
+			int likeCount = likeBO.countLike(post.getId(), type);
+			
+			InvestPostWithOthers postWithOthers = new InvestPostWithOthers();
+			postWithOthers.setInvestPost(post);
+			postWithOthers.setCommentList(commentList);
+			postWithOthers.setLike(isLike);
+			postWithOthers.setLikeCount(likeCount);
+			
+			postWithOthersList.add(postWithOthers);
+		}
+		
+		return postWithOthersList;
+	}
+
 	
 	public List<GossipPostWithOthers> getGossipPostList(int myUserId, String corporation) {
 		
