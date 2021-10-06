@@ -65,94 +65,103 @@
 	<hr>
 	
 	<section>
-        <h3>${myInfo.location }</h3>
+        <h3 class="text-center">${myInfo.location }</h3>
         <!--  -->
-        <c:choose>
-	        <c:when test="${empty myInfo.location }">
-	        	<h3>위치설정이 안돼있어요, 위치설정을 하면 게시글들이 보입니다</h3>
-	        </c:when>
-	        <c:otherwise>
-	        	<div class="post-timeline-box">
-	        		<c:forEach var="postWithOthers" items="${postList }">
-						<!-- 보여지는 지역커뮤니티 게시글 -->
-						<div class="card mt-3">			
-							<!-- 글 시작부분 -->
-							<div class="d-flex justify-content-between p-2 border-bottom">
-								
-								<!-- 글쓴이 -->
-								<div>
-									<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
-									<a href="/post/individual_home_view?userId=${postWithOthers.localPost.userId }" class="homeLink">
-										${postWithOthers.localPost.userNickName }
-									</a>
-								</div>
-								${postWithOthers.localPost.userLocation }
-								<!-- 좋아요 -->
-								<div>
-									<a href="#" class="likeBtn" data-post-id="${postWithOthers.localPost.id }">
+        <div class="d-flex justify-content-center">
+	        <c:choose>
+		        <c:when test="${empty myInfo.location }">
+		        	<h3>위치설정이 안돼있어요, 위치설정을 하면 게시글들이 보입니다</h3>
+		        </c:when>
+		        <c:otherwise>
+		        	<div class="post-timeline-box">
+		        		<c:forEach var="postWithOthers" items="${postList }">
+							<!-- 보여지는 지역커뮤니티 게시글 -->
+							<div class="card mt-3">			
+								<!-- 글 시작부분 -->
+								<div class="d-flex justify-content-between p-2 border-bottom">
+									
+									<!-- 글쓴이 -->
+									<div>
 										<c:choose>
-											<c:when test="${postWithOthers.like }" >
-												<i class="bi bi-heart-fill heart-icon text-danger" data-status="like" id="heartIcon-${postWithOthers.localPost.id }"></i>
+											<c:when test="${!empty postWithOthers.writerProfileImage }" >
+												<img src="${postWithOthers.writerProfileImage }" width="30" height="30">
 											</c:when>
 											<c:otherwise>
-												<i class="bi bi-heart heart-icon text-dark" id="heartIcon-${postWithOthers.localPost.id }"></i>	
+												<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">	
 											</c:otherwise>
-										</c:choose>
-									</a>
-									<span class="middle-size ml-1"> 
-										좋아요 <span id="likeCount-${postWithOthers.localPost.id }" >${postWithOthers.likeCount }</span>개 
-									</span>
-								</div>
-								
-								<%-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 --%>
-								<c:if test="${postWithOthers.localPost.userId eq userId}">
-									<div class="more-icon" >
-										<a href="#" class="text-dark moreBtn"> 
-											<i class="bi bi-three-dots-vertical"></i> 
+										</c:choose>							
+										<a href="/post/individual_home_view?userId=${postWithOthers.localPost.userId }" class="homeLink">
+											${postWithOthers.localPost.userNickName }
 										</a>
 									</div>
-								</c:if>
-								
-							</div>
-							<!-- /글 시작부분 -->
-							
-							<!-- 내용 -->
-							<div class="middle-size m-2">
-								${postWithOthers.localPost.content }
-								<img src="${postWithOthers.localPost.imagePath }" width="100">
-							</div>
-							
-							<!-- 댓글 -->
-							<div class="mt-2">
-							
-								<div class="border-bottom m-2">
-									<span class="middle-size">댓글</span>
+									${postWithOthers.localPost.userLocation }
+									<!-- 좋아요 -->
+									<div>
+										<a href="#" class="likeBtn" data-post-id="${postWithOthers.localPost.id }">
+											<c:choose>
+												<c:when test="${postWithOthers.like }" >
+													<i class="bi bi-heart-fill heart-icon text-danger" data-status="like" id="heartIcon-${postWithOthers.localPost.id }"></i>
+												</c:when>
+												<c:otherwise>
+													<i class="bi bi-heart heart-icon text-dark" id="heartIcon-${postWithOthers.localPost.id }"></i>	
+												</c:otherwise>
+											</c:choose>
+										</a>
+										<span class="middle-size ml-1"> 
+											좋아요 <span id="likeCount-${postWithOthers.localPost.id }" >${postWithOthers.likeCount }</span>개 
+										</span>
+									</div>
+									
+									<%-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 --%>
+									<c:if test="${postWithOthers.localPost.userId eq userId}">
+										<div class="more-icon" >
+											<a href="#" class="text-dark moreBtn"> 
+												<i class="bi bi-three-dots-vertical"></i> 
+											</a>
+										</div>
+									</c:if>
+									
 								</div>
+								<!-- /글 시작부분 -->
 								
-								<!--  댓글현황  -->
+								<!-- 내용 -->
 								<div class="middle-size m-2">
-									<c:forEach var="comment" items="${postWithOthers.commentList }" >
-											<div class="mt-1">
-												<b>${comment.userNickName }</b> ${comment.content }
-											</div>
-									</c:forEach>
+									${postWithOthers.localPost.content }
+									<img src="${postWithOthers.localPost.imagePath }" width="100">
 								</div>
 								
-								<!-- 댓글 입력 -->
-								<div class="d-flex mt-2 border-top">
-									<input type="text" class="form-control border-0 " id="commentInput-${postWithOthers.localPost.id }">
-									<button class="btn btn-info ml-2 commentBtn" data-post-id="${postWithOthers.localPost.id }">게시</button>
-								</div>
+								<!-- 댓글 -->
+								<div class="mt-2">
 								
+									<div class="border-bottom m-2">
+										<span class="middle-size">댓글</span>
+									</div>
+									
+									<!--  댓글현황  -->
+									<div class="middle-size m-2">
+										<c:forEach var="comment" items="${postWithOthers.commentList }" >
+												<div class="mt-1">
+													<b>${comment.userNickName }</b> ${comment.content }
+												</div>
+										</c:forEach>
+									</div>
+									
+									<!-- 댓글 입력 -->
+									<div class="d-flex mt-2 border-top">
+										<input type="text" class="form-control border-0 " id="commentInput-${postWithOthers.localPost.id }">
+										<button class="btn btn-info ml-2 commentBtn" data-post-id="${postWithOthers.localPost.id }">게시</button>
+									</div>
+									
+								</div>
+								<!-- /댓글 -->	
 							</div>
-							<!-- /댓글 -->	
-						</div>
-						<!-- /보여지는 지역커뮤니티 게시글-->
-					</c:forEach>
-	        	</div>
-	        	
-	        </c:otherwise>
-        </c:choose>
+							<!-- /보여지는 지역커뮤니티 게시글-->
+						</c:forEach>
+		        	</div>
+		        	
+		        </c:otherwise>
+	        </c:choose>
+        </div>
         
 	</section>
 	

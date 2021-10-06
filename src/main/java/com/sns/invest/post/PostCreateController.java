@@ -78,11 +78,10 @@ public class PostCreateController {
 			, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
+		int myUserId = (Integer)session.getAttribute("userId");
 		String userNickName = (String)session.getAttribute("userNickName");
-		String userLocation = (String)session.getAttribute("userLocation");
 		
-		int count = postBO.addLocalPost(userId, userNickName, userLocation, content, file);
+		int count = postBO.addLocalPost(myUserId, userNickName, content, file);
 		
 		Map<String, String> result = new HashMap<>();
 		

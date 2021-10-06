@@ -11,6 +11,15 @@ public class GossipPostWithOthers {
 	private List<Comment> commentList;
 	private boolean isLike;
 	private int likeCount;
+	private String writerProfileImage;
+	
+	public String getWriterProfileImage() {
+		return writerProfileImage;
+	}
+	public void setWriterProfileImage(String writerProfileImage) {
+		this.writerProfileImage = writerProfileImage;
+	}
+
 	
 	public GossipPost getGossipPost() {
 		return gossipPost;

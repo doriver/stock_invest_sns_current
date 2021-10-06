@@ -65,12 +65,14 @@
 	<hr>
 	
 	<section>
-		<select id="corporation">
-   			<option>관심종목</option>
-   			<option>카카오게임즈</option>
-   			<option>펄어비스</option>
-        </select>
-        <h3>${corporation }</h3>
+		<div class="d-flex justify-content-center">
+			<select id="corporation">
+	   			<option>관심종목</option>
+	   			<option>카카오게임즈</option>
+	   			<option>펄어비스</option>
+	        </select>
+		</div>
+        <h3 class="text-center">${corporation }</h3>
         <div class="d-flex justify-content-center">
 	        <div class="post-timeline-box">
 				<c:forEach var="postWithOthers" items="${postList }">
@@ -81,7 +83,15 @@
 							
 							<!-- 글쓴이 -->
 							<div>
-								<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
+								<c:choose>
+									<c:when test="${!empty postWithOthers.writerProfileImage }" >
+										<img src="${postWithOthers.writerProfileImage }" width="30" height="30">
+									</c:when>
+									<c:otherwise>
+										<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">	
+									</c:otherwise>
+								</c:choose>							
+							
 								<a href="/post/individual_home_view?userId=${postWithOthers.gossipPost.userId }" class="homeLink">
 									${postWithOthers.gossipPost.userNickName }
 								</a>

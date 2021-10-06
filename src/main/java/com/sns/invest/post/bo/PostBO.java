@@ -14,6 +14,7 @@ import com.sns.invest.post.model.invest.InvestPost;
 import com.sns.invest.post.model.invest.InvestPostWithOthers;
 import com.sns.invest.post.model.local.LocalPost;
 import com.sns.invest.post.model.local.LocalPostWithOthers;
+import com.sns.invest.user.bo.UserBO;
 import com.sns.invest.comment.bo.CommentBO;
 import com.sns.invest.common.FileManagerService;
 import com.sns.invest.post.dao.PostDAO;
@@ -30,6 +31,9 @@ public class PostBO {
 	
 	@Autowired
 	private LikeBO likeBO;
+	
+	@Autowired
+	private UserBO userBO;
 	
 	public int addPost(int userId, String userNickName, String content, MultipartFile file
 			, String investStyle, String stockItemName, String investmentOpinion, String investmentProcess) {
@@ -68,11 +72,14 @@ public class PostBO {
 			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
 			
+			String writerProfileImage = userBO.getProfileImage(post.getUserId());
+			
 			InvestPostWithOthers postWithOthers = new InvestPostWithOthers();
 			postWithOthers.setInvestPost(post);
 			postWithOthers.setCommentList(commentList);
 			postWithOthers.setLike(isLike);
 			postWithOthers.setLikeCount(likeCount);
+			postWithOthers.setWriterProfileImage(writerProfileImage);
 			
 			postWithOthersList.add(postWithOthers);
 		}
@@ -115,7 +122,7 @@ public class PostBO {
 		} else {
 			postList = postDAO.selectGossipPostListByCorporation(corporation);
 		}
-		
+	
 		List<GossipPostWithOthers> postWithOthersList = new ArrayList<>();
 		
 		String type = "gossip";
@@ -125,12 +132,15 @@ public class PostBO {
 			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
 			
+			String writerProfileImage = userBO.getProfileImage(post.getUserId());
+			
 			GossipPostWithOthers postWithOthers = new GossipPostWithOthers();
 			postWithOthers.setGossipPost(post);
 			postWithOthers.setCommentList(commentList);
 			postWithOthers.setLike(isLike);
 			postWithOthers.setLikeCount(likeCount);
-			
+			postWithOthers.setWriterProfileImage(writerProfileImage);
+
 			postWithOthersList.add(postWithOthers);
 		}
 		
@@ -153,11 +163,15 @@ public class PostBO {
 			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
 			
+			String writerProfileImage = userBO.getProfileImage(post.getUserId());
+
+			
 			LocalPostWithOthers postWithOthers = new LocalPostWithOthers();
 			postWithOthers.setLocalPost(post);
 			postWithOthers.setCommentList(commentList);
 			postWithOthers.setLike(isLike);
 			postWithOthers.setLikeCount(likeCount);
+			postWithOthers.setWriterProfileImage(writerProfileImage);
 			
 			postWithOthersList.add(postWithOthers);
 		}
@@ -165,7 +179,7 @@ public class PostBO {
 		return postWithOthersList;
 	}
 
-	public int addLocalPost(int userId, String userNickName, String userLocation,
+	public int addLocalPost(int myUserId, String userNickName,
 			String content, MultipartFile file) {
 		
 		String filePath = null;
@@ -173,7 +187,7 @@ public class PostBO {
 		if(file != null) {
 			FileManagerService fileManager = new FileManagerService();
 			
-			filePath = fileManager.saveFile(userId, file);
+			filePath = fileManager.saveFile(myUserId, file);
 			
 			if(filePath == null) {
 				return -1;
@@ -187,7 +201,9 @@ public class PostBO {
 //			return -1;
 //		}
 		
-		return postDAO.insertLocalPost(userId, userNickName, userLocation, content, filePath);
+		String myLocation = userBO.getlocation(myUserId);
+		
+		return postDAO.insertLocalPost(myUserId, userNickName, myLocation, content, filePath);
 	}
 
 }

@@ -287,7 +287,7 @@
 					<div>
 						<b>위치설정</b>
 						<input type="text" class="form-control" id="locationInput">
-						<button id="locationCompletion">위치설정 완료</button>
+						<button class="btn" id="locationCompletion">위치설정 완료</button>
 					</div>
 	      		</div>
 	    	</div>
@@ -434,12 +434,12 @@
 
 			// <위치설정>
 			$("#locationCompletion").on("click", function() {
-				var location = $("#locationInput").val().trim();
+				var userLocation = $("#locationInput").val().trim();
 				
 				$.ajax({
 					type:"get",
 					url:"/user/location",
-					data:{"location":location},
+					data:{"location":userLocation},
 					success:function(data) {
 						if(data.result == "success") {
 							alert("위치설정 성공");

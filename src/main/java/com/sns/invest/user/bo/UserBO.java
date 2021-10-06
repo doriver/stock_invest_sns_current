@@ -78,4 +78,12 @@ public class UserBO {
 	
 		return userDAO.updateUserProfile(userId, profileStatusMessage, filePath);
 	}
+	
+	public String getProfileImage(int userId) {
+		return userDAO.selectUserProfileImage(userId);
+	}
+
+	public String getlocation(int myUserId) {
+		return userDAO.selectUserLocation(myUserId);
+	}
 }

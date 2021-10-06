@@ -44,7 +44,7 @@ public interface PostDAO {
 			@Param("userLocation") String userLocation);
 
 	public int insertLocalPost(
-			@Param("userId") int userId
+			@Param("userId") int myUserId
 			, @Param("userNickName") String userNickName
 			, @Param("userLocation") String userLocation
 			, @Param("content") String content

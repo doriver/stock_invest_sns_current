@@ -30,4 +30,10 @@ public interface UserDAO {
 			@Param("userId") int userId
 			, @Param("profileStatusMessage") String profileStatusMessage
 			, @Param("filePath") String filePath);
+	
+	public String selectUserProfileImage(
+			@Param("userId") int userId);
+
+	public String selectUserLocation(
+			@Param("userId") int myUserId);
 }
