@@ -18,50 +18,13 @@
 </head>
 <body>
 	<header class="d-flex">
-		<div class="col-4 d-flex">
-			<div class="dropdown">
-			  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">				
-			  	<img src="https://cdn.pixabay.com/photo/2021/09/09/04/26/coins-6609452_960_720.jpg" width="50" height="50">
-			  </a>
-			  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-				<a class="dropdown-item" href="/post/invest_view">투자게시판</a>
-			    <a class="dropdown-item" href="/post/local_view">지역커뮤니티</a>
-			    <a class="dropdown-item" href="/post/gossip_view">가십게시판</a>
-			  </div>
-			</div>
-			<h2 class="text-danger pt-2">투자SNS</h2>
-		</div>
+		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
 		<div class="col-4 d-flex justify-content-center">
-			<h3 class="pt-3 text-danger">투자게시판</h3>
+			<h2 class="pt-3 text-danger">투자게시판</h2>
 		</div>
-		
-		<div class="col-4 d-flex justify-content-end">
-		 	<div class="pt-4 user">
-			 	<b>${userNickName }님</b>
-		 	</div>
-			<div class="dropdown">
-			  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">				
-				<c:choose>
-					<c:when test="${!empty myInfo.profileImage }" >
-						<img src="${myInfo.profileImage }" width="50" height="50">
-					</c:when>
-					<c:otherwise>
-						<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="50" height="50">
-					</c:otherwise>
-				</c:choose> 
-			  </a>
-			  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-			    <a class="dropdown-item" href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
-						글쓰기 
-				</a>
-			    <a class="dropdown-item" href="/post/individual_home_view?userId=${userId }">개인 홈</a>
-			    <a class="dropdown-item" href="/user/sign_out">로그아웃</a>
-			  </div>
-			</div>
-		</div>
+		<c:import url="/WEB-INF/jsp/include/userSector.jsp" />
 	</header>
 	<hr>
-	
 	<section class="d-flex">
 		<div class="col-2">
 			<div class="card">
@@ -214,10 +177,7 @@
 
 	</section>
 	
-	<footer>
-	<hr>
-		copyright ~~
-	</footer>
+	<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	
 	<!-- 글쓰기Modal -->
 	<div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -253,21 +213,16 @@
             			<option>영감</option>
         			</select>
 				</div>
-			
+		
 				<div class="border rounded mt-1">
-					<textarea class="form-control w-100 non-resize" rows=4 id="contentInput">
-						텍스트 쓰는곳
-					</textarea>			
-				</div>
-				
-				<!--  이미지  -->
-				<div class="image-input-box border rounded mt-1">
-					이미지 파일 반영되는곳<br>
-					<input type="file" class="input-control" id="fileInput">
-					<a href="#" id="imageUploadBtn"><i class="bi bi-image"></i></a>
-				</div>
-				
-				<button class="btn btn-sm btn-info" id="uploadBtn">업로드</button>
+					<textarea class="form-control w-100 border-0 non-resize" rows=4 id="contentInput"></textarea>			
+					<!--  이미지  -->
+					<div class="d-flex justify-content-between m-2">
+						<input type="file" class="input-control d-none" id="fileInput">
+						<a href="#" id="imageUploadBtn"><i class="bi bi-image image-upload-icon"></i></a>
+						<button class="btn btn-sm btn-info" id="uploadBtn">업로드</button>
+					</div>
+				</div>				
 			</div>
 			<!--  /게시글 작성  -->
 	      </div>
@@ -284,8 +239,7 @@
 	      
 	      <div class="modal-body text-center">
 	        <a href="#" id="deleteBtn" >삭제하기 </a>
-	        <hr>
-	        <a href="#">수정하기</a>
+	   
 	      </div>
 	  
 	    </div>

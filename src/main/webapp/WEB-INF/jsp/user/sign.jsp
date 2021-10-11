@@ -50,10 +50,8 @@
 			<button type="submit" id="signUpBtn" class="btn btn-info btn-block mt-3">회원가입</button>
 		</form>
 	</section>
-	<footer>
-		<hr>
-		copyright ~~
-	</footer>
+	
+	<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	
 	<script type="text/javascript">
 		$(document).ready(function() {

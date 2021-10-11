@@ -18,52 +18,13 @@
 </head>
 <body>
 	<header class="d-flex">
-		<div class="col-4 d-flex">
-			<div class="dropdown">
-			  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">				
-			  	<img src="https://cdn.pixabay.com/photo/2021/09/09/04/26/coins-6609452_960_720.jpg" width="50" height="50">
-			  </a>
-			  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-				<a class="dropdown-item" href="/post/invest_view">투자게시판</a>
-			    <a class="dropdown-item" href="/post/local_view">지역커뮤니티</a>
-			    <a class="dropdown-item" href="/post/gossip_view">가십게시판</a>
-			  </div>
-			</div>
-			<h2 class="text-danger pt-2">투자SNS</h2>
-		</div>
-		
+		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
 		<div class="col-4 d-flex justify-content-center">
-			<h3 class="pt-3 text-danger">지역커뮤니티</h3>
+			<h2 class="pt-3 text-danger">지역커뮤니티</h2>
 		</div>
-
-		<div class="col-4 d-flex justify-content-end">
-		 	<div class="pt-4 user">
-			 	${userNickName }님
-		 	</div>
-			<div class="dropdown">
-			  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">				
-				<c:choose>
-					<c:when test="${!empty myInfo.profileImage }" >
-						<img src="${myInfo.profileImage }" width="50" height="50">
-					</c:when>
-					<c:otherwise>
-						<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
-					</c:otherwise>
-				</c:choose> 
-			  </a>
-			  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-			    <a class="dropdown-item" href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
-						글쓰기 
-				</a>
-			    <a class="dropdown-item" href="/post/individual_home_view?userId=${userId }">개인 홈</a>
-			    <a class="dropdown-item" href="/user/sign_out">로그아웃</a>
-			  </div>
-			</div>
-		</div>
+		<c:import url="/WEB-INF/jsp/include/userSector.jsp" />
 	</header>
-	
 	<hr>
-	
 	<section>
         <h3 class="text-center">${myInfo.location }</h3>
         <!--  -->
@@ -115,7 +76,7 @@
 									<%-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 --%>
 									<c:if test="${postWithOthers.localPost.userId eq userId}">
 										<div class="more-icon" >
-											<a href="#" class="text-dark moreBtn"> 
+											<a href="#" class="text-dark moreBtn" data-toggle="modal" data-target="#postEditModal" data-post-id="${postWithOthers.localPost.id }"> 
 												<i class="bi bi-three-dots-vertical"></i> 
 											</a>
 										</div>
@@ -165,12 +126,9 @@
         
 	</section>
 	
-	<footer>
-	<hr>
-		copyright ~~
-	</footer>
+	<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	
-	<!-- 모달의 a태그에 data-post-id 의 값을 더보기 클릭시마다 바꿔준다.   -->
+	
 	<!-- Modal -->
 	<div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
@@ -180,21 +138,15 @@
 	        <!--  게시글 작성  -->
 			<div>
 				<h3>지역커뮤니티 게시글 작성</h3>
-			
 				<div class="border rounded mt-1">
-					<textarea class="form-control w-100 non-resize" rows=4 id="contentInput">
-						텍스트 쓰는곳
-					</textarea>			
-				</div>
-				
-				<!--  이미지  -->
-				<div class="image-input-box border rounded mt-1">
-					이미지 파일 반영되는곳<br>
-					<input type="file" class="input-control" id="fileInput">
-					<a href="#" id="imageUploadBtn"><i class="bi bi-image"></i></a>
-				</div>
-								
-				<button class="btn btn-sm btn-info" id="uploadBtn">업로드</button>
+					<textarea class="form-control w-100 border-0 non-resize" rows=4 id="contentInput"></textarea>			
+					<!--  이미지  -->
+					<div class="d-flex justify-content-between m-2">
+						<input type="file" class="input-control d-none" id="fileInput">
+						<a href="#" id="imageUploadBtn"><i class="bi bi-image image-upload-icon"></i></a>
+						<button class="btn btn-sm btn-info" id="uploadBtn">업로드</button>
+					</div>
+				</div>		
 			</div>
 			<!--  /게시글 작성  -->
 
@@ -204,6 +156,21 @@
 	  </div>
 	</div>
 	<!-- /Modal -->
+	
+		<!-- 모달의 a태그에 data-post-id 의 값을 더보기 클릭시마다 바꿔준다.  -->
+	<!-- 글수정Modal -->
+	<div class="modal fade" id="postEditModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      
+	      <div class="modal-body text-center">
+	        <a href="#" id="deleteBtn" >삭제하기 </a>
+	      </div>
+	  
+	    </div>
+	  </div>
+	</div>
+	<!-- /글수정Modal -->	
 	
 	<script>
 		$(document).ready(function() {
@@ -243,8 +210,12 @@
 				
 			});		
 	     	// </업로드>
-
-			// <댓글 입력>
+			
+	     	$("#imageUploadBtn").on("click", function() {
+								$("#fileInput").click();
+			});
+			
+	     	// <댓글 입력>
 			$(".commentBtn").on("click", function() {
 				var postId = $(this).data("post-id");
 				
@@ -258,7 +229,7 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/comment/create/gossip",
+					url:"/comment/create/local",
 					data:{"postId":postId, "content":comment},
 					success:function(data) {
 						if(data.result == "success") {

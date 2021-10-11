@@ -19,54 +19,17 @@
 </head>
 <body>
 	<header class="d-flex">
-		<div class="col-4 d-flex">
-			<div class="dropdown">
-			  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">				
-			  	<img src="https://cdn.pixabay.com/photo/2021/09/09/04/26/coins-6609452_960_720.jpg" width="50" height="50">
-			  </a>
-			  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-				<a class="dropdown-item" href="/post/invest_view">투자게시판</a>
-			    <a class="dropdown-item" href="/post/local_view">지역커뮤니티</a>
-			    <a class="dropdown-item" href="/post/gossip_view">가십게시판</a>
-			  </div>
-			</div>
-			<h2 class="text-danger pt-2">투자SNS</h2>
-		</div>
+		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
 		<div class="col-4 d-flex justify-content-center">
-			<h3 class="pt-3 text-danger">개인홈</h3>
+			<h2 class="pt-3 text-danger">개인홈</h2>
 		</div>
-		
-		<div class="col-4 d-flex justify-content-end">
-		 	<div class="pt-4 user">
-			 	<b>${userNickName }님</b>
-		 	</div>
-			<div class="dropdown">
-			  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">				
-				<c:choose>
-					<c:when test="${!empty userInfo.profileImage }" >
-						<img src="${userInfo.profileImage }" width="50" height="50">
-					</c:when>
-					<c:otherwise>
-						<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="50" height="50">
-					</c:otherwise>
-				</c:choose> 
-			  </a>
-			  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-			    <a class="dropdown-item" href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
-						글쓰기 
-				</a>
-			    <a class="dropdown-item" href="/post/individual_home_view?userId=${userId }">개인 홈</a>
-			    <a class="dropdown-item" href="/user/sign_out">로그아웃</a>
-			  </div>
-			</div>
-		</div>
-
+		<c:import url="/WEB-INF/jsp/include/userSector.jsp" />
 	</header>
 	<hr>
 	<section>
 		<div class="d-flex">
 			
-			<div class="col-2 d-flex justify-content-center">
+			<div class="col-2 d-flex">
 				<!-- 개인 프로필 -->
 				<div class="profile-box">
 					<h3>프로필</h3>
@@ -113,84 +76,92 @@
 								<b>위치설정 안되있음</b>
 							</c:otherwise>
 						</c:choose>
+
+						<c:if test="${userId eq userInfo.id }">
+							<!-- 다음 우편번호서비스 변형 -->
+						    <div class="input-group location-setting">
+							    <span class="input-group-btn">
+									<button type="button" class="btn" onclick="sample2_execDaumPostcode()">주소찾기</button>
+							    </span>
+							    <input type="text" class="form-control" id="locationInput" placeholder="주소">
+						    </div><!-- /input-group -->
+							<input type="button" id="locationCompletion" value="위치설정 완료">
+		
+							<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
+							<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+							<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+							</div>
+							
+							<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+							<script>
+							    // 우편번호 찾기 화면을 넣을 element
+							    var element_layer = document.getElementById('layer');
+							
+							    function closeDaumPostcode() {
+							        // iframe을 넣은 element를 안보이게 한다.
+							        element_layer.style.display = 'none';
+							    }
+							
+							    function sample2_execDaumPostcode() {
+							        new daum.Postcode({
+							            oncomplete: function(data) {
+							                // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+											// data는 사용자가 선택한 주소 정보를 담고 있는 객체
+							                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+							                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+							                var addr = ''; // 주소 변수
+							                var extraAddr = ''; // 참고항목 변수
+							
+							                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+							                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+							                    addr = data.roadAddress;
+							                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+							                    addr = data.jibunAddress;
+							                }
+							
+							                // 우편번호와 주소 정보를 해당 필드에 넣는다.
 						
-						<!-- 다음 우편번호서비스 변형 -->
-						<input type="button" onclick="sample2_execDaumPostcode()" value="주소 찾기">
-						<input type="text" id="locationInput" placeholder="주소">
-						<input type="button" class="btn" id="locationCompletion" value="위치설정 완료">
-	
-						<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
-						<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
-						<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
-						</div>
+							                document.getElementById("locationInput").value = addr;
+							                // 커서를 상세주소 필드로 이동한다.
 						
-						<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-						<script>
-						    // 우편번호 찾기 화면을 넣을 element
-						    var element_layer = document.getElementById('layer');
+							
+							                // iframe을 넣은 element를 안보이게 한다.
+							                // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
+							                element_layer.style.display = 'none';
+							            },
+							            width : '100%',
+							            height : '100%',
+							            maxSuggestItems : 5
+							        }).embed(element_layer);
+							
+							        // iframe을 넣은 element를 보이게 한다.
+							        element_layer.style.display = 'block';
+							
+							        // iframe을 넣은 element의 위치를 화면의 가운데로 이동시킨다.
+							        initLayerPosition();
+							    }
+							
+							    // 브라우저의 크기 변경에 따라 레이어를 가운데로 이동시키고자 하실때에는
+							    // resize이벤트나, orientationchange이벤트를 이용하여 값이 변경될때마다 아래 함수를 실행 시켜 주시거나,
+							    // 직접 element_layer의 top,left값을 수정해 주시면 됩니다.
+							    function initLayerPosition(){
+							        var width = 300; //우편번호서비스가 들어갈 element의 width
+							        var height = 400; //우편번호서비스가 들어갈 element의 height
+							        var borderWidth = 5; //샘플에서 사용하는 border의 두께
+							
+							        // 위에서 선언한 값들을 실제 element에 넣는다.
+							        element_layer.style.width = width + 'px';
+							        element_layer.style.height = height + 'px';
+							        element_layer.style.border = borderWidth + 'px solid';
+							        // 실행되는 순간의 화면 너비와 높이 값을 가져와서 중앙에 뜰 수 있도록 위치를 계산한다.
+							        element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
+							        element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
+							    }
+							</script>
+							<!-- /다음 우편번호서비스 변형 -->	
+						</c:if>
+
 						
-						    function closeDaumPostcode() {
-						        // iframe을 넣은 element를 안보이게 한다.
-						        element_layer.style.display = 'none';
-						    }
-						
-						    function sample2_execDaumPostcode() {
-						        new daum.Postcode({
-						            oncomplete: function(data) {
-						                // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-										// data는 사용자가 선택한 주소 정보를 담고 있는 객체
-						                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-						                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-						                var addr = ''; // 주소 변수
-						                var extraAddr = ''; // 참고항목 변수
-						
-						                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-						                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-						                    addr = data.roadAddress;
-						                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-						                    addr = data.jibunAddress;
-						                }
-						
-						                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-					
-						                document.getElementById("locationInput").value = addr;
-						                // 커서를 상세주소 필드로 이동한다.
-					
-						
-						                // iframe을 넣은 element를 안보이게 한다.
-						                // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
-						                element_layer.style.display = 'none';
-						            },
-						            width : '100%',
-						            height : '100%',
-						            maxSuggestItems : 5
-						        }).embed(element_layer);
-						
-						        // iframe을 넣은 element를 보이게 한다.
-						        element_layer.style.display = 'block';
-						
-						        // iframe을 넣은 element의 위치를 화면의 가운데로 이동시킨다.
-						        initLayerPosition();
-						    }
-						
-						    // 브라우저의 크기 변경에 따라 레이어를 가운데로 이동시키고자 하실때에는
-						    // resize이벤트나, orientationchange이벤트를 이용하여 값이 변경될때마다 아래 함수를 실행 시켜 주시거나,
-						    // 직접 element_layer의 top,left값을 수정해 주시면 됩니다.
-						    function initLayerPosition(){
-						        var width = 300; //우편번호서비스가 들어갈 element의 width
-						        var height = 400; //우편번호서비스가 들어갈 element의 height
-						        var borderWidth = 5; //샘플에서 사용하는 border의 두께
-						
-						        // 위에서 선언한 값들을 실제 element에 넣는다.
-						        element_layer.style.width = width + 'px';
-						        element_layer.style.height = height + 'px';
-						        element_layer.style.border = borderWidth + 'px solid';
-						        // 실행되는 순간의 화면 너비와 높이 값을 가져와서 중앙에 뜰 수 있도록 위치를 계산한다.
-						        element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
-						        element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
-						    }
-						</script>
-						<!-- /다음 우편번호서비스 변형 -->	
 					</div>
 					
 				</div>
@@ -200,7 +171,7 @@
 			<div class="col-8 d-flex justify-content-center">
 				<!-- 개인의 투자 게시글 -->
 				<div class="post-timeline-box">
-					<h3>${userInfo.nickName }님이 쓴 글들</h3>
+					<h3>${userInfo.nickName }님의 개인홈</h3>
 					<c:forEach var="postWithOthers" items="${postList }">
 						<div class="card mt-3">			
 							<!-- 글 시작부분 -->
@@ -208,9 +179,7 @@
 								
 								<!-- 작성,업데이트 시간 -->
 								<div>
-									작성:<fmt:formatDate value="${postWithOthers.investPost.createdAt }" pattern="yy년 M월 d일 HH시 mm분" /> 
-									<br>
-									업데이트:<fmt:formatDate value="${postWithOthers.investPost.updatedAt }" pattern="M월 d일 HH시 mm분" /> 	
+									작성시간:<fmt:formatDate value="${postWithOthers.investPost.createdAt }" pattern="yy년 M월 d일 HH시 mm분" /> 	
 								</div>
 								
 								<!-- 좋아요 -->
@@ -233,7 +202,7 @@
 								<%-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 --%>
 								<c:if test="${postWithOthers.investPost.userId eq userId}">
 									<div class="more-icon" >
-										<a href="#" class="text-dark moreBtn"> 
+										<a href="#" class="text-dark moreBtn" data-toggle="modal" data-target="#postEditModal" data-post-id="${postWithOthers.investPost.id }"> 
 											<i class="bi bi-three-dots-vertical"></i> 
 										</a>
 									</div>
@@ -249,9 +218,9 @@
 							</div>
 							
 							<!-- 내용 -->
-							<div class="middle-size m-2">
+							<div class="middle-size m-2 d-flex justify-content-between">
 								${postWithOthers.investPost.content }
-								<img src="${postWithOthers.investPost.imagePath }" width="100">
+								<img src="${postWithOthers.investPost.imagePath }" width="285">
 							</div>
 							
 							<!-- 댓글 -->
@@ -288,10 +257,7 @@
 		</div>
 	</section>
 	
-	<footer>
-	<hr>
-		copyright ~~
-	</footer>
+	<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	
 	<!-- 글쓰기Modal -->
 	<div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -327,21 +293,15 @@
             			<option>영감</option>
         			</select>
 				</div>
-			
 				<div class="border rounded mt-1">
-					<textarea class="form-control w-100 non-resize" rows=4 id="contentInput">
-						텍스트 쓰는곳
-					</textarea>			
+					<textarea class="form-control w-100 border-0 non-resize" rows=4 id="contentInput"></textarea>			
+					<!--  이미지  -->
+					<div class="d-flex justify-content-between m-2">
+						<input type="file" class="input-control d-none" id="fileInput">
+						<a href="#" id="imageUploadBtn"><i class="bi bi-image image-upload-icon"></i></a>
+						<button class="btn btn-sm btn-info" id="uploadBtn">업로드</button>
+					</div>
 				</div>
-				
-				<!--  이미지  -->
-				<div class="image-input-box border rounded mt-1">
-					이미지 파일 반영되는곳<br>
-					<input type="file" class="input-control" id="fileInput">
-					<a href="#" id="imageUploadBtn"><i class="bi bi-image"></i></a>
-				</div>
-				
-				<button class="btn btn-sm btn-info" id="uploadBtn">업로드</button>
 			</div>
 			<!--  /게시글 작성  -->
 	      </div>
@@ -370,6 +330,21 @@
 		</div>
 	</div>
 	<!-- /프로필Modal -->	
+	
+	<!-- 모달의 a태그에 data-post-id 의 값을 더보기 클릭시마다 바꿔준다.  -->
+	<!-- 글수정Modal -->
+	<div class="modal fade" id="postEditModal" tabindex="-1" role="dialog" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      
+	      <div class="modal-body text-center">
+	        <a href="#" id="deleteBtn" >삭제하기 </a>
+	      </div>
+	  
+	    </div>
+	  </div>
+	</div>
+	<!-- /글수정Modal -->	
 	
 	<script>
 		$(document).ready(function() {
@@ -452,7 +427,7 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/comment/create",
+					url:"/comment/create/invest",
 					data:{"postId":postId, "content":comment},
 					success:function(data) {
 						if(data.result == "success") {
@@ -475,7 +450,7 @@
 				
 				$.ajax({
 					type:"get",
-					url:"/post/like",
+					url:"/post/like/invest",
 					data:{"postId": postId},
 					success:function(data) {
 						// 좋아요

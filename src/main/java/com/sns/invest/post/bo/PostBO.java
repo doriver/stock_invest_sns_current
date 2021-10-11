@@ -127,11 +127,14 @@ public class PostBO {
 			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
 			
+			String writerProfileImage = userBO.getProfileImage(post.getUserId());
+		
 			InvestPostWithOthers postWithOthers = new InvestPostWithOthers();
 			postWithOthers.setInvestPost(post);
 			postWithOthers.setCommentList(commentList);
 			postWithOthers.setLike(isLike);
 			postWithOthers.setLikeCount(likeCount);
+			postWithOthers.setWriterProfileImage(writerProfileImage);
 			
 			postWithOthersList.add(postWithOthers);
 		}

@@ -1,15 +1,20 @@
 @charset "UTF-8";
 
-.image-input-box {
-	height:100px;
-}
 
+.image-upload-icon {
+	font-size:20px;
+	color:black;
+}
 .post-timeline-box {
 	width:600px;
 }
 
 .profile-box {
 	width:220px;
+}
+
+.location-setting {
+	width:300px;
 }
 
 .status-message-box {
@@ -23,6 +28,9 @@ header {
 	padding-top: 8px;
 }
 
+footer {
+	height:50px;
+}
 .user {
 	font-size:20px;
 }

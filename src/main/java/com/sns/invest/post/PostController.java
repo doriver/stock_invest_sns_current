@@ -82,18 +82,20 @@ public class PostController {
 	@GetMapping("/individual_home_view")
 	public String individualHome(
 			@RequestParam("userId") int userId
-//			, HttpServletRequest request
+			, HttpServletRequest request
 			, Model model) {
 
-//		HttpSession session = request.getSession();
-//		int myUserId = (Integer)session.getAttribute("userId");
+		HttpSession session = request.getSession();
+		int myUserId = (Integer)session.getAttribute("userId");
 
 		
 		User userInfo = userBO.userInformation(userId);
 		List<InvestPostWithOthers> postList = postBO.getInvestPostListByUserId(userId);
+		User myInfo = userBO.userInformation(myUserId);
 		
 		model.addAttribute("postList", postList);
 		model.addAttribute("userInfo", userInfo);
+		model.addAttribute("myInfo", myInfo);
 
 		return "post/individualHome";
 	}
