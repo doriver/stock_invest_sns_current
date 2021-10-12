@@ -13,8 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileManagerService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-//	private final String FILE_UPLOAD_PATH = "D:\\웹개발\\springTest\\upload\\invest\\images/";
-	private final String FILE_UPLOAD_PATH = "/home/ec2-user/upload_images/";
+	private final String FILE_UPLOAD_PATH = "D:\\웹개발\\springTest\\upload\\invest\\images/";
+//	private final String FILE_UPLOAD_PATH = "/home/ec2-user/upload_images/";
 	
 	// 파일 업로드 
 	public String saveFile(int userId, MultipartFile file) {
