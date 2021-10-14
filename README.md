@@ -29,3 +29,8 @@ https://docs.google.com/spreadsheets/d/1_QpRGkAXKIM6abuEIAi9KrX9PICSgYqVNsSVod2_
 * jQuery [MIT License](https://opensource.org/licenses/MIT)
 * 이미지 출처 : [pixabay](https://pixabay.com/ko/)
 ### 향후계획
+* 미완정 부분(글삭제 기능, 업로드 파일 저장경로 세분화)
+* 팔로우 기능
+* spring security
+* ip주소 반영한 위치정보 기능
+* 주식 계좌 연동(수익 인증)
