@@ -20,8 +20,14 @@ https://ovenapp.io/view/LVGYxw82CiHMl1DBVzYCRktvWCK4VJor/
 https://docs.google.com/spreadsheets/d/1_QpRGkAXKIM6abuEIAi9KrX9PICSgYqVNsSVod2_kko/edit#gid=0
 ### 데모
 * 회원가입,로그인,로그아웃
+![login](demo_gif/회원가입,로그인,로그아웃.gif)
+
 * 게시판 이동
+![boardList](demo_gif/게시판 이동.gif)
+
 * 위치청보 설정
+![location](demo_gif/위치정보, 지역커뮤니티.gif)
+
 ### 주요기능
 
 ### 외부 라이브러리 라이센스
