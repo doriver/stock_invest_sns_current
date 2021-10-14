@@ -18,8 +18,12 @@
 https://ovenapp.io/view/LVGYxw82CiHMl1DBVzYCRktvWCK4VJor/
 * DB, URL 설계   
 https://docs.google.com/spreadsheets/d/1_QpRGkAXKIM6abuEIAi9KrX9PICSgYqVNsSVod2_kko/edit#gid=0
-### 주요기능
 ### 데모
+* 회원가입,로그인,로그아웃
+* 게시판 이동
+* 위치청보 설정
+### 주요기능
+
 ### 외부 라이브러리 라이센스
 * Tomcat [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) 
 * Mysql [GPLv2 or proprietary](https://www.gnu.org/licenses/gpl-3.0.html)
