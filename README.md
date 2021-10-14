@@ -23,10 +23,10 @@ https://docs.google.com/spreadsheets/d/1_QpRGkAXKIM6abuEIAi9KrX9PICSgYqVNsSVod2_
 ![demo1](demo_gif/회원가입,로그인,로그아웃.gif)
 
 * 게시판 이동
-![demo2](demo_gif/게시판 이동.gif)
+![demo2](demo_gif/게시판이동.gif)
 
 * 위치청보 설정
-![demo3](demo_gif/위치정보, 지역커뮤니티.gif)
+![demo3](demo_gif/위치정보,지역커뮤니티.gif)
 
 
 ### 주요기능
