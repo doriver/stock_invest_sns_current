@@ -1,15 +1,12 @@
-package com.sns.invest.post.model.invest;
+package com.sns.invest.post.model.local;
 
 import java.util.Date;
 
-public class InvestPost {
+public class LocalPost {
 	private int id;
 	private int userId;
 	private String userNickName;
-	private String investStyle;
-	private String stockItemName;
-	private String investmentOpinion;
-	private String investmentProcess;
+	private String userLocation;
 	private String content;
 	private String imagePath;
 	private Date createdAt;
@@ -33,29 +30,11 @@ public class InvestPost {
 	public void setUserNickName(String userNickName) {
 		this.userNickName = userNickName;
 	}
-	public String getInvestStyle() {
-		return investStyle;
+	public String getUserLocation() {
+		return userLocation;
 	}
-	public void setInvestStyle(String investStyle) {
-		this.investStyle = investStyle;
-	}
-	public String getStockItemName() {
-		return stockItemName;
-	}
-	public void setStockItemName(String stockItemName) {
-		this.stockItemName = stockItemName;
-	}
-	public String getInvestmentOpinion() {
-		return investmentOpinion;
-	}
-	public void setInvestmentOpinion(String investmentOpinion) {
-		this.investmentOpinion = investmentOpinion;
-	}
-	public String getInvestmentProcess() {
-		return investmentProcess;
-	}
-	public void setInvestmentProcess(String investmentProcess) {
-		this.investmentProcess = investmentProcess;
+	public void setUserLocation(String userLocation) {
+		this.userLocation = userLocation;
 	}
 	public String getContent() {
 		return content;
@@ -81,4 +60,7 @@ public class InvestPost {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
+	
+
 }

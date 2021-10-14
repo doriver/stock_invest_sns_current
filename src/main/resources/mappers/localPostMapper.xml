@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.sns.invest.post.dao.PostDAO">
+ 	 <select id="selectLocalPostList" resultType="com.sns.invest.post.model.local.LocalPost">
+ 		SELECT 
+ 			`id`
+ 			, `userId`
+ 			, `userNickName`
+ 			, `userLocation`
+ 			, `content`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
+		FROM 
+			`local_post`
+		WHERE
+			`userLocation` = #{userLocation}		
+		ORDER BY `id` DESC
+ 	</select>
+ 	
+ 	<insert id="insertLocalPost" parameterType="map">
+ 		INSERT INTO `local_post`
+ 		(
+ 			`userId`
+ 			, `userNickName`
+ 			, `userLocation`
+ 			, `content`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		) VALUES (
+ 			#{userId}
+ 			, #{userNickName}
+ 			, #{userLocation}
+ 			, #{content}
+ 			, #{imagePath}
+ 			, now()
+ 			, now()
+ 		)
+ 	</insert>
+ 	
+ </mapper>

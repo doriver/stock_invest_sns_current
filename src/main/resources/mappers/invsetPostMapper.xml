@@ -49,4 +49,81 @@
 			`invest_post`
 		ORDER BY `id` DESC
  	</select>
+
+	<select id="selectInvestPostListByUserId" resultType="com.sns.invest.post.model.invest.InvestPost">
+ 		SELECT 
+ 			`id`
+ 			, `userId`
+ 			, `userNickName`
+ 			, `investStyle`
+ 			, `stockItemName`
+ 			, `investmentOpinion`
+ 			, `investmentProcess`
+ 			, `content`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
+		FROM 
+			`invest_post`
+		WHERE
+			`userId` = #{userId}
+		ORDER BY `id` DESC
+	</select>
+
+	<select id="selectFilteredInvestPostList" resultType="com.sns.invest.post.model.invest.InvestPost">
+ 		SELECT 
+ 			`id`
+ 			, `userId`
+ 			, `userNickName`
+ 			, `investStyle`
+ 			, `stockItemName`
+ 			, `investmentOpinion`
+ 			, `investmentProcess`
+ 			, `content`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
+		FROM 
+			`invest_post`
+		
+		<choose>
+			<when test="investStyleForFiltering != ''">
+			WHERE
+				`investStyle` = #{investStyleForFiltering}
+				<if test="stockItemNameForFiltering != ''">
+ 					AND `stockItemName` = #{stockItemNameForFiltering}
+				</if>
+				<if test="investmentOpinionForFiltering != ''">
+		 			AND `investmentOpinion` = #{investmentOpinionForFiltering}
+				</if>
+				<if test="investmentProcessForFiltering != ''">
+		 			AND `investmentProcess` = #{investmentProcessForFiltering}
+				</if>
+			</when>
+			<when test="stockItemNameForFiltering != ''">
+			WHERE
+				`stockItemName` = #{stockItemNameForFiltering}
+				<if test="investmentOpinionForFiltering != ''">
+		 			AND `investmentOpinion` = #{investmentOpinionForFiltering}
+				</if>
+				<if test="investmentProcessForFiltering != ''">
+		 			AND `investmentProcess` = #{investmentProcessForFiltering}
+				</if>
+			</when>
+			<when test="investmentOpinionForFiltering != ''">
+			WHERE
+		 		`investmentOpinion` = #{investmentOpinionForFiltering}
+				<if test="investmentProcessForFiltering != ''">
+		 			AND `investmentProcess` = #{investmentProcessForFiltering}
+				</if>
+			</when>
+			<when test="investmentProcessForFiltering != ''">
+			WHERE
+		 		investmentProcess` = #{investmentProcessForFiltering}
+			</when>
+		</choose>
+			
+			
+		ORDER BY `id` DESC
+	</select>
  </mapper>

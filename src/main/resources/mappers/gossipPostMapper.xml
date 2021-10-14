@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.sns.invest.post.dao.PostDAO">
+ 	 <select id="selectGossipPostList" resultType="com.sns.invest.post.model.gossip.GossipPost">
+ 		SELECT 
+ 			`id`
+ 			, `userId`
+ 			, `userNickName`
+ 			, `corporation`
+ 			, `content`
+ 			, `createdAt`
+ 			, `updatedAt`
+		FROM 
+			`gossip_post`
+		ORDER BY `id` DESC
+ 	</select>
+
+	<select id="selectGossipPostListByCorporation" resultType="com.sns.invest.post.model.gossip.GossipPost">
+ 		SELECT 
+ 			`id`
+ 			, `userId`
+ 			, `userNickName`
+ 			, `corporation`
+ 			, `content`
+ 			, `createdAt`
+ 			, `updatedAt`
+		FROM 
+			`gossip_post`
+		WHERE
+			`corporation` = #{corporation}
+		ORDER BY `id` DESC
+ 	</select>
+ 	
+ 	<insert id="insertGossipPost" parameterType="map">
+ 		INSERT INTO `gossip_post`
+ 		(
+ 			`userId`
+ 			, `userNickName`
+ 			, `corporation`
+ 			, `content`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		) VALUES (
+ 			#{userId}
+ 			, #{userNickName}
+			, #{corporation}
+ 			, #{content}
+ 			, now()
+ 			, now()
+ 		)
+ 	</insert>
+
+ </mapper>

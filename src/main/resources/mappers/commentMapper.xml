@@ -22,5 +22,28 @@
 			AND `type` = #{type}
 		ORDER BY `id` DESC
  	</select>
+ 	
+ 	<insert id="insertComment" parameterType="map">
+ 		INSERT INTO `comment`
+ 		( 
+ 			`type`
+ 			, `postId`
+ 			, `userId`
+ 			, `userNickName`
+ 			, `content`
+ 			, `createdAt`
+ 			, `updatedAt`
+		)
+		VALUES 
+		(
+			#{type}
+			, #{postId}
+			, #{userId}
+			, #{userNickName}
+			, #{content}
+			, now()
+			, now()
+		)
+	</insert>
  	 	
 </mapper>

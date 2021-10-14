@@ -34,20 +34,17 @@
 		          			<option>단타x</option>
 		          			<option>단타</option>
 		      		</select>
-		      	
 					<select name="stockItemNameForFiltering">
 		          			<option value="">관심종목</option>
 		          			<option>카카오게임즈</option>
 		          			<option>펄어비스</option>
 		      		</select>
-		      	
 					<select name="investmentOpinionForFiltering">
 		          			<option value="">투자의견</option>
 		          			<option>buy</option>
 		          			<option>hold</option>
 		          			<option>sell</option>
 		      		</select>
-		      	
 					<select name="investmentProcessForFiltering">
 		          			<option value="">투자과정</option>
 		          			<option>분석,공부</option>
@@ -55,14 +52,28 @@
 		          			<option>매도</option>
 		          			<option>영감</option>
 		      		</select>
-		      
 		      		<button type="submit" id="filteringBtn" class="btn">필터링</button>
 				</form>
 			</div>
+			<button class="btn" onclick="location.href='/post/invest_view'">전체글보기</button>
 		</div>
-		
 		<div class="col-8 d-flex justify-content-center">
 			<div class="post-timeline-box">
+				<div class="filter-text d-flex justify-content-around">
+					<c:if test="${!empty investStyleForFiltering }">
+						<div>${investStyleForFiltering }</div>						
+					</c:if>
+					<c:if test="${!empty stockItemNameForFiltering }">
+						<div>${stockItemNameForFiltering }</div>
+					</c:if>
+					<c:if test="${!empty investmentOpinionForFiltering }">
+						<div>${investmentOpinionForFiltering }</div>
+					</c:if>
+					<c:if test="${!empty investmentProcessForFiltering }">
+						<div>${investmentProcessForFiltering }</div>
+					</c:if>
+				</div>
+				
 				<c:forEach var="postWithOthers" items="${postList }">
 					<!-- 보여지는 투자 게시글 -->
 					<div class="card mt-3">			
@@ -157,9 +168,10 @@
 					</div>
 					<!-- /보여지는 투자 게시글 -->
 				</c:forEach>
-				
+					
 			</div>
 		</div>
+		
 		<div class="col-2">
 		</div>
 
@@ -201,7 +213,7 @@
             			<option>영감</option>
         			</select>
 				</div>
-			
+		
 				<div class="border rounded mt-1">
 					<textarea class="form-control w-100 border-0 non-resize" rows=4 id="contentInput"></textarea>			
 					<!--  이미지  -->
@@ -210,7 +222,7 @@
 						<a href="#" id="imageUploadBtn"><i class="bi bi-image image-upload-icon"></i></a>
 						<button class="btn btn-sm btn-info" id="uploadBtn">업로드</button>
 					</div>
-				</div>		
+				</div>				
 			</div>
 			<!--  /게시글 작성  -->
 	      </div>
@@ -227,6 +239,7 @@
 	      
 	      <div class="modal-body text-center">
 	        <a href="#" id="deleteBtn" >삭제하기 </a>
+	   
 	      </div>
 	  
 	    </div>
@@ -238,7 +251,6 @@
 		$(document).ready(function() {
 
 			
-	        
 			
 	        // <글쓰기 버튼 눌렀을때>
 			$("#writeBtn").on("click", function() {

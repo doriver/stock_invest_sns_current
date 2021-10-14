@@ -1,12 +1,13 @@
-package com.sns.invest.post.model.invest;
+package com.sns.invest.post.model.gossip;
+
 
 import java.util.List;
 
 import com.sns.invest.post.model.Comment;
 
-public class InvestPostWithOthers {
-	
-	private InvestPost investPost;
+public class GossipPostWithOthers {
+
+	private GossipPost gossipPost;
 	private List<Comment> commentList;
 	private boolean isLike;
 	private int likeCount;
@@ -18,11 +19,13 @@ public class InvestPostWithOthers {
 	public void setWriterProfileImage(String writerProfileImage) {
 		this.writerProfileImage = writerProfileImage;
 	}
-	public InvestPost getInvestPost() {
-		return investPost;
+
+	
+	public GossipPost getGossipPost() {
+		return gossipPost;
 	}
-	public void setInvestPost(InvestPost investPost) {
-		this.investPost = investPost;
+	public void setGossipPost(GossipPost gossipPost) {
+		this.gossipPost = gossipPost;
 	}
 	public List<Comment> getCommentList() {
 		return commentList;
@@ -42,5 +45,7 @@ public class InvestPostWithOthers {
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
 	}
+	
+	
 
 }
