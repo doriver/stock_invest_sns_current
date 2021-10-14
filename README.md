@@ -28,6 +28,7 @@ https://docs.google.com/spreadsheets/d/1_QpRGkAXKIM6abuEIAi9KrX9PICSgYqVNsSVod2_
 * 위치청보 설정
 ![demo3](demo_gif/위치정보, 지역커뮤니티.gif)
 
+
 ### 주요기능
 
 ### 외부 라이브러리 라이센스
