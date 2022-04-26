@@ -21,7 +21,6 @@
 	    <a class="dropdown-item" href="#" id="writeBtn" data-toggle="modal" data-target="#writeModal"> 
 				글쓰기 
 		</a>
-	    <a class="dropdown-item" href="/post/individual_home_view?userId=${userId }">개인 홈</a>
 	    <a class="dropdown-item" href="/user/sign_out">로그아웃</a>
 	  </div>
 	</div>

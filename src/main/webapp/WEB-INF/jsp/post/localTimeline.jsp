@@ -18,13 +18,20 @@
 </head>
 <body>
 	<header class="d-flex">
-		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
+		<div class="col-4 d-flex">
+			<img src="https://cdn.pixabay.com/photo/2021/09/09/04/26/coins-6609452_960_720.jpg" width="50" height="50">
+			<h2 class="text-danger pt-2">투자SNS</h2>
+		</div>
 		<div class="col-4 d-flex justify-content-center">
 			<h2 class="pt-3 text-danger">지역커뮤니티</h2>
 		</div>
 		<c:import url="/WEB-INF/jsp/include/userSector.jsp" />
 	</header>
-	<hr>
+	
+	<nav class="mt-3 mb-3">
+		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
+	</nav>
+	
 	<section>
         <h3 class="text-center">${myInfo.location }</h3>
         <!--  -->

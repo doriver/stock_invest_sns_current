@@ -19,13 +19,20 @@
 </head>
 <body>
 	<header class="d-flex">
-		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
+		<div class="col-4 d-flex">
+			<img src="https://cdn.pixabay.com/photo/2021/09/09/04/26/coins-6609452_960_720.jpg" width="50" height="50">
+			<h2 class="text-danger pt-2">투자SNS</h2>
+		</div>
 		<div class="col-4 d-flex justify-content-center">
 			<h2 class="pt-3 text-danger">개인홈</h2>
 		</div>
 		<c:import url="/WEB-INF/jsp/include/userSector.jsp" />
 	</header>
-	<hr>
+	
+	<nav class="mt-3 mb-3">
+		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
+	</nav>
+
 	<section>
 		<div class="d-flex">
 			
@@ -179,7 +186,8 @@
 								
 								<!-- 작성,업데이트 시간 -->
 								<div>
-									작성시간:<fmt:formatDate value="${postWithOthers.investPost.createdAt }" pattern="yy년 M월 d일 HH시 mm분" /> 	
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M17 3v-2c0-.552.447-1 1-1s1 .448 1 1v2c0 .552-.447 1-1 1s-1-.448-1-1zm-12 1c.553 0 1-.448 1-1v-2c0-.552-.447-1-1-1-.553 0-1 .448-1 1v2c0 .552.447 1 1 1zm13 13v-3h-1v4h3v-1h-2zm-5 .5c0 2.481 2.019 4.5 4.5 4.5s4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5-4.5 2.019-4.5 4.5zm11 0c0 3.59-2.91 6.5-6.5 6.5s-6.5-2.91-6.5-6.5 2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5zm-14.237 3.5h-7.763v-13h19v1.763c.727.33 1.399.757 2 1.268v-9.031h-3v1c0 1.316-1.278 2.339-2.658 1.894-.831-.268-1.342-1.111-1.342-1.984v-.91h-9v1c0 1.316-1.278 2.339-2.658 1.894-.831-.268-1.342-1.111-1.342-1.984v-.91h-3v21h11.031c-.511-.601-.938-1.273-1.268-2z"/></svg>
+									<fmt:formatDate value="${postWithOthers.investPost.createdAt }" pattern="M월 d일 HH시" /> 	
 								</div>
 								
 								<!-- 좋아요 -->
@@ -278,6 +286,7 @@
             			<option>관심종목</option>
             			<option>카카오게임즈</option>
             			<option>펄어비스</option>
+            			<option>셀트리온</option>
         			</select>
 					<select id="investmentOpinion">
             			<option>투자의견</option>

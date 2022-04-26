@@ -18,19 +18,27 @@
 </head>
 <body>
 	<header class="d-flex">
-		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
+		<div class="col-4 d-flex">
+			<img src="https://cdn.pixabay.com/photo/2021/09/09/04/26/coins-6609452_960_720.jpg" width="50" height="50">
+			<h2 class="text-danger pt-2">투자SNS</h2>
+		</div>
 		<div class="col-4 d-flex justify-content-center">
 			<h2 class="pt-3 text-danger">가십게시판</h2>
 		</div>
 		<c:import url="/WEB-INF/jsp/include/userSector.jsp" />
 	</header>
-	<hr>
+	
+	<nav class="mt-3 mb-3">
+		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
+	</nav>
+
 	<section>
 		<div class="d-flex justify-content-center">
 			<select id="corporation">
 	   			<option>관심종목</option>
 	   			<option>카카오게임즈</option>
 	   			<option>펄어비스</option>
+	   			<option>셀트리온</option>
 	        </select>
 		</div>
         <h3 class="text-center mt-3">${corporation }</h3>
