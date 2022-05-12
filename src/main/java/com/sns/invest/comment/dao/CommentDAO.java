@@ -21,5 +21,5 @@ public interface CommentDAO {
 			, @Param("userNickName") String userName
 			, @Param("content") String content);
 	
-
+	public int deleteCommentInvest(@Param("postId") int postId);
 }
