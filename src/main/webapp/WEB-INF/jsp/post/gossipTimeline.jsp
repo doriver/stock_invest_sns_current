@@ -61,11 +61,13 @@
 									</c:otherwise>
 								</c:choose>							
 							
-								<a href="/post/individual_home_view?userId=${postWithOthers.gossipPost.userId }" class="homeLink">
+								<a href="/post/individual_home_view?userId=${postWithOthers.gossipPost.userId }" class="font-weight-bold text-dark">
 									${postWithOthers.gossipPost.userNickName }
 								</a>
 							</div>
+							
 							${postWithOthers.gossipPost.corporation }
+							
 							<!-- 좋아요 -->
 							<div>
 								<a href="#" class="likeBtn" data-post-id="${postWithOthers.gossipPost.id }">

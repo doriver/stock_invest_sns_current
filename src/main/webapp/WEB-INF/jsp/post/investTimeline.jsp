@@ -34,39 +34,42 @@
 
 	<section class="d-flex">
 		<div class="col-2">
-			<div class="card">
-				<form method="post" action="/post/invest_view_filtering">
-					<select name="investStyleForFiltering">
-		          			<option value="">투자스타일</option>
-		          			<option>단타x</option>
-		          			<option>단타</option>
-		      		</select>
-		      	
-					<select name="stockItemNameForFiltering">
-		          			<option value="">관심종목</option>
-		          			<option>카카오게임즈</option>
-		          			<option>펄어비스</option>
-		          			<option>셀트리온</option>
-		      		</select>
-		      	
-					<select name="investmentOpinionForFiltering">
-		          			<option value="">투자의견</option>
-		          			<option>buy</option>
-		          			<option>hold</option>
-		          			<option>sell</option>
-		      		</select>
-		      	
-					<select name="investmentProcessForFiltering">
-		          			<option value="">투자과정</option>
-		          			<option>분석,공부</option>
-		          			<option>매수</option>
-		          			<option>매도</option>
-		          			<option>영감</option>
-		      		</select>
-		      
-		      		<button type="submit" id="filteringBtn" class="btn">필터링</button>
-				</form>
-			</div>
+			<h5>게시글 필터링 기능</h5>
+			<form method="post" action="/post/invest_view_filtering">
+				<select name="investStyleForFiltering">
+	          			<option value="">투자스타일</option>
+	          			<option>단타x</option>
+	          			<option>단타</option>
+	      		</select>
+	      		<br>
+	     
+				<select name="stockItemNameForFiltering">
+	          			<option value="">관심종목</option>
+	          			<option>카카오게임즈</option>
+	          			<option>펄어비스</option>
+	          			<option>셀트리온</option>
+	      		</select>
+	      		<br>
+	      	
+				<select name="investmentOpinionForFiltering">
+	          			<option value="">투자의견</option>
+	          			<option>buy</option>
+	          			<option>hold</option>
+	          			<option>sell</option>
+	      		</select>
+	      		<br>
+	      	
+				<select name="investmentProcessForFiltering">
+	          			<option value="">투자과정</option>
+	          			<option>분석,공부</option>
+	          			<option>매수</option>
+	          			<option>매도</option>
+	          			<option>영감</option>
+	      		</select>
+	      
+	      		<button type="submit" id="filteringBtn" class="btn">필터링</button>
+			</form>
+			
 		</div>
 		
 		<div class="col-8 d-flex justify-content-center">

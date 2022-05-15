@@ -58,11 +58,13 @@
 												<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">	
 											</c:otherwise>
 										</c:choose>							
-										<a href="/post/individual_home_view?userId=${postWithOthers.localPost.userId }" class="homeLink">
+										<a href="/post/individual_home_view?userId=${postWithOthers.localPost.userId }" class="font-weight-bold text-dark">
 											${postWithOthers.localPost.userNickName }
 										</a>
 									</div>
+									
 									${postWithOthers.localPost.userLocation }
+									
 									<!-- 좋아요 -->
 									<div>
 										<a href="#" class="likeBtn" data-post-id="${postWithOthers.localPost.id }">
@@ -93,10 +95,16 @@
 								<!-- /글 시작부분 -->
 								
 								<!-- 내용 -->
-								<div class="middle-size m-2">
-									${postWithOthers.localPost.content }
-									<img src="${postWithOthers.localPost.imagePath }" width="100">
+								<div class="middle-size m-2 d-flex justify-content-between">
+									<div>
+										${postWithOthers.localPost.content }									
+									</div>
+									<div>
+										<img src="${postWithOthers.localPost.imagePath }" width="285">
+									</div>
 								</div>
+								
+								
 								
 								<!-- 댓글 -->
 								<div class="mt-2">

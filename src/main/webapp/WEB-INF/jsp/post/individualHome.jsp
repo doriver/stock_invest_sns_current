@@ -77,28 +77,33 @@
 					<div class="card">				
 						<c:choose>
 							<c:when test="${!empty userInfo.location }" >
-								<b>설정된 위치 <br>: ${userInfo.location }</b>
+								설정된 위치 <br>
+								<b>: ${userInfo.location }</b>
 							</c:when>
 							<c:otherwise>
 								<b>위치설정 안되있음</b>
 							</c:otherwise>
 						</c:choose>
+					</div>
 
-						<c:if test="${userId eq userInfo.id }">
-							<!-- 다음 우편번호서비스 변형 -->
+					<c:if test="${userId eq userInfo.id }">
+						<h5 class="mt-4">위치정보 설정하기</h5>
+						
+						<!-- 다음 우편번호서비스 변형 -->
 						    <div class="input-group location-setting">
 							    <span class="input-group-btn">
 									<button type="button" class="btn" onclick="sample2_execDaumPostcode()">주소찾기</button>
 							    </span>
 							    <input type="text" class="form-control" id="locationInput" placeholder="주소">
 						    </div><!-- /input-group -->
+
 							<input type="button" id="locationCompletion" value="위치설정 완료">
 		
 							<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
 							<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
-							<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+								<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 							</div>
-							
+						
 							<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 							<script>
 							    // 우편번호 찾기 화면을 넣을 element
@@ -126,11 +131,9 @@
 							                    addr = data.jibunAddress;
 							                }
 							
-							                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-						
+							                // 주소정보를 해당 필드에 넣는다.					
 							                document.getElementById("locationInput").value = addr;
-							                // 커서를 상세주소 필드로 이동한다.
-						
+							               
 							
 							                // iframe을 넣은 element를 안보이게 한다.
 							                // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
@@ -165,11 +168,11 @@
 							        element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
 							    }
 							</script>
-							<!-- /다음 우편번호서비스 변형 -->	
-						</c:if>
+						<!-- /다음 우편번호서비스 변형 -->	
+					</c:if>
 
 						
-					</div>
+					
 					
 				</div>
 				<!-- /개인 프로필 -->

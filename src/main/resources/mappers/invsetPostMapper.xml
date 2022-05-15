@@ -98,6 +98,7 @@
 	</select>
 
 	<select id="selectFilteredInvestPostList" resultType="com.sns.invest.post.model.invest.InvestPost">
+
  		SELECT 
  			`id`
  			, `userId`
@@ -150,7 +151,7 @@
 			</when>
 		</choose>
 			
-			
 		ORDER BY `id` DESC
+		
 	</select>
  </mapper>
