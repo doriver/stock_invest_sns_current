@@ -78,7 +78,7 @@
 						<c:choose>
 							<c:when test="${!empty userInfo.location }" >
 								설정된 위치 <br>
-								<b>: ${userInfo.location }</b>
+								: <b>${userInfo.location }</b>
 							</c:when>
 							<c:otherwise>
 								<b>위치설정 안되있음</b>
@@ -87,6 +87,7 @@
 					</div>
 
 					<c:if test="${userId eq userInfo.id }">
+						
 						<h5 class="mt-4">위치정보 설정하기</h5>
 						
 						<!-- 다음 우편번호서비스 변형 -->

@@ -87,8 +87,11 @@
 	<update id="updateUserProfile" parameterType="map">
  		UPDATE `user`
  		SET 
- 			`profileImage` = #{filePath}
- 			, `profileStatusMessage` = #{profileStatusMessage}
+			`profileStatusMessage` = #{profileStatusMessage}
+			
+ 		<if test="filePath !=''">
+ 			, `profileImage` = #{filePath} 		
+ 		</if>
  			, `updatedAt` = now()
  		WHERE `id` = #{userId}
  	</update>
