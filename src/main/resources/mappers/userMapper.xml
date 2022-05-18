@@ -89,7 +89,7 @@
  		SET 
 			`profileStatusMessage` = #{profileStatusMessage}
 			
- 		<if test="filePath !=''">
+ 		<if test="filePath != null">
  			, `profileImage` = #{filePath} 		
  		</if>
  			, `updatedAt` = now()

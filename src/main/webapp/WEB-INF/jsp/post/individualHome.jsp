@@ -78,7 +78,7 @@
 						<c:choose>
 							<c:when test="${!empty userInfo.location }" >
 								설정된 위치 <br>
-								: <b>${userInfo.location }</b>
+								<b>${userInfo.location }</b>
 							</c:when>
 							<c:otherwise>
 								<b>위치설정 안되있음</b>
@@ -329,12 +329,11 @@
 	    	<div class="modal-content">
 	      		<div class="modal-body text-center">
 					<div>
-						<b>프로필 이미지</b>
+						<b>프로필 이미지</b><br>
 						<input type="file" class="input-control" id="profileImageInput">
 						<br>
 						<b>프로필 상태메세지</b>
 						<textarea class="form-control w-100 non-resize" rows=4 id="profileStatusMessageInput">
-							텍스트 쓰는곳
 						</textarea>
 						<button class="btn" id="profileCompletion">편집완료</button>			
 					</div>
