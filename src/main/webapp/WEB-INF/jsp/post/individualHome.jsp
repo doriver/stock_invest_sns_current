@@ -80,7 +80,7 @@
 								${userInfo.location }
 							</c:when>
 							<c:otherwise>
-								<b>위치설정 안되있음</b>
+								위치설정 안되있음
 							</c:otherwise>
 						</c:choose>
 					</div>
