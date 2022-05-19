@@ -77,8 +77,7 @@
 					<div class="card">				
 						<c:choose>
 							<c:when test="${!empty userInfo.location }" >
-								설정된 위치 <br>
-								<b>${userInfo.location }</b>
+								${userInfo.location }
 							</c:when>
 							<c:otherwise>
 								<b>위치설정 안되있음</b>
