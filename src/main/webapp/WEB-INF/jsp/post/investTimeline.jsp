@@ -18,47 +18,58 @@
 </head>
 <body>
 	<header class="d-flex">
-		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
+		<div class="col-4 d-flex">
+			<img src="https://cdn.pixabay.com/photo/2021/09/09/04/26/coins-6609452_960_720.jpg" width="50" height="50">
+			<h2 class="text-danger pt-2">투자SNS</h2>
+		</div>
 		<div class="col-4 d-flex justify-content-center">
 			<h2 class="pt-3 text-danger">투자게시판</h2>
 		</div>
 		<c:import url="/WEB-INF/jsp/include/userSector.jsp" />
 	</header>
-	<hr>
+	
+	<nav class="mt-3 mb-3">
+		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
+	</nav>
+
 	<section class="d-flex">
 		<div class="col-2">
-			<div class="card">
-				<form method="post" action="/post/invest_view_filtering">
-					<select name="investStyleForFiltering">
-		          			<option value="">투자스타일</option>
-		          			<option>단타x</option>
-		          			<option>단타</option>
-		      		</select>
-		      	
-					<select name="stockItemNameForFiltering">
-		          			<option value="">관심종목</option>
-		          			<option>카카오게임즈</option>
-		          			<option>펄어비스</option>
-		      		</select>
-		      	
-					<select name="investmentOpinionForFiltering">
-		          			<option value="">투자의견</option>
-		          			<option>buy</option>
-		          			<option>hold</option>
-		          			<option>sell</option>
-		      		</select>
-		      	
-					<select name="investmentProcessForFiltering">
-		          			<option value="">투자과정</option>
-		          			<option>분석,공부</option>
-		          			<option>매수</option>
-		          			<option>매도</option>
-		          			<option>영감</option>
-		      		</select>
-		      
-		      		<button type="submit" id="filteringBtn" class="btn">필터링</button>
-				</form>
-			</div>
+			<h5>게시글 필터링 기능</h5>
+			<form method="post" action="/post/invest_view_filtering">
+				<select name="investStyleForFiltering">
+	          			<option value="">투자스타일</option>
+	          			<option>단타x</option>
+	          			<option>단타</option>
+	      		</select>
+	      		<br>
+	     
+				<select name="stockItemNameForFiltering">
+	          			<option value="">관심종목</option>
+	          			<option>카카오게임즈</option>
+	          			<option>펄어비스</option>
+	          			<option>셀트리온</option>
+	      		</select>
+	      		<br>
+	      	
+				<select name="investmentOpinionForFiltering">
+	          			<option value="">투자의견</option>
+	          			<option>buy</option>
+	          			<option>hold</option>
+	          			<option>sell</option>
+	      		</select>
+	      		<br>
+	      	
+				<select name="investmentProcessForFiltering">
+	          			<option value="">투자과정</option>
+	          			<option>분석,공부</option>
+	          			<option>매수</option>
+	          			<option>매도</option>
+	          			<option>영감</option>
+	      		</select>
+	      
+	      		<button type="submit" id="filteringBtn" class="btn">필터링</button>
+			</form>
+			
 		</div>
 		
 		<div class="col-8 d-flex justify-content-center">
@@ -186,6 +197,7 @@
             			<option>관심종목</option>
             			<option>카카오게임즈</option>
             			<option>펄어비스</option>
+            			<option>셀트리온</option>
         			</select>
 					<select id="investmentOpinion">
             			<option>투자의견</option>
@@ -374,7 +386,38 @@
 			});
 			// </좋아요 버튼>
 			
+			$(".moreBtn").on("click", function() {
+				// postId를 모델에 삭제 버튼에 주입한다. 
+				
+				var postId = $(this).data("post-id");
+								
+				$("#deleteBtn").data("post-id", postId);
+				
+			});
+
 			
+			$("#deleteBtn").on("click", function(e) {
+				e.preventDefault();
+				var postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get",
+					url:"/post/delete/invset",
+					data:{"postId":postId},
+					success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("삭제 실패");
+						}
+					}, 
+					error:function(e) {
+						alert("error");	
+					}
+				})
+			});
+
+
 		});
 	</script>
 </body>

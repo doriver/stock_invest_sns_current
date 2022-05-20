@@ -28,6 +28,8 @@ header {
 	padding-top: 8px;
 }
 
+.nav-item > .nav-link {font-size:18px; color:white; background-color:#cc0000;}
+
 footer {
 	height:50px;
 }

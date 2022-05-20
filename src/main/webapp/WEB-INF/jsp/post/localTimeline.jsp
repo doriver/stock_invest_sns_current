@@ -18,13 +18,20 @@
 </head>
 <body>
 	<header class="d-flex">
-		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
+		<div class="col-4 d-flex">
+			<img src="https://cdn.pixabay.com/photo/2021/09/09/04/26/coins-6609452_960_720.jpg" width="50" height="50">
+			<h2 class="text-danger pt-2">투자SNS</h2>
+		</div>
 		<div class="col-4 d-flex justify-content-center">
 			<h2 class="pt-3 text-danger">지역커뮤니티</h2>
 		</div>
 		<c:import url="/WEB-INF/jsp/include/userSector.jsp" />
 	</header>
-	<hr>
+	
+	<nav class="mt-3 mb-3">
+		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
+	</nav>
+	
 	<section>
         <h3 class="text-center">${myInfo.location }</h3>
         <!--  -->
@@ -51,11 +58,13 @@
 												<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">	
 											</c:otherwise>
 										</c:choose>							
-										<a href="/post/individual_home_view?userId=${postWithOthers.localPost.userId }" class="homeLink">
+										<a href="/post/individual_home_view?userId=${postWithOthers.localPost.userId }" class="font-weight-bold text-dark">
 											${postWithOthers.localPost.userNickName }
 										</a>
 									</div>
+									
 									${postWithOthers.localPost.userLocation }
+									
 									<!-- 좋아요 -->
 									<div>
 										<a href="#" class="likeBtn" data-post-id="${postWithOthers.localPost.id }">
@@ -86,10 +95,16 @@
 								<!-- /글 시작부분 -->
 								
 								<!-- 내용 -->
-								<div class="middle-size m-2">
-									${postWithOthers.localPost.content }
-									<img src="${postWithOthers.localPost.imagePath }" width="100">
+								<div class="middle-size m-2 d-flex justify-content-between">
+									<div>
+										${postWithOthers.localPost.content }									
+									</div>
+									<div>
+										<img src="${postWithOthers.localPost.imagePath }" width="285">
+									</div>
 								</div>
+								
+								
 								
 								<!-- 댓글 -->
 								<div class="mt-2">

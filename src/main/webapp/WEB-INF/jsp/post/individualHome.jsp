@@ -19,13 +19,20 @@
 </head>
 <body>
 	<header class="d-flex">
-		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
+		<div class="col-4 d-flex">
+			<img src="https://cdn.pixabay.com/photo/2021/09/09/04/26/coins-6609452_960_720.jpg" width="50" height="50">
+			<h2 class="text-danger pt-2">투자SNS</h2>
+		</div>
 		<div class="col-4 d-flex justify-content-center">
 			<h2 class="pt-3 text-danger">개인홈</h2>
 		</div>
 		<c:import url="/WEB-INF/jsp/include/userSector.jsp" />
 	</header>
-	<hr>
+	
+	<nav class="mt-3 mb-3">
+		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
+	</nav>
+
 	<section>
 		<div class="d-flex">
 			
@@ -70,28 +77,33 @@
 					<div class="card">				
 						<c:choose>
 							<c:when test="${!empty userInfo.location }" >
-								<b>설정된 위치 <br>: ${userInfo.location }</b>
+								${userInfo.location }
 							</c:when>
 							<c:otherwise>
-								<b>위치설정 안되있음</b>
+								위치설정 안되있음
 							</c:otherwise>
 						</c:choose>
+					</div>
 
-						<c:if test="${userId eq userInfo.id }">
-							<!-- 다음 우편번호서비스 변형 -->
+					<c:if test="${userId eq userInfo.id }">
+						
+						<h5 class="mt-4">위치정보 설정하기</h5>
+						
+						<!-- 다음 우편번호서비스 변형 -->
 						    <div class="input-group location-setting">
 							    <span class="input-group-btn">
 									<button type="button" class="btn" onclick="sample2_execDaumPostcode()">주소찾기</button>
 							    </span>
 							    <input type="text" class="form-control" id="locationInput" placeholder="주소">
 						    </div><!-- /input-group -->
+
 							<input type="button" id="locationCompletion" value="위치설정 완료">
 		
 							<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
 							<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
-							<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+								<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 							</div>
-							
+						
 							<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 							<script>
 							    // 우편번호 찾기 화면을 넣을 element
@@ -119,11 +131,9 @@
 							                    addr = data.jibunAddress;
 							                }
 							
-							                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-						
+							                // 주소정보를 해당 필드에 넣는다.					
 							                document.getElementById("locationInput").value = addr;
-							                // 커서를 상세주소 필드로 이동한다.
-						
+							               
 							
 							                // iframe을 넣은 element를 안보이게 한다.
 							                // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
@@ -158,11 +168,11 @@
 							        element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
 							    }
 							</script>
-							<!-- /다음 우편번호서비스 변형 -->	
-						</c:if>
+						<!-- /다음 우편번호서비스 변형 -->	
+					</c:if>
 
 						
-					</div>
+					
 					
 				</div>
 				<!-- /개인 프로필 -->
@@ -179,7 +189,8 @@
 								
 								<!-- 작성,업데이트 시간 -->
 								<div>
-									작성시간:<fmt:formatDate value="${postWithOthers.investPost.createdAt }" pattern="yy년 M월 d일 HH시 mm분" /> 	
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M17 3v-2c0-.552.447-1 1-1s1 .448 1 1v2c0 .552-.447 1-1 1s-1-.448-1-1zm-12 1c.553 0 1-.448 1-1v-2c0-.552-.447-1-1-1-.553 0-1 .448-1 1v2c0 .552.447 1 1 1zm13 13v-3h-1v4h3v-1h-2zm-5 .5c0 2.481 2.019 4.5 4.5 4.5s4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5-4.5 2.019-4.5 4.5zm11 0c0 3.59-2.91 6.5-6.5 6.5s-6.5-2.91-6.5-6.5 2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5zm-14.237 3.5h-7.763v-13h19v1.763c.727.33 1.399.757 2 1.268v-9.031h-3v1c0 1.316-1.278 2.339-2.658 1.894-.831-.268-1.342-1.111-1.342-1.984v-.91h-9v1c0 1.316-1.278 2.339-2.658 1.894-.831-.268-1.342-1.111-1.342-1.984v-.91h-3v21h11.031c-.511-.601-.938-1.273-1.268-2z"/></svg>
+									<fmt:formatDate value="${postWithOthers.investPost.createdAt }" pattern="M월 d일 HH시" /> 	
 								</div>
 								
 								<!-- 좋아요 -->
@@ -278,6 +289,7 @@
             			<option>관심종목</option>
             			<option>카카오게임즈</option>
             			<option>펄어비스</option>
+            			<option>셀트리온</option>
         			</select>
 					<select id="investmentOpinion">
             			<option>투자의견</option>
@@ -316,12 +328,11 @@
 	    	<div class="modal-content">
 	      		<div class="modal-body text-center">
 					<div>
-						<b>프로필 이미지</b>
+						<b>프로필 이미지</b><br>
 						<input type="file" class="input-control" id="profileImageInput">
 						<br>
 						<b>프로필 상태메세지</b>
 						<textarea class="form-control w-100 non-resize" rows=4 id="profileStatusMessageInput">
-							텍스트 쓰는곳
 						</textarea>
 						<button class="btn" id="profileCompletion">편집완료</button>			
 					</div>

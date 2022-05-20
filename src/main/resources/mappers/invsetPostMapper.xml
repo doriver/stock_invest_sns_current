@@ -31,8 +31,35 @@
  			, now()
  		)
  	</insert>
+
+ 	<select id="selectInvestPost" parameterType="int" resultType="com.sns.invest.post.model.invest.InvestPost">
+ 		SELECT 
+ 			`id`
+ 			, `userId`
+ 			, `userNickName`
+ 			, `investStyle`
+ 			, `stockItemName`
+ 			, `investmentOpinion`
+ 			, `investmentProcess`
+ 			, `content`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
+		FROM 
+			`invest_post`
+		WHERE
+			`id` = #{id}
+ 	</select>
  	
- 	 <select id="selectInvestPostList" resultType="com.sns.invest.post.model.invest.InvestPost">
+ 	<delete id="deleteInvestPost" parameterType="map">
+ 		DELETE FROM `invest_post`
+ 		WHERE
+ 			`id` = #{id}
+ 			AND `userId` = #{userId}
+ 	</delete> 	
+
+ 	
+ 	<select id="selectInvestPostList" resultType="com.sns.invest.post.model.invest.InvestPost">
  		SELECT 
  			`id`
  			, `userId`
@@ -71,6 +98,7 @@
 	</select>
 
 	<select id="selectFilteredInvestPostList" resultType="com.sns.invest.post.model.invest.InvestPost">
+
  		SELECT 
  			`id`
  			, `userId`
@@ -123,7 +151,7 @@
 			</when>
 		</choose>
 			
-			
 		ORDER BY `id` DESC
+		
 	</select>
  </mapper>
