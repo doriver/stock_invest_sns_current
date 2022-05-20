@@ -40,9 +40,9 @@ public class LikeBO {
 		return likeDAO.selectCountLikeByPostIdType(postId, type);
 	}
 	
-//	public int deleteLike(int postId, String type) {
-//		return likeDAO.deleteLikeByPostId(postId, type);
-//	}
+	public int deleteLikeInvest(int postId) {
+		return likeDAO.deleteLikeInvestByPostId(postId);
+	}
 
 	
 }

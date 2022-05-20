@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sns.invest.post.bo.LikeBO;
+import com.sns.invest.post.bo.PostBO;
 
 @RestController
 @RequestMapping("/post")
@@ -22,6 +23,9 @@ public class PostRestController {
 	
 	@Autowired
 	private LikeBO likeBO;
+	
+	@Autowired
+	private PostBO postBO;
 
 	@GetMapping("/like/invest")
 	public Map<String, Object> likeInvest(
@@ -85,5 +89,27 @@ public class PostRestController {
 		
 		return result;
 	}
+	
+	@GetMapping("/delete/invset")
+	public Map<String, String> delete(
+			@RequestParam("postId") int postId
+			, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		Map<String, String> result = new HashMap<>();
+				
+		if(postBO.deleteInvestPost(postId, userId)) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		// postBO.deleteInvestPost(postId, userId) 성공 여부에 따라 결과를 return함
+		return result;
+		
+	}
+
+	
 
 }

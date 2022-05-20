@@ -15,6 +15,7 @@ import com.sns.invest.post.model.invest.InvestPostWithOthers;
 import com.sns.invest.post.model.local.LocalPost;
 import com.sns.invest.post.model.local.LocalPostWithOthers;
 import com.sns.invest.user.bo.UserBO;
+
 import com.sns.invest.comment.bo.CommentBO;
 import com.sns.invest.common.FileManagerService;
 import com.sns.invest.post.dao.PostDAO;
@@ -236,5 +237,27 @@ public class PostBO {
 		
 		return postDAO.insertLocalPost(myUserId, userNickName, myLocation, content, filePath);
 	}
+	
+	public boolean deleteInvestPost(int postId, int userId) {
+
+		InvestPost post = postDAO.selectInvestPost(postId);
+		
+		int count = postDAO.deleteInvestPost(postId, userId);
+		
+		if(count != 1) {
+			return false;
+		}
+		
+		if(post.getImagePath() != null) {
+			FileManagerService fileManagerService = new FileManagerService();
+			fileManagerService.removeFile(post.getImagePath());			
+		}
+		
+		likeBO.deleteLikeInvest(postId);
+		commentBO.deleteComment(postId);
+		
+		return true;
+	}
+
 
 }

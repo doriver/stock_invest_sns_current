@@ -50,5 +50,11 @@
 			AND `userId` = #{userId}
 	</delete>
 	
+	<delete id="deleteLikeInvestByPostId" parameterType="int">
+		DELETE FROM `like`
+		WHERE 
+			`type` = 'invest'
+			AND `postId` = #{postId}
+	</delete>
 
 </mapper>

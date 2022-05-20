@@ -45,5 +45,13 @@
 			, now()
 		)
 	</insert>
+	
+	<delete id="deleteCommentInvest" parameterType="int">
+ 		DELETE FROM `comment`
+ 		WHERE 	
+ 			`postId` = #{postId}
+ 			AND `type` = 'invest'
+ 	
+ 	</delete>
  	 	
 </mapper>
