@@ -22,33 +22,37 @@ https://ovenapp.io/view/LVGYxw82CiHMl1DBVzYCRktvWCK4VJor/
 https://docs.google.com/spreadsheets/d/1_QpRGkAXKIM6abuEIAi9KrX9PICSgYqVNsSVod2_kko/edit?usp=sharing
 
 ### 주요기능
-package의 기본경로 : src/main/java/com/sns/invest   
-view의 기본경로 : src/main/webapp/WEB-INF/jsp
-
 * 회원가입,로그인,로그아웃
   * package : src/main/java/com/sns/invest/user
   * view
     * src/main/webapp/WEB-INF/jsp/user/sign.jsp
     * src/main/webapp/WEB-INF/jsp/include/userSector.jsp(로그아웃)
 * 프로필설정과 프로필이미지 반영
-  * package : /user
-  * view : /post/individualHome.jsp
+  * package : src/main/java/com/sns/invest/user
+  * view : src/main/webapp/WEB-INF/jsp/post/individualHome.jsp
 * 이미지 첨부 글쓰기 , 글삭제 기능
-  * package: /post , /comment/bo
-  * view: /post/investTimeline.jsp , /include/userSector.jsp(글삭제) 
+  * package
+    * src/main/java/com/sns/invest/post
+    * src/main/java/com/sns/invest/comment/bo
+  * view
+    * src/main/webapp/WEB-INF/jsp/post/investTimeline.jsp
+    * src/main/webapp/WEB-INF/jsp/include/userSector.jsp(글삭제) 
 * 타임라인 기능 + 좋아요 , 댓글
-  * package: src/main/java/com/sns/invest/post
-  * view: 
+  * package
+    * src/main/java/com/sns/invest/post(타임라인, 댓글)
+    * src/main/java/com/sns/invest/comment
+  * view : src/main/webapp/WEB-INF/jsp/post/investTimeline.jsp
 * 게시글 필터링
-  * package: 
-  * view:
+  * package : src/main/java/com/sns/invest/post
+  * view : src/main/webapp/WEB-INF/jsp/post/filteredInvestTimeline.jsp
 * open api(다음 우편번호 서비스)이용한 위치정보 설정 + 지역커뮤니티
-  * package:
-  * view:
+  * package : src/main/java/com/sns/invest/user
+  * view : src/main/webapp/WEB-INF/jsp/post/individualHome.jsp
 * 나의 개인홈과 다른사람의 개인홈
-  * package: 
-  * view: 
-* 
+  * package
+    * src/main/java/com/sns/invest/post
+    * src/main/java/com/sns/invest/user/bo
+  * view : src/main/webapp/WEB-INF/jsp/post/individualHome.jsp
 
 
 ### 데모
