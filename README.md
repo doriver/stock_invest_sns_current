@@ -22,15 +22,30 @@ https://ovenapp.io/view/LVGYxw82CiHMl1DBVzYCRktvWCK4VJor/
 https://docs.google.com/spreadsheets/d/1_QpRGkAXKIM6abuEIAi9KrX9PICSgYqVNsSVod2_kko/edit?usp=sharing
 
 ### 주요기능
+package의 기본경로 : src/main/java/com/sns/invest
+view의 기본경로 : src/main/webapp/WEB-INF/jsp
+
 * 회원가입,로그인,로그아웃
+  * package: src/main/java/com/sns/invest/user
+  * view: src/main/webapp/WEB-INF/jsp/user/sign.jsp , src/main/webapp/WEB-INF/jsp/include/userSector.jsp(로그아웃)
+* 프로필설정과 프로필이미지 반영
+  * package: /user
+  * view: /post/individualHome.jsp
+* 이미지 첨부 글쓰기 , 글삭제 기능
+  * package: /post , /comment/bo
+  * view: /post/investTimeline.jsp , /include/userSector.jsp(글삭제) 
+* 타임라인 기능 + 좋아요 , 댓글
+  * package: src/main/java/com/sns/invest/post
+  * view: 
+* 게시글 필터링
+  * package: 
+  * view:
+* open api(다음 우편번호 서비스)이용한 위치정보 설정 + 지역커뮤니티
+  * package:
+  * view:
+* 나의 개인홈과 다른사람의 개인홈
   * package: 
   * view: 
-* 프로필설정과 프로필이미지 반영
-* 이미지 첨부 글쓰기 , 글삭제 기능
-* 타임라인 기능 + 좋아요 , 댓글
-* 게시글 필터링
-* open api(다음 우편번호 서비스)이용한 위치정보 설정 + 지역커뮤니티
-* 나의 개인홈과 다른사람의 개인홈
 * 
 
 
