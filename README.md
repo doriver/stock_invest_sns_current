@@ -22,15 +22,17 @@ https://ovenapp.io/view/LVGYxw82CiHMl1DBVzYCRktvWCK4VJor/
 https://docs.google.com/spreadsheets/d/1_QpRGkAXKIM6abuEIAi9KrX9PICSgYqVNsSVod2_kko/edit?usp=sharing
 
 ### 주요기능
-package의 기본경로 : src/main/java/com/sns/invest
+package의 기본경로 : src/main/java/com/sns/invest   
 view의 기본경로 : src/main/webapp/WEB-INF/jsp
 
 * 회원가입,로그인,로그아웃
-  * package: src/main/java/com/sns/invest/user
-  * view: src/main/webapp/WEB-INF/jsp/user/sign.jsp , src/main/webapp/WEB-INF/jsp/include/userSector.jsp(로그아웃)
+  * package : src/main/java/com/sns/invest/user
+  * view
+    * src/main/webapp/WEB-INF/jsp/user/sign.jsp
+    * src/main/webapp/WEB-INF/jsp/include/userSector.jsp(로그아웃)
 * 프로필설정과 프로필이미지 반영
-  * package: /user
-  * view: /post/individualHome.jsp
+  * package : /user
+  * view : /post/individualHome.jsp
 * 이미지 첨부 글쓰기 , 글삭제 기능
   * package: /post , /comment/bo
   * view: /post/investTimeline.jsp , /include/userSector.jsp(글삭제) 
