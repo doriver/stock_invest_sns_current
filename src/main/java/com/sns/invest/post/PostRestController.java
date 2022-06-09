@@ -91,7 +91,7 @@ public class PostRestController {
 	}
 	
 	@GetMapping("/delete/invset")
-	public Map<String, String> delete(
+	public Map<String, String> deleteInvestPost(
 			@RequestParam("postId") int postId
 			, HttpServletRequest request) {
 		
