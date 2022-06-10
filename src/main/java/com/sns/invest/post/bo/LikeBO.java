@@ -10,7 +10,7 @@ public class LikeBO {
 	@Autowired
 	private LikeDAO likeDAO;
 	
-	//사용자기준 좋아요 여부 체크
+	//사용자기준 좋아요 여부 체크 , 좋아요 되있으면 true, 안되있으면 false
 	public boolean existLike(int postId, int userId, String type) {
 		int count = likeDAO.selectCountLike(postId, userId, type);
 		
@@ -20,16 +20,15 @@ public class LikeBO {
 			return false;
 		}
 	}
-//	
-//	
-	// 좋아요 상태가 되면 true, 좋아요 취소상태가 되면 false
+	
+	// 좋아요 되고 true, 좋아요 취소되고 false
 	public boolean like(int postId, int userId, String type) {
 		
-		// 만약 해당 포스트에 좋아요가 되어 있다면, 좋아요 취소
+		// 만약 해당 포스트에 좋아요가 되어 있다면 좋아요 취소하고 , false
 		if(this.existLike(postId, userId, type)) {
 			likeDAO.deleteLike(postId, userId, type);
 			return false;
-		} else  {  // 만약 해당 포스트에 좋아요가 안되어 있다면, 좋아요
+		} else  {  // 만약 해당 포스트에 좋아요가 안되어 있다면 좋아요되고 , true
 			likeDAO.insertLike(postId, userId, type);
 			return true;
 		}
