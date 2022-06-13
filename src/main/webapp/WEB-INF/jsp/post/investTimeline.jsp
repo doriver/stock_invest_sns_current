@@ -356,9 +356,7 @@
 					url:"/post/like/invest",
 					data:{"postId": postId},
 					success:function(data) {
-						// 좋아요
-						if(data.like) {
-							
+						if(data.like) { // 좋아요
 							$("#heartIcon-" + postId).removeClass("bi-heart");
 							$("#heartIcon-" + postId).addClass("bi-heart-fill");
 							
@@ -373,14 +371,11 @@
 						}
 						
 						$("#likeCount-" + postId).text(data.likeCount);
-						
-						//location.reload();
-							
+						//location.reload();	
 					},
 					error:function(e) {
 						alert("error");
 					}
-					
 				});
 				
 			});

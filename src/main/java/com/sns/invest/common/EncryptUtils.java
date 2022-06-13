@@ -9,7 +9,7 @@ public class EncryptUtils {
 		String encData = "";
 		
 		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
+			MessageDigest md = MessageDigest.getInstance("MD5");  // "MD5 형식으로 암호화"
 			byte[] bytes = message.getBytes();
 			md.update(bytes);
 			byte[] digest = md.digest();
