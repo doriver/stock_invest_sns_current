@@ -59,23 +59,22 @@ https://docs.google.com/spreadsheets/d/1_QpRGkAXKIM6abuEIAi9KrX9PICSgYqVNsSVod2_
 * 회원가입,로그인,로그아웃
 ![demo1](demo_gif/회원가입,로그인,로그아웃.gif)
 
-* 게시판 이동
-![demo2](demo_gif/게시판이동.gif)
-
-* 위치청보 설정
-![demo3](demo_gif/위치정보,지역커뮤니티.gif)
-
-* 글쓰기,댓글,좋아요
+* 이미지 첨부 글쓰기, 좋아요,댓글기능, 글 삭제기능
 ![demo4](demo_gif/글쓰기,댓글,좋아요.gif)
 
-* 프로필 설정
+* 프로필설정과 프로필 이미지 반영
 ![demo5](demo_gif/프로필.gif)
 
-* 다른사람 개인홈
+* 게시글 필터링
+![demo7](demo_gif/필터링.gif)
+
+* 위치정보 설정과 지역커뮤니티
+![demo3](demo_gif/위치정보,지역커뮤니티.gif)
+
+* 다른사람의 개인홈 , 가십게시판
 ![demo6](demo_gif/개인홈들어가기.gif)
 
-* 필터링
-![demo7](demo_gif/필터링.gif)
+
 
 ### 외부 라이브러리 라이센스
 * Tomcat [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) 
