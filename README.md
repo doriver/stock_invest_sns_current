@@ -60,19 +60,19 @@ https://docs.google.com/spreadsheets/d/1_QpRGkAXKIM6abuEIAi9KrX9PICSgYqVNsSVod2_
 ![demo1](demo_gif/회원가입,로그인,로그아웃.gif)
 
 * 이미지 첨부 글쓰기, 좋아요,댓글기능, 글 삭제기능
-![demo4](demo_gif/글쓰기,댓글,좋아요.gif)
+![demo2](demo_gif/글쓰기, 좋아요, 댓글, 글삭제.gif)
 
 * 프로필설정과 프로필 이미지 반영
-![demo5](demo_gif/프로필.gif)
+![demo3](demo_gif/프로필설정.gif)
 
 * 게시글 필터링
-![demo7](demo_gif/필터링.gif)
+![demo4](demo_gif/필터링.gif)
 
 * 위치정보 설정과 지역커뮤니티
-![demo3](demo_gif/위치정보,지역커뮤니티.gif)
+![demo5](demo_gif/위치설정.gif)
 
 * 다른사람의 개인홈 , 가십게시판
-![demo6](demo_gif/개인홈들어가기.gif)
+![demo6](demo_gif/개인홈, 가십게시판.gif)
 
 
 
