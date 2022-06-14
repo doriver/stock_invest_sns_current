@@ -60,7 +60,7 @@ https://docs.google.com/spreadsheets/d/1_QpRGkAXKIM6abuEIAi9KrX9PICSgYqVNsSVod2_
 ![demo1](demo_gif/회원가입,로그인,로그아웃.gif)
 
 * 이미지 첨부 글쓰기, 좋아요,댓글기능, 글 삭제기능
-![demo2](demo_gif/글쓰기, 좋아요, 댓글, 글삭제.gif)
+![demo2](demo_gif/글쓰기,좋아요,댓글,글삭제.gif)
 
 * 프로필설정과 프로필 이미지 반영
 ![demo3](demo_gif/프로필설정.gif)
@@ -72,7 +72,7 @@ https://docs.google.com/spreadsheets/d/1_QpRGkAXKIM6abuEIAi9KrX9PICSgYqVNsSVod2_
 ![demo5](demo_gif/위치설정.gif)
 
 * 다른사람의 개인홈 , 가십게시판
-![demo6](demo_gif/개인홈, 가십게시판.gif)
+![demo6](demo_gif/개인홈,가십게시판.gif)
 
 
 
