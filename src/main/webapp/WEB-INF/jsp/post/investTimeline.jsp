@@ -356,31 +356,26 @@
 					url:"/post/like/invest",
 					data:{"postId": postId},
 					success:function(data) {
-						// 좋아요
-						if(data.like) {
-							
+						if(data.like) { // 좋아요
 							$("#heartIcon-" + postId).removeClass("bi-heart");
 							$("#heartIcon-" + postId).addClass("bi-heart-fill");
 							
 							$("#heartIcon-" + postId).removeClass("text-dark");
 							$("#heartIcon-" + postId).addClass("text-danger");
 						} else { // unlike
-							$("#heartIcon-" + postId).addClass("bi-heart");
 							$("#heartIcon-" + postId).removeClass("bi-heart-fill");
+							$("#heartIcon-" + postId).addClass("bi-heart");
 							
-							$("#heartIcon-" + postId).addClass("text-dark");
 							$("#heartIcon-" + postId).removeClass("text-danger");
+							$("#heartIcon-" + postId).addClass("text-dark");
 						}
 						
 						$("#likeCount-" + postId).text(data.likeCount);
-						
-						//location.reload();
-							
+						//location.reload();	
 					},
 					error:function(e) {
 						alert("error");
 					}
-					
 				});
 				
 			});
