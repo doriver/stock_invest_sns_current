@@ -267,7 +267,7 @@
 				
 				$.ajax({
 					type:"get",
-					url:"/post/like/gossip",
+					url:"/post/like/local",
 					data:{"postId": postId},
 					success:function(data) {
 						// 좋아요
