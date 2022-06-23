@@ -13,20 +13,24 @@
 * 투자(주식)라는 주제에 집중한 SNS
 * 본인은 주식과 같은 투자를 즐기고 있다. 투자를 하면서 사람들과 소통하면 재밌을꺼 같아 만들었다.
 * 간단한 웹 서비스지만, 처음으로 웹서비스를 0상태 부터 aws배포까지 혼자힘으로 만들어 보았다는데 의의를 가지고 만들었다. 앞으로 계속 프로젝트를 발전시켜나갈 계획이다
+### 웹 주소
+http://52.79.159.236:8080/user/sign_view
 ### 포트폴리오
-https://docs.google.com/document/d/19I0ABLnCGP0ntyjY6nhs1NNjMKzpT_Krelu_-J9hSSQ/edit?usp=sharing
+https://docs.google.com/document/d/13sMmKcOvY1Ob6TAYlghCCJ9vW6nTOqu9vfss1Tbv6y4/edit?usp=sharing
+### 자소서
+https://docs.google.com/document/d/15zDd78a4UDSixH0ciArYLj6UAYRVrIQ-QJyyDz9Bznk/edit?usp=sharing
 ### 설계
-* UI 기획   
-https://ovenapp.io/view/LVGYxw82CiHMl1DBVzYCRktvWCK4VJor/
 * DB, URL 설계   
 https://docs.google.com/spreadsheets/d/1_QpRGkAXKIM6abuEIAi9KrX9PICSgYqVNsSVod2_kko/edit?usp=sharing
-
+* View 설계   
+https://docs.google.com/document/d/1esscSpkAixA-uKDUyxY8e8KNMoBwK3G4M7FvQ2fzp9U/edit?usp=sharing
 ### 주요기능
 * 회원가입,로그인,로그아웃
   * package : src/main/java/com/sns/invest/user
   * view
     * src/main/webapp/WEB-INF/jsp/user/sign.jsp
     * src/main/webapp/WEB-INF/jsp/include/userSector.jsp(로그아웃)
+    
 * 프로필설정과 프로필이미지 반영
   * package : src/main/java/com/sns/invest/user
   * view : src/main/webapp/WEB-INF/jsp/post/individualHome.jsp
