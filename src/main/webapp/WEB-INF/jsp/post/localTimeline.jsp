@@ -299,6 +299,38 @@
 				
 			});
 			// </좋아요 버튼>
+			
+			
+			$(".moreBtn").on("click", function() {
+				// postId를 모델에 삭제 버튼에 주입한다. 
+				
+				var postId = $(this).data("post-id");
+								
+				$("#deleteBtn").data("post-id", postId);
+				
+			});
+
+			
+			$("#deleteBtn").on("click", function(e) {
+				e.preventDefault();
+				var postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get",
+					url:"/post/delete/invset",
+					data:{"postId":postId},
+					success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("삭제 실패");
+						}
+					}, 
+					error:function(e) {
+						alert("error");	
+					}
+				})
+			});
 
 		});
 	</script>

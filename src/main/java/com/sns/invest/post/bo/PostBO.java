@@ -238,26 +238,97 @@ public class PostBO {
 		return postDAO.insertLocalPost(myUserId, userNickName, myLocation, content, filePath);
 	}
 	
-	public boolean deleteInvestPost(int postId, int userId) {
+	public boolean deletePost(int postId, int userId, String type) {
 
-		InvestPost post = postDAO.selectInvestPost(postId);
-		
-		int count = postDAO.deleteInvestPost(postId, userId);
-		
-		if(count != 1) {
+		if (type.equals("invest")) {
+			
+			InvestPost post = postDAO.selectInvestPost(postId);
+			
+			int count = postDAO.deleteInvestPost(postId, userId);
+			
+			if(count != 1) {
+				return false;
+			}
+			
+			if(post.getImagePath() != null) {
+				FileManagerService fileManagerService = new FileManagerService();
+				fileManagerService.removeFile(post.getImagePath());			
+			}
+			
+			likeBO.deleteLikeInvest(postId);
+			commentBO.deleteComment(postId);
+			
+			return true;
+			
+		} else {
 			return false;
 		}
+
+//		if (type.equals("local")) {
+//			
+//			InvestPost post = postDAO.selectInvestPost(postId);
+//			
+//			int count = postDAO.deleteInvestPost(postId, userId);
+//			
+//			if(count != 1) {
+//				return false;
+//			}
+//			
+//			if(post.getImagePath() != null) {
+//				FileManagerService fileManagerService = new FileManagerService();
+//				fileManagerService.removeFile(post.getImagePath());			
+//			}
+//			
+//			likeBO.deleteLikeInvest(postId);
+//			commentBO.deleteComment(postId);
+//			
+//			return true;
+//			
+//		}
+//		if (type.equals("gossip")) {
+//			
+//			InvestPost post = postDAO.selectInvestPost(postId);
+//			
+//			int count = postDAO.deleteInvestPost(postId, userId);
+//			
+//			if(count != 1) {
+//				return false;
+//			}
+//			
+//			if(post.getImagePath() != null) {
+//				FileManagerService fileManagerService = new FileManagerService();
+//				fileManagerService.removeFile(post.getImagePath());			
+//			}
+//			
+//			likeBO.deleteLikeInvest(postId);
+//			commentBO.deleteComment(postId);
+//			
+//			return true;
+//			
+//		}
 		
-		if(post.getImagePath() != null) {
-			FileManagerService fileManagerService = new FileManagerService();
-			fileManagerService.removeFile(post.getImagePath());			
-		}
 		
-		likeBO.deleteLikeInvest(postId);
-		commentBO.deleteComment(postId);
-		
-		return true;
 	}
 
+//	public boolean deleteInvestPost(int postId, int userId) {
+//
+//		InvestPost post = postDAO.selectInvestPost(postId);
+//		
+//		int count = postDAO.deleteInvestPost(postId, userId);
+//		
+//		if(count != 1) {
+//			return false;
+//		}
+//		
+//		if(post.getImagePath() != null) {
+//			FileManagerService fileManagerService = new FileManagerService();
+//			fileManagerService.removeFile(post.getImagePath());			
+//		}
+//		
+//		likeBO.deleteLikeInvest(postId);
+//		commentBO.deleteComment(postId);
+//		
+//		return true;
+//	}
 
 }
