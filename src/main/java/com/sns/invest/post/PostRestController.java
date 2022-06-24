@@ -101,12 +101,7 @@ public class PostRestController {
 		int userId = (Integer)session.getAttribute("userId");
 		
 		Map<String, String> result = new HashMap<>();
-		
-//		boolean deleteResult;
-//		
-//		if (type.equals("invest") ) {
-//			
-//		}
+
 		
 		if(postBO.deletePost(postId, userId, type)) {
 			result.put("result", "success");

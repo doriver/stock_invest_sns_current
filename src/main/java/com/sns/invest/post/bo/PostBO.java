@@ -239,75 +239,36 @@ public class PostBO {
 	}
 	
 	public boolean deletePost(int postId, int userId, String type) {
-
-		if (type.equals("invest")) {
+		
+		String imagePath = null;
+		int deleteCount = 0;
+		
+		if (type.equals("invest")) {		
+			imagePath = postDAO.selectInvestPostImagePath(postId);
+			deleteCount = postDAO.deleteInvestPost(postId, userId);	
+		} 
 			
-			InvestPost post = postDAO.selectInvestPost(postId);
-			
-			int count = postDAO.deleteInvestPost(postId, userId);
-			
-			if(count != 1) {
-				return false;
-			}
-			
-			if(post.getImagePath() != null) {
-				FileManagerService fileManagerService = new FileManagerService();
-				fileManagerService.removeFile(post.getImagePath());			
-			}
-			
-			likeBO.deleteLikeInvest(postId);
-			commentBO.deleteComment(postId);
-			
-			return true;
-			
-		} else {
-			return false;
+		if (type.equals("local")) {
+			imagePath = postDAO.selectLocalPostImagePath(postId);
+			deleteCount = postDAO.deleteLocalPost(postId, userId);
 		}
 
-//		if (type.equals("local")) {
-//			
-//			InvestPost post = postDAO.selectInvestPost(postId);
-//			
-//			int count = postDAO.deleteInvestPost(postId, userId);
-//			
-//			if(count != 1) {
-//				return false;
-//			}
-//			
-//			if(post.getImagePath() != null) {
-//				FileManagerService fileManagerService = new FileManagerService();
-//				fileManagerService.removeFile(post.getImagePath());			
-//			}
-//			
-//			likeBO.deleteLikeInvest(postId);
-//			commentBO.deleteComment(postId);
-//			
-//			return true;
-//			
-//		}
-//		if (type.equals("gossip")) {
-//			
-//			InvestPost post = postDAO.selectInvestPost(postId);
-//			
-//			int count = postDAO.deleteInvestPost(postId, userId);
-//			
-//			if(count != 1) {
-//				return false;
-//			}
-//			
-//			if(post.getImagePath() != null) {
-//				FileManagerService fileManagerService = new FileManagerService();
-//				fileManagerService.removeFile(post.getImagePath());			
-//			}
-//			
-//			likeBO.deleteLikeInvest(postId);
-//			commentBO.deleteComment(postId);
-//			
-//			return true;
-//			
-//		}
+		if (type.equals("gossip")) {
+			deleteCount = postDAO.deleteGossipPost(postId, userId);	
+		}
 		
+		if(deleteCount != 1) {
+			return false;
+		}
 		
+		if(imagePath != null) {
+			FileManagerService fileManagerService = new FileManagerService();
+			fileManagerService.removeFile(imagePath);			
+		}
+
+		commentBO.deleteComment(postId, type);
+		likeBO.deleteLikeInPost(postId, type);
+		return true;
 	}
 
 //	public boolean deleteInvestPost(int postId, int userId) {
