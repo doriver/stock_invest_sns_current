@@ -271,25 +271,4 @@ public class PostBO {
 		return true;
 	}
 
-//	public boolean deleteInvestPost(int postId, int userId) {
-//
-//		InvestPost post = postDAO.selectInvestPost(postId);
-//		
-//		int count = postDAO.deleteInvestPost(postId, userId);
-//		
-//		if(count != 1) {
-//			return false;
-//		}
-//		
-//		if(post.getImagePath() != null) {
-//			FileManagerService fileManagerService = new FileManagerService();
-//			fileManagerService.removeFile(post.getImagePath());			
-//		}
-//		
-//		likeBO.deleteLikeInvest(postId);
-//		commentBO.deleteComment(postId);
-//		
-//		return true;
-//	}
-
 }

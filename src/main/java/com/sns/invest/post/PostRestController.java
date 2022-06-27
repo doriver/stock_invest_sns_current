@@ -108,7 +108,7 @@ public class PostRestController {
 		} else {
 			result.put("result", "fail");
 		}
-		// postBO.deleteInvestPost(postId, userId) 성공 여부에 따라 결과를 return함
+	
 		return result;
 		
 	}

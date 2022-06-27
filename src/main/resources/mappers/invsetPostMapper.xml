@@ -137,7 +137,7 @@
 			</when>
 			<when test="investmentProcessForFiltering != ''">
 			WHERE
-		 		investmentProcess` = #{investmentProcessForFiltering}
+		 		`investmentProcess` = #{investmentProcessForFiltering}
 			</when>
 		</choose>
 			
