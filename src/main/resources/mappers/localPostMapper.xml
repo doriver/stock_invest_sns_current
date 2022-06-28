@@ -41,5 +41,21 @@
  			, now()
  		)
  	</insert>
+
+ 	<select id="selectLocalPostImagePath" parameterType="int" resultType="String">
+ 		SELECT 
+			`imagePath`
+		FROM 
+			`local_post`
+		WHERE
+			`id` = #{id}		
+ 	</select>
+ 	
+ 	<delete id="deleteLocalPost" parameterType="map">
+ 		DELETE FROM `local_post`
+ 		WHERE
+ 			`id` = #{id}
+ 			AND `userId` = #{userId}
+ 	</delete> 
  	
  </mapper>

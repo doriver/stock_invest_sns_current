@@ -31,10 +31,7 @@ public class PostController {
 	@Autowired
 	private UserBO userBO;
 	
-	@GetMapping("/guest_view")
-	public String firstMeet() {
-		return "post/firstMeet";
-	}
+
 	
 	@GetMapping("/invest_view")
 	public String investTimeline(
@@ -131,11 +128,13 @@ public class PostController {
 		
 		String userLocation = myInfo.getLocation();
 		
-		List<LocalPostWithOthers> postList = postBO.getLocalPostList(myUserId, userLocation);
+		if (userLocation != null) {
+			List<LocalPostWithOthers> postList = postBO.getLocalPostList(myUserId, userLocation);			
+			model.addAttribute("postList", postList);
+		}
+		// 원래 if문 없었는데 추가함 , 추가해도 잘 돌아감 , 추가 하는게 맞는듯
 		
 		
-		
-		model.addAttribute("postList", postList);
 		model.addAttribute("myInfo", myInfo);
 		
 		return "post/localTimeline";

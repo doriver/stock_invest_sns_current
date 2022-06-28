@@ -52,5 +52,12 @@
  			, now()
  		)
  	</insert>
-
+ 	
+ 	
+ 	<delete id="deleteGossipPost" parameterType="map">
+ 		DELETE FROM `gossip_post`
+ 		WHERE
+ 			`id` = #{id}
+ 			AND `userId` = #{userId}
+ 	</delete>
  </mapper>

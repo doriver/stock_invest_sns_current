@@ -238,26 +238,37 @@ public class PostBO {
 		return postDAO.insertLocalPost(myUserId, userNickName, myLocation, content, filePath);
 	}
 	
-	public boolean deleteInvestPost(int postId, int userId) {
+	public boolean deletePost(int postId, int userId, String type) {
+		
+		String imagePath = null;
+		int deleteCount = 0;
+		
+		if (type.equals("invest")) {		
+			imagePath = postDAO.selectInvestPostImagePath(postId);
+			deleteCount = postDAO.deleteInvestPost(postId, userId);	
+		} 
+			
+		if (type.equals("local")) {
+			imagePath = postDAO.selectLocalPostImagePath(postId);
+			deleteCount = postDAO.deleteLocalPost(postId, userId);
+		}
 
-		InvestPost post = postDAO.selectInvestPost(postId);
+		if (type.equals("gossip")) {
+			deleteCount = postDAO.deleteGossipPost(postId, userId);	
+		}
 		
-		int count = postDAO.deleteInvestPost(postId, userId);
-		
-		if(count != 1) {
+		if(deleteCount != 1) {
 			return false;
 		}
 		
-		if(post.getImagePath() != null) {
+		if(imagePath != null) {
 			FileManagerService fileManagerService = new FileManagerService();
-			fileManagerService.removeFile(post.getImagePath());			
+			fileManagerService.removeFile(imagePath);			
 		}
-		
-		likeBO.deleteLikeInvest(postId);
-		commentBO.deleteComment(postId);
-		
+
+		commentBO.deleteComment(postId, type);
+		likeBO.deleteLikeInPost(postId, type);
 		return true;
 	}
-
 
 }

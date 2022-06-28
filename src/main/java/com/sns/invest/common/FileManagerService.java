@@ -18,13 +18,10 @@ public class FileManagerService {
 	
 	// 파일 업로드 
 	public String saveFile(int userId, MultipartFile file) {
-		// 파일 이름 겹칩을 방지하기 위해서 사용자 별로 디렉토리를 만들어서 저장한다. 
-		// 올린 시간별로 구분해서 저장
-		// 43_21982838382/test.png
-		// 1970년 1월 1일이후로 지금 몇초가 지났는지 
 		
+		// 파일 이름 겹칩을 방지하기 위해서 사용자 별로 디렉토리를 만들어서 저장한다. 올린 시간별로 구분해서 저장
 		String directoryName = userId + "_" + System.currentTimeMillis() + "/";
-		//완전한 파일경로 
+		//   43_21982838382/test.png          1970년 1월 1일이후로 지금 몇초가 지났는지
 		
 		String filePath = FILE_UPLOAD_PATH + directoryName;
 		
@@ -37,22 +34,18 @@ public class FileManagerService {
 		}
 		
 		// 파일 저장
-		// byte
 		byte[] bytes;
 		try {
-			bytes = file.getBytes();
+			bytes = file.getBytes(); // 파일을 바이트배열로 변경
 			Path path = Paths.get(filePath + file.getOriginalFilename());
-			Files.write(path, bytes);
+			Files.write(path, bytes); // byte 배열을 파일로 저장
 		} catch (IOException e) {
 			logger.error("[FileManagerService saveFile] 파일 생성 실패 ");
 			e.printStackTrace();
 			return null;
 		}
-		
 				
-		// 파일 접근 가능한 path 리턴
-		// src="/images/12_124141241/test.png"
-		
+		// 파일 접근 가능한 path 리턴  . src="/images/12_124141241/test.png"
 		return "/images/" + directoryName + file.getOriginalFilename();
 	}
 	
@@ -66,14 +59,13 @@ public class FileManagerService {
 		
 		String realFilePath = FILE_UPLOAD_PATH + filePath.replace("/images/", "");
 		
-		// 파일지우고
 		Path path = Paths.get(realFilePath);
-		// 해당 파일이 있는지
+		// 파일지우기( 해당 파일이 있는지확인후 )
 		if(Files.exists(path)) {
 			try {
 				Files.delete(path);
 			} catch (IOException e) {
-				logger.error("[FileManagerService saveFile] file delete fail ");
+				logger.error("[FileManagerService removeFile] file delete fail ");
 				e.printStackTrace();
 			}
 		}
@@ -86,7 +78,7 @@ public class FileManagerService {
 			try {
 				Files.delete(path);
 			} catch (IOException e) {
-				logger.error("[FileManagerService saveFile] directory delete fail ");
+				logger.error("[FileManagerService removeFile] directory delete fail ");
 				e.printStackTrace();
 			}
 		}

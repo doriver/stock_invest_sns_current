@@ -21,6 +21,7 @@ public interface LikeDAO {
 	public int selectCountLikeByPostIdType(@Param("postId") int postId
 			, @Param("type") String type);
 	
-	public int deleteLikeInvestByPostId(@Param("postId") int postId);
+	public int deleteLikeInPost(@Param("postId") int postId
+			, @Param("type") String type);
 
 }
