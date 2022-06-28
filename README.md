@@ -15,6 +15,7 @@
 * 간단한 웹 서비스지만, 처음으로 웹서비스를 0상태 부터 aws배포까지 혼자힘으로 만들어 보았다는데 의의를 가지고 만들었다. 앞으로 계속 프로젝트를 발전시켜나갈 계획이다
 ### 웹 주소
 http://52.79.159.236:8080/user/sign_view
+테스트용 아이디:test 비번:test
 ### 포트폴리오
 https://docs.google.com/document/d/13sMmKcOvY1Ob6TAYlghCCJ9vW6nTOqu9vfss1Tbv6y4/edit?usp=sharing
 ### 자소서
