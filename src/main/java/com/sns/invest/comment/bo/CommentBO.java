@@ -23,9 +23,10 @@ public class CommentBO {
 		return commentDAO.insertComment(type, userId, postId, userNickName, content);
 	}
 	
-	public int deleteComment(int postId) {
-		return commentDAO.deleteCommentInvest(postId);
-		// if문으로 type에 따라 나눌수도 있겠네
+	public int deleteComment(int postId, String type) {
+		
+		return commentDAO.deleteComment(postId, type);
+		
 	}
 
 }

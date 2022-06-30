@@ -32,19 +32,9 @@
  		)
  	</insert>
 
- 	<select id="selectInvestPost" parameterType="int" resultType="com.sns.invest.post.model.invest.InvestPost">
+ 	<select id="selectInvestPostImagePath" parameterType="int" resultType="String">
  		SELECT 
- 			`id`
- 			, `userId`
- 			, `userNickName`
- 			, `investStyle`
- 			, `stockItemName`
- 			, `investmentOpinion`
- 			, `investmentProcess`
- 			, `content`
- 			, `imagePath`
- 			, `createdAt`
- 			, `updatedAt`
+			`imagePath`
 		FROM 
 			`invest_post`
 		WHERE
@@ -147,7 +137,7 @@
 			</when>
 			<when test="investmentProcessForFiltering != ''">
 			WHERE
-		 		investmentProcess` = #{investmentProcessForFiltering}
+		 		`investmentProcess` = #{investmentProcessForFiltering}
 			</when>
 		</choose>
 			

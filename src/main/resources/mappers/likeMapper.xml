@@ -50,10 +50,10 @@
 			AND `userId` = #{userId}
 	</delete>
 	
-	<delete id="deleteLikeInvestByPostId" parameterType="int">
+	<delete id="deleteLikeInPost" parameterType="map">
 		DELETE FROM `like`
 		WHERE 
-			`type` = 'invest'
+			`type` = #{type}
 			AND `postId` = #{postId}
 	</delete>
 

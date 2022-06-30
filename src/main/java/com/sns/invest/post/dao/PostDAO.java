@@ -24,9 +24,19 @@ public interface PostDAO {
 			, @Param("investmentProcess") String investmentProcess
 			);
 	
-	public InvestPost selectInvestPost(@Param("id") int id);
+	public String selectInvestPostImagePath(@Param("id") int id);
+
+	public String selectLocalPostImagePath(@Param("id") int id);
 	
 	public int deleteInvestPost(
+			@Param("id") int id
+			, @Param("userId") int userId);
+	
+	public int deleteLocalPost(
+			@Param("id") int id
+			, @Param("userId") int userId);
+
+	public int deleteGossipPost(
 			@Param("id") int id
 			, @Param("userId") int userId);
 	

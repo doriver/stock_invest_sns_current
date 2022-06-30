@@ -59,14 +59,13 @@ public class FileManagerService {
 		
 		String realFilePath = FILE_UPLOAD_PATH + filePath.replace("/images/", "");
 		
-		// 파일지우고
 		Path path = Paths.get(realFilePath);
-		// 해당 파일이 있는지
+		// 파일지우기( 해당 파일이 있는지확인후 )
 		if(Files.exists(path)) {
 			try {
 				Files.delete(path);
 			} catch (IOException e) {
-				logger.error("[FileManagerService saveFile] file delete fail ");
+				logger.error("[FileManagerService removeFile] file delete fail ");
 				e.printStackTrace();
 			}
 		}
@@ -79,7 +78,7 @@ public class FileManagerService {
 			try {
 				Files.delete(path);
 			} catch (IOException e) {
-				logger.error("[FileManagerService saveFile] directory delete fail ");
+				logger.error("[FileManagerService removeFile] directory delete fail ");
 				e.printStackTrace();
 			}
 		}

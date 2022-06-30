@@ -394,11 +394,12 @@
 			$("#deleteBtn").on("click", function(e) {
 				e.preventDefault();
 				var postId = $(this).data("post-id");
+				var type = "invest";
 				
 				$.ajax({
 					type:"get",
-					url:"/post/delete/invset",
-					data:{"postId":postId},
+					url:"/post/delete",
+					data:{"postId":postId, "type":type},
 					success:function(data) {
 						if(data.result == "success") {
 							location.reload();
