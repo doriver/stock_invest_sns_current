@@ -61,7 +61,7 @@
 									</c:otherwise>
 								</c:choose>							
 							
-								<a href="/post/individual_home_view?userId=${postWithOthers.gossipPost.userId }" class="font-weight-bold text-dark">
+								<a href="/individual-home-view?userId=${postWithOthers.gossipPost.userId }" class="font-weight-bold text-dark">
 									${postWithOthers.gossipPost.userNickName }
 								</a>
 							</div>
@@ -191,7 +191,7 @@
 	        	//corporation = $("#corporation option:selected").val();
 	        	corporation = $(this).val();
 	        	
-	        	location.href="/post/gossip_view?corporation=" + corporation;
+	        	location.href="/gossip-view?corporation=" + corporation;
 	        });
 	        
 	        // <글쓰기 버튼 눌렀을때>

@@ -35,7 +35,7 @@
 	<section class="d-flex">
 		<div class="col-2">
 			<h5>게시글 필터링 기능</h5>
-			<form method="post" action="/post/invest_view_filtering">
+			<form method="post" action="/invest-view-filtering">
 				<select name="investStyleForFiltering">
 	          			<option value="">투자스타일</option>
 	          			<option>단타x</option>
@@ -90,7 +90,7 @@
 										<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">	
 									</c:otherwise>
 								</c:choose>							
-								<a href="/post/individual_home_view?userId=${postWithOthers.investPost.userId }" class="font-weight-bold text-dark">
+								<a href="/individual-home-view?userId=${postWithOthers.investPost.userId }" class="font-weight-bold text-dark">
 									${postWithOthers.investPost.userNickName }
 								</a>
 							</div>

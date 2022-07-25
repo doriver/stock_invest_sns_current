@@ -58,7 +58,7 @@
 												<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">	
 											</c:otherwise>
 										</c:choose>							
-										<a href="/post/individual_home_view?userId=${postWithOthers.localPost.userId }" class="font-weight-bold text-dark">
+										<a href="/individual-home-view?userId=${postWithOthers.localPost.userId }" class="font-weight-bold text-dark">
 											${postWithOthers.localPost.userNickName }
 										</a>
 									</div>

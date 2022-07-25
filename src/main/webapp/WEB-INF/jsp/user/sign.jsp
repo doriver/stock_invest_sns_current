@@ -75,12 +75,12 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/user/sign_in",
+					url:"/users/sign-in",
 					data:{"idForLogin":idForLogin, "passwordForLogin":passwordForLogin},
 					success:function(data) {
 						if(data.result == "success") {
 							alert("로그인 성공");
-							location.href="/post/invest_view";
+							location.href="/invest-view";
 						} else {
 							alert("아이디 비밀번호를 확인하세요");
 						}
@@ -145,12 +145,12 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/user/sign_up",
+					url:"/users/sign-up",
 					data:{"loginId":loginId, "password":password, "nickName":nickName, "email":email},
 					success:function(data) {
 						if(data.result == "success") {
 							alert("회원가입 성공");
-							location.href="/user/sign_view";
+							location.href="/sign-view";
 							
 						} else {
 							alert("회원 가입 실패");
@@ -177,7 +177,7 @@
 				
 				$.ajax({
 					type:"get",
-					url:"/user/is_duplicate_id",
+					url:"/users/id-duplicated",
 					data:{"loginId":loginId},
 					success:function(data) {
 						isIdCheck = true;

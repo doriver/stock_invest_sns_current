@@ -22,7 +22,7 @@ import com.sns.invest.user.model.User;
 import com.sns.invest.post.bo.PostBO;
 
 @Controller
-@RequestMapping("/post")
+//@RequestMapping("/post")
 public class PostController {
 	
 	@Autowired
@@ -33,7 +33,7 @@ public class PostController {
 	
 
 	
-	@GetMapping("/invest_view")
+	@GetMapping("/invest-view")
 	public String investTimeline(
 			HttpServletRequest request
 			, Model model) {
@@ -49,7 +49,7 @@ public class PostController {
 		return "post/investTimeline";
 	}
 
-	@PostMapping("/invest_view_filtering")
+	@PostMapping("/invest-view-filtering")
 	public String investTimelineFiltering(
 			@RequestParam(value = "investStyleForFiltering", required = false) String investStyleForFiltering
 			, @RequestParam(value = "stockItemNameForFiltering", required = false) String stockItemNameForFiltering
@@ -76,7 +76,7 @@ public class PostController {
 		return "post/filteredInvestTimeline";
 	}
 	
-	@GetMapping("/individual_home_view")
+	@GetMapping("/individual-home-view")
 	public String individualHome(
 			@RequestParam("userId") int userId
 			, HttpServletRequest request
@@ -97,7 +97,7 @@ public class PostController {
 		return "post/individualHome";
 	}
 
-	@GetMapping("/gossip_view")
+	@GetMapping("/gossip-view")
 	public String gossipTimeline(
 			@RequestParam(value = "corporation", required = false) String corporation
 			, HttpServletRequest request
@@ -116,7 +116,7 @@ public class PostController {
 		return "post/gossipTimeline";
 	}
 	
-	@GetMapping("/local_view")
+	@GetMapping("/local-view")
 	public String localTimeline(
 			HttpServletRequest request
 			, Model model) {

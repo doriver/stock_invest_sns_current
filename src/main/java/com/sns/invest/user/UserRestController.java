@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,13 +19,13 @@ import com.sns.invest.user.model.User;
 import com.sns.invest.user.bo.UserBO;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserRestController {
 	
 	@Autowired
 	private UserBO userBO;
 	
-	@GetMapping("/is_duplicate_id")
+	@GetMapping("/id-duplicated")
 	public Map<String, Boolean> isDuplicateId (
 			@RequestParam("loginId") String loginId) {
 		
@@ -41,7 +42,7 @@ public class UserRestController {
 		return result;
 	}
 	
-	@PostMapping("/sign_up")
+	@PostMapping("/sign-up")
 	public Map<String, String> signUp(
 			@RequestParam("loginId") String loginId
 			, @RequestParam("password") String password
@@ -61,7 +62,7 @@ public class UserRestController {
 		return result;
 	}
 	
-	@PostMapping("/sign_in")
+	@PostMapping("/sign-in")
 	public Map<String, String> signIn(
 			@RequestParam("idForLogin") String idForLogin
 			, @RequestParam("passwordForLogin") String passwordForLogin
@@ -84,7 +85,7 @@ public class UserRestController {
 		return result;	
 	}
 	
-	@GetMapping("/location")
+	@PatchMapping("/location")
 	public Map<String, String> userLocation(
 			@RequestParam("location") String location
 			, HttpServletRequest request) {
@@ -104,7 +105,7 @@ public class UserRestController {
 		return result;
 	}
 	
-	@PostMapping("/profile")
+	@PatchMapping("/profile")
 	public Map<String, String> userProfile(
 			@RequestParam("profileStatusMessage") String profileStatusMessage
 			, @RequestParam(value = "file", required = false) MultipartFile file
