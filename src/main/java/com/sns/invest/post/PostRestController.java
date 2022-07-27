@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +17,6 @@ import com.sns.invest.post.bo.LikeBO;
 import com.sns.invest.post.bo.PostBO;
 
 @RestController
-@RequestMapping("/post")
 public class PostRestController {
 	
 	@Autowired
@@ -26,7 +25,9 @@ public class PostRestController {
 	@Autowired
 	private PostBO postBO;
 
-	@GetMapping("/like/invest")
+	
+	// 투자게시글 좋아요 + 좋아요 취소
+	@GetMapping("/likes/invest")
 	public Map<String, Object> likeInvest(
 			@RequestParam("postId") int postId
 			, HttpServletRequest request) {
@@ -47,7 +48,9 @@ public class PostRestController {
 		return result;
 	}
 
-	@GetMapping("/like/gossip")
+	
+	// 가십게시글 좋아요 + 좋아요 취소
+	@GetMapping("/likes/gossip")
 	public Map<String, Object> likeGossip(
 			@RequestParam("postId") int postId
 			, HttpServletRequest request) {
@@ -68,7 +71,9 @@ public class PostRestController {
 		return result;
 	}
 
-	@GetMapping("/like/local")
+	
+	// 지역커뮤니티 게시글 좋아요 + 좋아요 취소
+	@GetMapping("/likes/local")
 	public Map<String, Object> likeLocal(
 			@RequestParam("postId") int postId
 			, HttpServletRequest request) {
@@ -90,7 +95,8 @@ public class PostRestController {
 	}
 	
 
-	@GetMapping("/delete")
+	// 게시글 삭제
+	@DeleteMapping("/posts")
 	public Map<String, String> deletePost(
 			@RequestParam("postId") int postId
 			, @RequestParam("type") String type

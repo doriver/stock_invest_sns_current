@@ -177,7 +177,7 @@
 				
 				$.ajax({
 					type:"get",
-					url:"/users/id-duplicated",
+					url:"/users/id-duplicate-test",
 					data:{"loginId":loginId},
 					success:function(data) {
 						isIdCheck = true;

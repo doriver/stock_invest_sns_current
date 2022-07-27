@@ -25,7 +25,8 @@ public class UserRestController {
 	@Autowired
 	private UserBO userBO;
 	
-	@GetMapping("/id-duplicated")
+	// 아이디 중복확인 기능
+	@GetMapping("/id-duplicate-test")
 	public Map<String, Boolean> isDuplicateId (
 			@RequestParam("loginId") String loginId) {
 		
@@ -42,6 +43,8 @@ public class UserRestController {
 		return result;
 	}
 	
+	
+	// 회원가입 기능
 	@PostMapping("/sign-up")
 	public Map<String, String> signUp(
 			@RequestParam("loginId") String loginId
@@ -62,6 +65,8 @@ public class UserRestController {
 		return result;
 	}
 	
+	
+	// 로그인 기능
 	@PostMapping("/sign-in")
 	public Map<String, String> signIn(
 			@RequestParam("idForLogin") String idForLogin
@@ -85,6 +90,8 @@ public class UserRestController {
 		return result;	
 	}
 	
+	
+	// 사용자의 위치설정 기능
 	@PatchMapping("/location")
 	public Map<String, String> userLocation(
 			@RequestParam("location") String location
@@ -105,6 +112,8 @@ public class UserRestController {
 		return result;
 	}
 	
+	
+	// 사용자의 프로필 설정 기능
 	@PatchMapping("/profile")
 	public Map<String, String> userProfile(
 			@RequestParam("profileStatusMessage") String profileStatusMessage

@@ -206,7 +206,7 @@
 				$.ajax({
 					enctype: "multipart/form-data",
 					type:"POST",
-					url:"/post/create/local",
+					url:"/local-posts",
 					processData: false,
 					contentType: false,
 					data:formData,
@@ -244,7 +244,7 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/comment/create/local",
+					url:"/comments/local",
 					data:{"postId":postId, "content":comment},
 					success:function(data) {
 						if(data.result == "success") {
@@ -267,7 +267,7 @@
 				
 				$.ajax({
 					type:"get",
-					url:"/post/like/local",
+					url:"/likes/local",
 					data:{"postId": postId},
 					success:function(data) {
 						// 좋아요
@@ -317,8 +317,8 @@
 				var type = "local";
 				
 				$.ajax({
-					type:"get",
-					url:"/post/delete",
+					type:"delete",
+					url:"/posts",
 					data:{"postId":postId, "type":type},
 					success:function(data) {
 						if(data.result == "success") {

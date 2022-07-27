@@ -35,7 +35,7 @@
 	<section class="d-flex">
 		<div class="col-2">
 			<h5>게시글 필터링 기능</h5>
-			<form method="post" action="/invest-view-filtering">
+			<form method="get" action="/invest-view-filtered">
 				<select name="investStyleForFiltering">
 	          			<option value="">투자스타일</option>
 	          			<option>단타x</option>
@@ -249,9 +249,6 @@
 	<script>
 		$(document).ready(function() {
 
-			
-	        
-			
 	        // <글쓰기 버튼 눌렀을때>
 			$("#writeBtn").on("click", function() {
 		    	var investStyle;
@@ -291,7 +288,7 @@
 					$.ajax({
 						enctype: 'multipart/form-data', // 필수
 						type:"POST",
-						url:"/post/create/invest",
+						url:"/invest-posts",
 						processData: false, // 필수 
 			        	contentType: false, // 필수 
 						data:formData,
@@ -330,7 +327,7 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/comment/create/invest",
+					url:"/comments/invest",
 					data:{"postId":postId, "content":comment},
 					success:function(data) {
 						if(data.result == "success") {
@@ -353,7 +350,7 @@
 				
 				$.ajax({
 					type:"get",
-					url:"/post/like/invest",
+					url:"/likes/invest",
 					data:{"postId": postId},
 					success:function(data) {
 						if(data.like) { // 좋아요
@@ -397,8 +394,8 @@
 				var type = "invest";
 				
 				$.ajax({
-					type:"get",
-					url:"/post/delete",
+					type:"delete",
+					url:"/posts",
 					data:{"postId":postId, "type":type},
 					success:function(data) {
 						if(data.result == "success") {
