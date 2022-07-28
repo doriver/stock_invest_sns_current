@@ -35,7 +35,7 @@
 	<section class="d-flex">
 		<div class="col-2">
 			<h5>게시글 필터링 기능</h5>
-			<form method="post" action="/post/invest_view_filtering">
+			<form method="get" action="/invest-view-filtered">
 				<select name="investStyleForFiltering">
 	          			<option value="">투자스타일</option>
 	          			<option>단타x</option>
@@ -70,7 +70,7 @@
 	      		<button type="submit" id="filteringBtn" class="btn">필터링</button>
 			</form>	
 			
-			<button class="btn mt-4" onclick="location.href='/post/invest_view'">전체글보기</button>
+			<button class="btn mt-4" onclick="location.href='/invest-view'">전체글보기</button>
 		</div>
 		<div class="col-8 d-flex justify-content-center">
 			<div class="post-timeline-box">
@@ -105,7 +105,7 @@
 										<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">	
 									</c:otherwise>
 								</c:choose>							
-								<a href="/post/individual_home_view?userId=${postWithOthers.investPost.userId }" class="font-weight-bold text-dark">
+								<a href="/individual-home-view?userId=${postWithOthers.investPost.userId }" class="font-weight-bold text-dark">
 									${postWithOthers.investPost.userNickName }
 								</a>
 							</div>
@@ -306,7 +306,7 @@
 					$.ajax({
 						enctype: 'multipart/form-data', // 필수
 						type:"POST",
-						url:"/post/create/invest",
+						url:"/invest-posts",
 						processData: false, // 필수 
 			        	contentType: false, // 필수 
 						data:formData,
@@ -345,7 +345,7 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/comment/create/invest",
+					url:"/comments/invest",
 					data:{"postId":postId, "content":comment},
 					success:function(data) {
 						if(data.result == "success") {
@@ -368,7 +368,7 @@
 				
 				$.ajax({
 					type:"get",
-					url:"/post/like/invest",
+					url:"/likes/invest",
 					data:{"postId": postId},
 					success:function(data) {
 						// 좋아요
@@ -400,6 +400,39 @@
 				
 			});
 			// </좋아요 버튼>
+
+			$(".moreBtn").on("click", function() {
+				// postId를 모델에 삭제 버튼에 주입한다. 
+				
+				var postId = $(this).data("post-id");
+								
+				$("#deleteBtn").data("post-id", postId);
+				
+			});
+
+			
+			$("#deleteBtn").on("click", function(e) {
+				e.preventDefault();
+				var postId = $(this).data("post-id");
+				var type = "invest";
+				
+				$.ajax({
+					type:"delete",
+					url:"/posts",
+					data:{"postId":postId, "type":type},
+					success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("삭제 실패");
+						}
+					}, 
+					error:function(e) {
+						alert("error");	
+					}
+				})
+			});
+			
 			
 			
 		});

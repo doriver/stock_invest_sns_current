@@ -16,12 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sns.invest.post.bo.PostBO;
 
 @RestController
-@RequestMapping("/post/create")
 public class PostCreateController {
 	@Autowired
 	private PostBO postBO;
 	
-	@PostMapping("/invest")
+	// 투자게시글 작성(투자게시판, 필터링된 투자게시판, 개인홈)
+	@PostMapping("/invest-posts")
 	public Map<String, String> investPostCreate(
 			@RequestParam("content") String content
 			, @RequestParam(value = "file", required = false) MultipartFile file
@@ -48,7 +48,9 @@ public class PostCreateController {
 		return result;
 	}
 
-	@PostMapping("/gossip")
+	
+	// 가십게시판에서 글작성
+	@PostMapping("/gossip-posts")
 	public Map<String, String> gossipPostCreate(
 			@RequestParam("content") String content
 			, @RequestParam("corporation") String corporation
@@ -71,7 +73,9 @@ public class PostCreateController {
 		return result;
 	}
 	
-	@PostMapping("/local")
+	
+	// 지역커뮤니티에서 글작성
+	@PostMapping("/local-posts")
 	public Map<String, String> localPostCreate(
 			@RequestParam("content") String content
 			, @RequestParam(value = "file", required = false) MultipartFile file

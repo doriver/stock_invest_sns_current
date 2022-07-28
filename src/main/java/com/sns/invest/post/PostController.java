@@ -1,19 +1,13 @@
 package com.sns.invest.post;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.sns.invest.post.model.gossip.GossipPostWithOthers;
 import com.sns.invest.post.model.invest.InvestPostWithOthers;
 import com.sns.invest.post.model.local.LocalPostWithOthers;
@@ -22,7 +16,6 @@ import com.sns.invest.user.model.User;
 import com.sns.invest.post.bo.PostBO;
 
 @Controller
-@RequestMapping("/post")
 public class PostController {
 	
 	@Autowired
@@ -32,8 +25,8 @@ public class PostController {
 	private UserBO userBO;
 	
 
-	
-	@GetMapping("/invest_view")
+	// 투자게시판 화면
+	@GetMapping("/invest-view")
 	public String investTimeline(
 			HttpServletRequest request
 			, Model model) {
@@ -49,7 +42,9 @@ public class PostController {
 		return "post/investTimeline";
 	}
 
-	@PostMapping("/invest_view_filtering")
+	
+	// 필터링된 투자게시판 화면
+	@GetMapping("/invest-view-filtered")
 	public String investTimelineFiltering(
 			@RequestParam(value = "investStyleForFiltering", required = false) String investStyleForFiltering
 			, @RequestParam(value = "stockItemNameForFiltering", required = false) String stockItemNameForFiltering
@@ -76,7 +71,9 @@ public class PostController {
 		return "post/filteredInvestTimeline";
 	}
 	
-	@GetMapping("/individual_home_view")
+	
+	// 개인 홈 화면
+	@GetMapping("/individual-home-view")
 	public String individualHome(
 			@RequestParam("userId") int userId
 			, HttpServletRequest request
@@ -97,7 +94,9 @@ public class PostController {
 		return "post/individualHome";
 	}
 
-	@GetMapping("/gossip_view")
+	
+	// 아무말 게시판 화면
+	@GetMapping("/gossip-view")
 	public String gossipTimeline(
 			@RequestParam(value = "corporation", required = false) String corporation
 			, HttpServletRequest request
@@ -116,7 +115,9 @@ public class PostController {
 		return "post/gossipTimeline";
 	}
 	
-	@GetMapping("/local_view")
+	
+	// 지역 커뮤니티 화면
+	@GetMapping("/local-view")
 	public String localTimeline(
 			HttpServletRequest request
 			, Model model) {

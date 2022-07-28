@@ -61,7 +61,7 @@
 									</c:otherwise>
 								</c:choose>							
 							
-								<a href="/post/individual_home_view?userId=${postWithOthers.gossipPost.userId }" class="font-weight-bold text-dark">
+								<a href="/individual-home-view?userId=${postWithOthers.gossipPost.userId }" class="font-weight-bold text-dark">
 									${postWithOthers.gossipPost.userNickName }
 								</a>
 							</div>
@@ -191,7 +191,7 @@
 	        	//corporation = $("#corporation option:selected").val();
 	        	corporation = $(this).val();
 	        	
-	        	location.href="/post/gossip_view?corporation=" + corporation;
+	        	location.href="/gossip-view?corporation=" + corporation;
 	        });
 	        
 	        // <글쓰기 버튼 눌렀을때>
@@ -213,7 +213,7 @@
 					
 					$.ajax({
 						type:"POST",
-						url:"/post/create/gossip",
+						url:"/gossip-posts",
 						data:{"content":content, "corporation":corporationSelect},
 						success:function(data) {
 							if(data.result == "success") {
@@ -247,7 +247,7 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/comment/create/gossip",
+					url:"/comments/gossip",
 					data:{"postId":postId, "content":comment},
 					success:function(data) {
 						if(data.result == "success") {
@@ -270,7 +270,7 @@
 				
 				$.ajax({
 					type:"get",
-					url:"/post/like/gossip",
+					url:"/likes/gossip",
 					data:{"postId": postId},
 					success:function(data) {
 						// 좋아요
@@ -320,8 +320,8 @@
 				var type = "gossip";
 				
 				$.ajax({
-					type:"get",
-					url:"/post/delete",
+					type:"delete",
+					url:"/posts",
 					data:{"postId":postId, "type":type},
 					success:function(data) {
 						if(data.result == "success") {
