@@ -399,7 +399,7 @@
 					$.ajax({
 						enctype: 'multipart/form-data', // 필수
 						type:"POST",
-						url:"/post/create/invest",
+						url:"/invest-posts",
 						processData: false, // 필수 
 			        	contentType: false, // 필수 
 						data:formData,
@@ -438,7 +438,7 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/comment/create/invest",
+					url:"/comments/invest",
 					data:{"postId":postId, "content":comment},
 					success:function(data) {
 						if(data.result == "success") {
@@ -461,7 +461,7 @@
 				
 				$.ajax({
 					type:"get",
-					url:"/post/like/invest",
+					url:"/likes/invest",
 					data:{"postId": postId},
 					success:function(data) {
 						// 좋아요
@@ -493,6 +493,41 @@
 				
 			});
 			// </좋아요 버튼>
+			
+			$(".moreBtn").on("click", function() {
+				// postId를 모델에 삭제 버튼에 주입한다. 
+				
+				var postId = $(this).data("post-id");
+								
+				$("#deleteBtn").data("post-id", postId);
+				
+			});
+
+			
+			$("#deleteBtn").on("click", function(e) {
+				e.preventDefault();
+				var postId = $(this).data("post-id");
+				var type = "invest";
+				
+				$.ajax({
+					type:"delete",
+					url:"/posts",
+					data:{"postId":postId, "type":type},
+					success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("삭제 실패");
+						}
+					}, 
+					error:function(e) {
+						alert("error");	
+					}
+				})
+			});
+			
+			
+			
 
 			// <위치설정>
 			$("#locationCompletion").on("click", function() {
@@ -506,8 +541,8 @@
 				}
 				
 				$.ajax({
-					type:"get",
-					url:"/user/location",
+					type:"patch",
+					url:"/users/location",
 					data:{"location":userLocation},
 					success:function(data) {
 						if(data.result == "success") {
@@ -534,8 +569,8 @@
 				
 				$.ajax({
 					enctype: 'multipart/form-data', // 필수
-					type:"post",
-					url:"/user/profile",
+					type:"patch",
+					url:"/users/profile",
 					processData: false, // 필수 
 					contentType: false, // 필수
 					data:formData,

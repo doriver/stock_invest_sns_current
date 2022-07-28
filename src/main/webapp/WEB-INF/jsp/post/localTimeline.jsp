@@ -58,7 +58,7 @@
 												<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">	
 											</c:otherwise>
 										</c:choose>							
-										<a href="/post/individual_home_view?userId=${postWithOthers.localPost.userId }" class="font-weight-bold text-dark">
+										<a href="/individual-home-view?userId=${postWithOthers.localPost.userId }" class="font-weight-bold text-dark">
 											${postWithOthers.localPost.userNickName }
 										</a>
 									</div>
@@ -206,7 +206,7 @@
 				$.ajax({
 					enctype: "multipart/form-data",
 					type:"POST",
-					url:"/post/create/local",
+					url:"/local-posts",
 					processData: false,
 					contentType: false,
 					data:formData,
@@ -244,7 +244,7 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/comment/create/local",
+					url:"/comments/local",
 					data:{"postId":postId, "content":comment},
 					success:function(data) {
 						if(data.result == "success") {
@@ -267,7 +267,7 @@
 				
 				$.ajax({
 					type:"get",
-					url:"/post/like/local",
+					url:"/likes/local",
 					data:{"postId": postId},
 					success:function(data) {
 						// 좋아요
@@ -317,8 +317,8 @@
 				var type = "local";
 				
 				$.ajax({
-					type:"get",
-					url:"/post/delete",
+					type:"delete",
+					url:"/posts",
 					data:{"postId":postId, "type":type},
 					success:function(data) {
 						if(data.result == "success") {

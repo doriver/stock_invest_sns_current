@@ -2,21 +2,21 @@ package com.sns.invest.user;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
 	
-	@GetMapping("/sign_view")
+	// 로그인, 회원가입 화면
+	@GetMapping("/sign-view")
 	public String signView() {
 		return "user/sign";
 	}
 	
-	@GetMapping("/sign_out")
+	// 로그아웃 기능
+	@GetMapping("/sign-out")
 	public String signOut(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		
@@ -25,12 +25,8 @@ public class UserController {
 		session.removeAttribute("userNickName");
 		session.removeAttribute("userLocation");
 		
-		return "redirect:/user/sign_view";
+		return "redirect:/sign-view";
 	}
 
-	@GetMapping("/test")
-	public String test() {
-		return "user/NewFile";
-	}
 	
 }

@@ -15,13 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sns.invest.comment.bo.CommentBO;
 
 @RestController
-@RequestMapping("/comment")
+@RequestMapping("/comments")
 public class CommentRestController {
 
 	@Autowired
 	private CommentBO commentBO;
 	
-	@PostMapping("/create/invest")
+	
+	// 투자게시글 댓글 작성
+	@PostMapping("/invest")
 	public Map<String, String> investComment(@RequestParam("postId") int postId
 			, @RequestParam("content") String content
 			, HttpServletRequest request) {
@@ -46,7 +48,9 @@ public class CommentRestController {
 		
 	}
 
-	@PostMapping("/create/gossip")
+	
+	// 가십게시글 댓글작성
+	@PostMapping("/gossip")
 	public Map<String, String> gossipComment(@RequestParam("postId") int postId
 			, @RequestParam("content") String content
 			, HttpServletRequest request) {
@@ -71,7 +75,9 @@ public class CommentRestController {
 		
 	}
 
-	@PostMapping("/create/local")
+	
+	// 지역커뮤니티글 댓글작성
+	@PostMapping("/local")
 	public Map<String, String> localComment(@RequestParam("postId") int postId
 			, @RequestParam("content") String content
 			, HttpServletRequest request) {
