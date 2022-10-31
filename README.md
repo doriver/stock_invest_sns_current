@@ -13,9 +13,9 @@
 * 투자(주식)라는 주제에 집중한 SNS
 * 본인은 주식과 같은 투자를 즐기고 있다. 투자를 하면서 사람들과 소통하면 재밌을꺼 같아 만들었다.
 * 간단한 웹 서비스지만, 처음으로 웹서비스를 0상태 부터 aws배포까지 혼자힘으로 만들어 보았다는데 의의를 가지고 만들었다. 앞으로 계속 프로젝트를 발전시켜나갈 계획이다
-### 웹 주소
+### 웹 주소 ( 테스트용 아이디:test 비번:test )
 http://13.209.89.155:8080/sign-view     
-테스트용 아이디:test 비번:test
+
 ### 포트폴리오
 https://docs.google.com/document/d/13sMmKcOvY1Ob6TAYlghCCJ9vW6nTOqu9vfss1Tbv6y4/edit?usp=sharing
 ### 자소서
