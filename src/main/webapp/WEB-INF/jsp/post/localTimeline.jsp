@@ -244,8 +244,8 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/comments/local",
-					data:{"postId":postId, "content":comment},
+					url:"/comments/local/" + postId,
+					data:{"content":comment},
 					success:function(data) {
 						if(data.result == "success") {
 							location.reload();

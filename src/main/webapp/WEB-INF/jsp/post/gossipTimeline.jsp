@@ -247,8 +247,8 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/comments/gossip",
-					data:{"postId":postId, "content":comment},
+					url:"/comments/gossip/" + postId,
+					data:{"content":comment},
 					success:function(data) {
 						if(data.result == "success") {
 							location.reload();

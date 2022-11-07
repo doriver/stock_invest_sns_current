@@ -438,8 +438,8 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/comments/invest",
-					data:{"postId":postId, "content":comment},
+					url:"/comments/invest/" + postId,
+					data:{"content":comment},
 					success:function(data) {
 						if(data.result == "success") {
 							location.reload();

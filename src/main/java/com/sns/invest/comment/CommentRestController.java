@@ -23,8 +23,8 @@ public class CommentRestController {
 	
 	
 	// 게시글 댓글 작성
-	@PostMapping("/comments/{type}")
-	public Map<String, String> investComment(@RequestParam("postId") int postId
+	@PostMapping("/comments/{type}/{postId}")
+	public Map<String, String> investComment(@PathVariable("postId") int postId
 			, @RequestParam("content") String content
 			, @PathVariable("type") String type
 			, HttpServletRequest request) {
