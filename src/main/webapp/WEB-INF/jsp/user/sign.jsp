@@ -145,7 +145,7 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/users/sign-up",
+					url:"/users",
 					data:{"loginId":loginId, "password":password, "nickName":nickName, "email":email},
 					success:function(data) {
 						if(data.result == "success") {

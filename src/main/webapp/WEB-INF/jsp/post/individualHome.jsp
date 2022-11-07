@@ -461,8 +461,8 @@
 				
 				$.ajax({
 					type:"get",
-					url:"/likes/invest",
-					data:{"postId": postId},
+					url:"/likes/invest/" + postId,
+					
 					success:function(data) {
 						// 좋아요
 						if(data.like) {
@@ -511,10 +511,11 @@
 				
 				$.ajax({
 					type:"delete",
-					url:"/posts",
-					data:{"postId":postId, "type":type},
+					url:"/posts/"+ type +"/" + postId,
+			
 					success:function(data) {
 						if(data.result == "success") {
+							alert("삭제됐습니다");
 							location.reload();
 						} else {
 							alert("삭제 실패");

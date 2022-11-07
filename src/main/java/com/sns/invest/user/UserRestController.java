@@ -19,14 +19,13 @@ import com.sns.invest.user.model.User;
 import com.sns.invest.user.bo.UserBO;
 
 @RestController
-@RequestMapping("/users")
 public class UserRestController {
 	
 	@Autowired
 	private UserBO userBO;
 	
 	// 아이디 중복확인 기능
-	@GetMapping("/id-duplicate-test")
+	@GetMapping("/users/{loginId}")
 	public Map<String, Boolean> isDuplicateId (
 			@RequestParam("loginId") String loginId) {
 		
@@ -45,7 +44,7 @@ public class UserRestController {
 	
 	
 	// 회원가입 기능
-	@PostMapping("/sign-up")
+	@PostMapping("/users")
 	public Map<String, String> signUp(
 			@RequestParam("loginId") String loginId
 			, @RequestParam("password") String password
@@ -67,7 +66,7 @@ public class UserRestController {
 	
 	
 	// 로그인 기능
-	@PostMapping("/sign-in")
+	@PostMapping("/users/sign-in")
 	public Map<String, String> signIn(
 			@RequestParam("idForLogin") String idForLogin
 			, @RequestParam("passwordForLogin") String passwordForLogin
@@ -92,7 +91,7 @@ public class UserRestController {
 	
 	
 	// 사용자의 위치설정 기능
-	@PatchMapping("/location")
+	@PatchMapping("/users/location")
 	public Map<String, String> userLocation(
 			@RequestParam("location") String location
 			, HttpServletRequest request) {
@@ -114,7 +113,7 @@ public class UserRestController {
 	
 	
 	// 사용자의 프로필 설정 기능
-	@PatchMapping("/profile")
+	@PatchMapping("/users/profile")
 	public Map<String, String> userProfile(
 			@RequestParam("profileStatusMessage") String profileStatusMessage
 			, @RequestParam(value = "file", required = false) MultipartFile file

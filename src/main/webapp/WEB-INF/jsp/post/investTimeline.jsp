@@ -350,8 +350,8 @@
 				
 				$.ajax({
 					type:"get",
-					url:"/likes/invest",
-					data:{"postId": postId},
+					url:"/likes/invest/" + postId,
+
 					success:function(data) {
 						if(data.like) { // 좋아요
 							$("#heartIcon-" + postId).removeClass("bi-heart");
@@ -395,10 +395,11 @@
 				
 				$.ajax({
 					type:"delete",
-					url:"/posts",
-					data:{"postId":postId, "type":type},
+					url:"/posts/"+ type +"/" + postId,
+					//data:{"postId":postId, "type":type},
 					success:function(data) {
 						if(data.result == "success") {
+							alert("삭제됐습니다");
 							location.reload();
 						} else {
 							alert("삭제 실패");
