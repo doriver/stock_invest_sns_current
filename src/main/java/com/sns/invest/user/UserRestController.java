@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +28,7 @@ public class UserRestController {
 	// 아이디 중복확인 기능
 	@GetMapping("/users/{loginId}")
 	public Map<String, Boolean> isDuplicateId (
-			@RequestParam("loginId") String loginId) {
+			@PathVariable("loginId") String loginId) {
 		
 		Map<String, Boolean> result = new HashMap<>();
 			
