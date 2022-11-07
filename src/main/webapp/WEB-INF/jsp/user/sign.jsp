@@ -145,7 +145,7 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/users/sign-up",
+					url:"/users",
 					data:{"loginId":loginId, "password":password, "nickName":nickName, "email":email},
 					success:function(data) {
 						if(data.result == "success") {
@@ -177,8 +177,8 @@
 				
 				$.ajax({
 					type:"get",
-					url:"/users/id-duplicate-test",
-					data:{"loginId":loginId},
+					url:"/users/" + loginId,
+				
 					success:function(data) {
 						isIdCheck = true;
 						

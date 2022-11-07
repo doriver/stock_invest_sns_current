@@ -244,8 +244,8 @@
 				
 				$.ajax({
 					type:"post",
-					url:"/comments/local",
-					data:{"postId":postId, "content":comment},
+					url:"/comments/local/" + postId,
+					data:{"content":comment},
 					success:function(data) {
 						if(data.result == "success") {
 							location.reload();
@@ -267,8 +267,8 @@
 				
 				$.ajax({
 					type:"get",
-					url:"/likes/local",
-					data:{"postId": postId},
+					url:"/likes/local/" + postId,
+					
 					success:function(data) {
 						// 좋아요
 						if(data.like) {
@@ -318,10 +318,11 @@
 				
 				$.ajax({
 					type:"delete",
-					url:"/posts",
-					data:{"postId":postId, "type":type},
+					url:"/posts/"+ type +"/" + postId,
+					
 					success:function(data) {
 						if(data.result == "success") {
+							alert("삭제됐습니다");
 							location.reload();
 						} else {
 							alert("삭제 실패");
