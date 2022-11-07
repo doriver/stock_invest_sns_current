@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -96,10 +97,10 @@ public class PostRestController {
 	
 
 	// 게시글 삭제
-	@DeleteMapping("/posts")
+	@DeleteMapping("/posts/{type}/{postId}")
 	public Map<String, String> deletePost(
-			@RequestParam("postId") int postId
-			, @RequestParam("type") String type
+			@PathVariable("postId") int postId
+			, @PathVariable("type") String type
 			, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
