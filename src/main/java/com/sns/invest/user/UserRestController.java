@@ -25,7 +25,7 @@ public class UserRestController {
 	@Autowired
 	private UserBO userBO;
 	
-	// 아이디 중복확인 기능
+	// 아이디 중복확인 기능 - 입력받은id를 db에서 조회(select where) 
 	@GetMapping("/users/{loginId}")
 	public Map<String, Boolean> isDuplicateId (
 			@PathVariable("loginId") String loginId) {
@@ -44,7 +44,7 @@ public class UserRestController {
 	}
 	
 	
-	// 회원가입 기능
+	// 회원가입 기능 - 입력받은 정보들을 db에 저장(insert)
 	@PostMapping("/users")
 	public Map<String, String> signUp(
 			@RequestParam("loginId") String loginId

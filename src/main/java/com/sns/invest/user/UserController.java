@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserController {
 	
-	// 로그인, 회원가입 화면
+	// 홈 화면(로그인, 회원가입 화면) - 해당jsp 전달
 	@GetMapping("/sign-view")
 	public String signView() {
 		return "user/sign";
 	}
 	
-	// 로그아웃 기능
+	// 로그아웃 기능 - 세션에 저장된것들 지우고, 홈화면으로 이동
 	@GetMapping("/sign-out")
 	public String signOut(HttpServletRequest request) {
 		HttpSession session = request.getSession();
