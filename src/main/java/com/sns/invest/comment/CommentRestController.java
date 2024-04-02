@@ -1,4 +1,4 @@
-package com.sns.invest.comment;
+package com.sns.invest.comment;  
 
 import java.util.HashMap;
 import java.util.Map;
