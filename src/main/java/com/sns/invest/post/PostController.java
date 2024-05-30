@@ -30,7 +30,10 @@ public class PostController {
 	public String investTimeline(
 			HttpServletRequest request
 			, Model model) {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return "user/sign";
+		}
 		int myUserId = (Integer)session.getAttribute("userId");
 		List<InvestPostWithOthers> postList = postBO.getInvestPostList(myUserId);
 		
@@ -53,7 +56,10 @@ public class PostController {
 			, HttpServletRequest request
 			, Model model) {
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return "user/sign";
+		}
 		int myUserId = (Integer)session.getAttribute("userId");
 		
 		List<InvestPostWithOthers> postList = postBO.getFilteredInvestPostList(myUserId, investStyleForFiltering, stockItemNameForFiltering,
@@ -79,7 +85,10 @@ public class PostController {
 			, HttpServletRequest request
 			, Model model) {
 
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return "user/sign";
+		}
 		int myUserId = (Integer)session.getAttribute("userId");
 
 		
@@ -101,7 +110,10 @@ public class PostController {
 			@RequestParam(value = "corporation", required = false) String corporation
 			, HttpServletRequest request
 			, Model model) {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return "user/sign";
+		}
 		int myUserId = (Integer)session.getAttribute("userId");
 		
 		List<GossipPostWithOthers> postList = postBO.getGossipPostList(myUserId, corporation);
@@ -122,7 +134,10 @@ public class PostController {
 			HttpServletRequest request
 			, Model model) {
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return "user/sign";
+		}
 		int myUserId = (Integer)session.getAttribute("userId");
 		
 		User myInfo = userBO.userInformation(myUserId);
