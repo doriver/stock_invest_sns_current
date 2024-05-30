@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.post.bo.PostBO;
@@ -29,11 +30,8 @@ public class PostCreateController {
 			, @RequestParam("stockItemName") String stockItemName
 			, @RequestParam("investmentOpinion") String investmentOpinion
 			, @RequestParam("investmentProcess") String investmentProcess
-			, HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
-		String userNickName = (String)session.getAttribute("userNickName");
+			, @SessionAttribute(name = "userId", required = false) Integer userId
+			, @SessionAttribute(name = "userNickName", required = false) String userNickName) {
 		
 		int count = postBO.addPost(userId, userNickName, content, file, investStyle, stockItemName, investmentOpinion, investmentProcess);
 		
@@ -54,11 +52,8 @@ public class PostCreateController {
 	public Map<String, String> gossipPostCreate(
 			@RequestParam("content") String content
 			, @RequestParam("corporation") String corporation
-			, HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
-		String userNickName = (String)session.getAttribute("userNickName");
+			, @SessionAttribute(name = "userId", required = false) Integer userId
+			, @SessionAttribute(name = "userNickName", required = false) String userNickName) {
 		
 		int count = postBO.addGossipPost(userId, userNickName, corporation, content);
 		
@@ -79,13 +74,11 @@ public class PostCreateController {
 	public Map<String, String> localPostCreate(
 			@RequestParam("content") String content
 			, @RequestParam(value = "file", required = false) MultipartFile file
-			, HttpServletRequest request) {
+			, @SessionAttribute(name = "userId", required = false) Integer userId
+			, @SessionAttribute(name = "userNickName", required = false) String userNickName) {
 		
-		HttpSession session = request.getSession();
-		int myUserId = (Integer)session.getAttribute("userId");
-		String userNickName = (String)session.getAttribute("userNickName");
-		
-		int count = postBO.addLocalPost(myUserId, userNickName, content, file);
+	
+		int count = postBO.addLocalPost(userId, userNickName, content, file);
 		
 		Map<String, String> result = new HashMap<>();
 		

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.sns.invest.post.bo.LikeBO;
 import com.sns.invest.post.bo.PostBO;
@@ -32,10 +33,7 @@ public class PostRestController {
 	public Map<String, Object> likeInvest(
 			@PathVariable("postId") int postId
 			, @PathVariable("type") String type
-			, HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
+			, @SessionAttribute(name = "userId", required = false) Integer userId) {
 		
 		boolean isLike = likeBO.like(postId, userId, type);
 		int likeCount = likeBO.countLike(postId, type);
@@ -55,10 +53,7 @@ public class PostRestController {
 	public Map<String, String> deletePost(
 			@PathVariable("postId") int postId
 			, @PathVariable("type") String type
-			, HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
+			, @SessionAttribute(name = "userId", required = false) Integer userId) {
 		
 		Map<String, String> result = new HashMap<>();
 

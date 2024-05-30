@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.user.model.User;
@@ -95,10 +96,7 @@ public class UserRestController {
 	@PatchMapping("/users/location")
 	public Map<String, String> userLocation(
 			@RequestParam("location") String location
-			, HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
+			, @SessionAttribute(name = "userId", required = false) Integer userId) {
 		
 		int count = userBO.editLocation(userId, location);
 		Map<String, String> result = new HashMap<>();
@@ -118,10 +116,7 @@ public class UserRestController {
 	public Map<String, String> userProfile(
 			@RequestParam("profileStatusMessage") String profileStatusMessage
 			, @RequestParam(value = "file", required = false) MultipartFile file
-			, HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
+			, @SessionAttribute(name = "userId", required = false) Integer userId) {
 		
 //		System.out.println("file:"+file);
 		int count = userBO.editProfile(userId, file, profileStatusMessage);

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.sns.invest.comment.bo.CommentBO;
 
@@ -27,11 +28,8 @@ public class CommentRestController {
 	public Map<String, String> investComment(@PathVariable("postId") int postId
 			, @RequestParam("content") String content
 			, @PathVariable("type") String type
-			, HttpServletRequest request) {
-		
-		HttpSession session  = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
-		String userNickName = (String)session.getAttribute("userNickName");
+			, @SessionAttribute(name = "userId", required = false) Integer userId
+			, @SessionAttribute(name = "userNickName", required = false) String userNickName) {
 		
 		int count = commentBO.addComment(type, userId, postId, userNickName, content);
 		
