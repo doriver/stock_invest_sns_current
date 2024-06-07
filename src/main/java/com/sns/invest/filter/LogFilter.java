@@ -14,7 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import com.sns.invest.common.CommonFilterInterceptor;
 
 import lombok.extern.slf4j.Slf4j;
-
+/**
+ * 첫번쨰 필터
+ * 요청마다 logId, clientIp 구해서 HttpServletRequest에 set해줌
+ * 요청마다 로그 찍어줌( logId, clientIp, requestURI )
+ */
 @Slf4j
 public class LogFilter implements Filter{
 

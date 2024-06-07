@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.sns.invest.filter.LogFilter;
-
+/**
+ *	만든 필터 등록해줌
+ */
 @Configuration
 public class FilterConfig {
 	@Bean

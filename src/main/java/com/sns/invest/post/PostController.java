@@ -31,7 +31,7 @@ public class PostController {
 			HttpServletRequest request
 			, Model model) {
 		HttpSession session = request.getSession(false);
-		if (session == null) {
+		if (session == null || session.getAttribute("userId") == null) {
 			return "user/sign";
 		}
 		int myUserId = (Integer)session.getAttribute("userId");

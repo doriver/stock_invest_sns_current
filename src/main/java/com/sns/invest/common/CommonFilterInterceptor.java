@@ -3,7 +3,9 @@ package com.sns.invest.common;
 import javax.servlet.http.HttpServletRequest;
 
 import lombok.extern.slf4j.Slf4j;
-
+/**
+ * 필터,인터셉터에서 공통으로 쓰이는 것들
+ */
 @Slf4j
 public class CommonFilterInterceptor {
 	public static final String CLINET_IP = "clientIp";
