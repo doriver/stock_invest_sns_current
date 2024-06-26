@@ -9,6 +9,9 @@ spring:
     url: jdbc:mysql://localhost:3306/invest_sns?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
     password: qlqjs
+  redis:
+    host: localhost
+    port: 6379
 
 # return "redirect:/"; 로 바꿨을때, 세션ID가 URL에 나왔던거 없애줌 
 server:

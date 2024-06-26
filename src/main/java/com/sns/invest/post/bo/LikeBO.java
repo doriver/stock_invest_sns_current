@@ -3,44 +3,42 @@ package com.sns.invest.post.bo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sns.invest.post.dao.LikeDAO;
+import com.sns.invest.post.dao.RedisDAO;
 
 @Service
 public class LikeBO {
 	@Autowired
-	private LikeDAO likeDAO;
+	private RedisDAO redisDAO;
 	
-	//사용자기준 좋아요 여부 체크 , 좋아요 되있으면 true, 안되있으면 false
+	// 사용자기준 좋아요 여부, 좋아요 되있으면 true, 안되있으면 false
 	public boolean existLike(int postId, int userId, String type) {
-		int count = likeDAO.selectCountLike(postId, userId, type); // 해당글 좋아요에 사용자id 있는지 여부
-		
-		if(count >= 1) {
-			return true;
-		} else {
-			return false;
-		}
+		String key = type + ":" + postId;
+		return redisDAO.sismember(key, Integer.toString(userId)); // 해당글 좋아요에 사용자id 있는지 여부
 	}
 	
 	// 좋아요 되고 true, 좋아요 취소되고 false
 	public boolean like(int postId, int userId, String type) {
+		String key = type + ":" + postId;
 		
 		// 만약 해당 포스트에 좋아요가 되어 있다면 좋아요 취소하고 , false
 		if(this.existLike(postId, userId, type)) {
-			likeDAO.deleteLike(postId, userId, type); // 해당글 좋아요에서 사용자id 삭제
+			redisDAO.srem(key, Integer.toString(userId)); // 해당글 좋아요에서 사용자id 삭제
 			return false;
 		} else  {  // 만약 해당 포스트에 좋아요가 안되어 있다면 좋아요되고 , true
-			likeDAO.insertLike(postId, userId, type); // 해당글 좋아요에 사용자id 추가
+			redisDAO.sadd(key, Integer.toString(userId)); // 해당글 좋아요에 사용자id 추가
 			return true;
 		}
 	}
 	
 	// 좋아요 갯수 
 	public int countLike(int postId, String type) {
-		return likeDAO.selectCountLikeByPostIdType(postId, type); // 해당글 좋아요 원소개수 얻음
+		String key = type + ":" + postId;
+		return (redisDAO.scard(key)).intValue(); // 해당글 좋아요 원소개수 얻음
 	}
 	
-	public int deleteLikeInPost(int postId, String type) {
-		return likeDAO.deleteLikeInPost(postId, type); // 해당글에 대응하는 key 삭제
+	public void deleteLikeInPost(int postId, String type) {
+		String key = type + ":" + postId;
+		redisDAO.del(key); // 해당글에 대응하는 key 삭제
 	}
 
 	
