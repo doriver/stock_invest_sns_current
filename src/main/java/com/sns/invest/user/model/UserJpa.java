@@ -44,6 +44,7 @@ public class UserJpa {
     private String location;
 
     // insertable과 updatable 속성을 false로 설정하여, 엔티티가 처음 저장될 때와 업데이트될 때 자동으로 값이 설정되도록 
+    // columnDefinition을 통해 DEFAULT CURRENT_TIMESTAMP를 반영
     @Column(name = "createdAt", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
 

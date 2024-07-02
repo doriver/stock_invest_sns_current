@@ -7,14 +7,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.user.dao.UserDAO;
+import com.sns.invest.user.dao.UserRepository;
 import com.sns.invest.user.model.User;
+
+import lombok.RequiredArgsConstructor;
+
 import com.sns.invest.common.EncryptUtils;
 import com.sns.invest.common.FileManagerService;
 
 @Service
+@RequiredArgsConstructor // final이 붙은 필드를 모아서 생성자를 만들어줌
 public class UserBO {
 	@Autowired
 	private UserDAO userDAO;
+	
+	private final UserRepository userRepository; 
 	
 	public boolean isDuplicateId(String loginId) {
 		if(userDAO.selectCountById(loginId) == 0) {
