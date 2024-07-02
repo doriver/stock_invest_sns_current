@@ -1,9 +1,10 @@
 spring:
-#  mvc:
+  mvc:
+    static-path-pattern: /static/**  # 이거 없으니까 css 못받네
 #    view:
 #      prefix: /WEB-INF/jsp/
 #      suffix: .jsp
-#    static-path-pattern: /static/**  
+    
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/invest_sns_new?serverTimezone=UTC&characterEncoding=UTF-8
