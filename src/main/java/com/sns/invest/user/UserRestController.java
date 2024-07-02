@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.user.model.User;
+import com.sns.invest.user.model.UserJpa;
 import com.sns.invest.user.bo.UserBO;
 
 @RestController
@@ -54,6 +55,7 @@ public class UserRestController {
 			) {
 		
 		Map<String, String> result = new HashMap<>();
+		
 		int count = userBO.signUp(loginId, password, nickName, email);
 		
 		if (count == 1) {
@@ -74,7 +76,7 @@ public class UserRestController {
 			, HttpServletRequest request) {
 		
 		Map<String, String> result = new HashMap<>();
-		User user = userBO.signIn(idForLogin, passwordForLogin);
+		UserJpa user = userBO.signIn(idForLogin, passwordForLogin);
 		if(user != null) {
 			result.put("result", "success");
 			

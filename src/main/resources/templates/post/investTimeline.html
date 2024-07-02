@@ -1,5 +1,5 @@
 <!DOCTYPE html> 
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>투자게시판</title>
@@ -25,11 +25,11 @@
 		<div class="col-4 d-flex justify-content-center">
 			<h2 class="pt-3 text-danger">투자게시판</h2>
 		</div>
-		<c:import url="/WEB-INF/jsp/include/userSector.jsp" />
+		<div th:replace="~{include/userSector}"></div>
 	</header>
 	
 	<nav class="mt-3 mb-3">
-		<c:import url="/WEB-INF/jsp/include/viewList.jsp" />
+		<div th:replace="~{include/viewList}"></div>
 	</nav>
 
 	<section class="d-flex">
@@ -74,101 +74,88 @@
 		
 		<div class="col-8 d-flex justify-content-center">
 			<div class="post-timeline-box">
-				<c:forEach var="postWithOthers" items="${postList }">
-					<!-- 보여지는 투자 게시글 -->
-					<div class="card mt-3">			
-						<!-- 글 시작부분 -->
-						<div class="d-flex justify-content-between p-1 border-bottom">
-							
-							<!-- 글쓴이 -->
-							<div>
-								<c:choose>
-									<c:when test="${!empty postWithOthers.writerProfileImage }" >
-										<img src="${postWithOthers.writerProfileImage }" width="30" height="30">
-									</c:when>
-									<c:otherwise>
-										<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">	
-									</c:otherwise>
-								</c:choose>							
-								<a href="/individual-home-view?userId=${postWithOthers.investPost.userId }" class="font-weight-bold text-dark">
-									${postWithOthers.investPost.userNickName }
-								</a>
+				<!-- 보여지는 투자 게시글 -->
+				<div th:each="postWithOthers : ${postList}" class="card mt-3">			
+					<!-- 글 시작부분 -->
+					<div class="d-flex justify-content-between p-1 border-bottom">
+						<!-- 글쓴이 -->
+						<div>
+							<div th:if="${postWithOthers.writerProfileImage != null}">
+							   <img th:src="${postWithOthers.writerProfileImage }" width="30" height="30">
 							</div>
-							
-							<!-- 좋아요 -->
-							<div>
-								<a href="#" class="likeBtn" data-post-id="${postWithOthers.investPost.id }">
-									<c:choose>
-										<c:when test="${postWithOthers.like }" >
-											<i class="bi bi-heart-fill heart-icon text-danger" data-status="like" id="heartIcon-${postWithOthers.investPost.id }"></i>
-										</c:when>
-										<c:otherwise>
-											<i class="bi bi-heart heart-icon text-dark" id="heartIcon-${postWithOthers.investPost.id }"></i>	
-										</c:otherwise>
-									</c:choose>
-								</a>
-								<span class="middle-size ml-1"> 
-									좋아요 <span id="likeCount-${postWithOthers.investPost.id }" >${postWithOthers.likeCount }</span>개 
-								</span>
-							</div>
-							
-							<%-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 --%>
-							<c:if test="${postWithOthers.investPost.userId eq userId}">
-								<div class="more-icon" >
-									<a href="#" class="text-dark moreBtn" data-toggle="modal" data-target="#postEditModal" data-post-id="${postWithOthers.investPost.id }"> 
-										<i class="bi bi-three-dots-vertical"></i> 
-									</a>
+							<div th:if="${postWithOthers.writerProfileImage == null}">
+								<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">
+							</div>				
+							<a href="/individual-home-view?userId=${postWithOthers.investPost.userId }" class="font-weight-bold text-dark">
+								<span th:text="${postWithOthers.investPost.userNickName}"></span>
+							</a>
+						</div>
+						
+						<!-- 좋아요 -->
+						<div>
+							<a href="#" class="likeBtn" data-post-id="${postWithOthers.investPost.id }">
+								<div th:if="${postWithOthers.like}">
+								   <i class="bi bi-heart-fill heart-icon text-danger" data-status="like" id="heartIcon-${postWithOthers.investPost.id }"></i>
 								</div>
-							</c:if>
-							
-						</div>
-						<!-- /글 시작부분 -->
-						
-						<div class="d-flex justify-content-around border-bottom p-1">
-							<div class="font-weight-bold">${postWithOthers.investPost.investStyle }</div>
-							<div class="font-weight-bold">${postWithOthers.investPost.stockItemName }</div>
-							<div class="font-weight-bold">${postWithOthers.investPost.investmentOpinion }</div>
-							<div class="font-weight-bold">${postWithOthers.investPost.investmentProcess }</div>
+								<div th:if="${!postWithOthers.like}">
+									<i class="bi bi-heart heart-icon text-dark" id="heartIcon-${postWithOthers.investPost.id }"></i>
+								</div>
+							</a>
+							<span class="middle-size ml-1"> 
+								좋아요 <span id="likeCount-${postWithOthers.investPost.id }" >[[${postWithOthers.likeCount}]]</span>개 
+							</span>
 						</div>
 						
-						<!-- 내용 -->
-						<div class="middle-size m-2 d-flex justify-content-between">
-							<div>
-								${postWithOthers.investPost.content }
-							</div>
-							<div>
-								<img src="${postWithOthers.investPost.imagePath }" width="285">
-							</div>
+						<!-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 -->
+						<div th:if="${postWithOthers.investPost.userId == userId}" class="more-icon" >
+							<a href="#" class="text-dark moreBtn" data-toggle="modal" data-target="#postEditModal" data-post-id="${postWithOthers.investPost.id }"> 
+								<i class="bi bi-three-dots-vertical"></i> 
+							</a>
 						</div>
-						
-						<!-- 댓글 -->
-						<div class="mt-2">
-						
-							<div class="border-bottom m-2">
-								<span class="middle-size">댓글</span>
-							</div>
-							
-							<!--  댓글현황  -->
-							<div class="middle-size m-2">
-								<c:forEach var="comment" items="${postWithOthers.commentList }" >
-										<div class="mt-1">
-											<b>${comment.userNickName }</b> ${comment.content }
-										</div>
-								</c:forEach>
-							</div>
-							
-							<!-- 댓글 입력 -->
-							<div class="d-flex mt-2 border-top">
-								<input type="text" class="form-control border-0 " id="commentInput-${postWithOthers.investPost.id }">
-								<button class="btn btn-info ml-2 commentBtn" data-post-id="${postWithOthers.investPost.id }">게시</button>
-							</div>
-							
-						</div>
-						<!-- /댓글 -->	
 					</div>
-					<!-- /보여지는 투자 게시글 -->
-				</c:forEach>
-				
+					<!-- /글 시작부분 -->
+					
+					<div class="d-flex justify-content-around border-bottom p-1">
+						<div class="font-weight-bold">[[${postWithOthers.investPost.investStyle}]]</div>
+						<div class="font-weight-bold">[[${postWithOthers.investPost.stockItemName}]]</div>
+						<div class="font-weight-bold">[[${postWithOthers.investPost.investmentOpinion}]]</div>
+						<div class="font-weight-bold">[[${postWithOthers.investPost.investmentProcess}]]</div>
+					</div>
+					
+					<!-- 내용 -->
+					<div class="middle-size m-2 d-flex justify-content-between">
+						<div>
+							[[${postWithOthers.investPost.content}]]
+						</div>
+						<div>
+							<img th:src="${postWithOthers.investPost.imagePath }" width="285">
+						</div>
+					</div>
+					
+					<!-- 댓글 -->
+					<div class="mt-2">
+					
+						<div class="border-bottom m-2">
+							<span class="middle-size">댓글</span>
+						</div>
+						
+						<!--  댓글현황  -->
+						<div class="middle-size m-2">
+							<div th:each="comment : ${postWithOthers.commentList}" class="mt-1">
+								<b>[[${comment.userNickName}]]</b> [[${comment.content}]]
+							</div>
+						</div>
+						
+						<!-- 댓글 입력 -->
+						<div class="d-flex mt-2 border-top">
+							<input type="text" class="form-control border-0 " id="commentInput-${postWithOthers.investPost.id }">
+							<button class="btn btn-info ml-2 commentBtn" data-post-id="${postWithOthers.investPost.id }">게시</button>
+						</div>
+						
+					</div>
+					<!-- /댓글 -->	
+				</div>
+				<!-- /보여지는 투자 게시글 -->
 			</div>
 		</div>
 		<div class="col-2">
@@ -176,7 +163,7 @@
 
 	</section>
 	
-	<c:import url="/WEB-INF/jsp/include/footer.jsp" />
+	<div th:replace="~{include/footer}"></div>
 	
 	<!-- 글쓰기Modal -->
 	<div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-hidden="true">

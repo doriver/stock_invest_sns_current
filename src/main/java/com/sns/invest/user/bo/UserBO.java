@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sns.invest.user.dao.UserDAO;
 import com.sns.invest.user.dao.UserRepository;
 import com.sns.invest.user.model.User;
+import com.sns.invest.user.model.UserJpa;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +25,7 @@ public class UserBO {
 	private final UserRepository userRepository; 
 	
 	public boolean isDuplicateId(String loginId) {
-		if(userDAO.selectCountById(loginId) == 0) {
+		if(userRepository.countByLoginId(loginId) == 0) {
 			return false;
 		} else {
 			return true;
@@ -39,19 +40,35 @@ public class UserBO {
 		
 		String encryptPassword = EncryptUtils.md5(password);	
 		
+		int result = 0;
+		
 		if(encryptPassword.equals("")) {
 			logger.error("[UserBO signUP] 암호화 실패!!!!!!!!!!!!!!");
-			return 0;
+			return result;
 		}
 		
-		return userDAO.insertUser(loginId, encryptPassword, nickName, email);
+		UserJpa user = new UserJpa();
+		user.setLoginId(loginId);
+		user.setPassword(encryptPassword);
+		user.setNickName(nickName);
+		user.setEmail(email);
+		
+		try {
+			if ( userRepository.save(user) instanceof UserJpa ) {
+				result = 1;
+				logger.info("회원가입 성공");
+			}
+		} catch (Exception e) {
+	        throw e; // 예외를 다시 던지거나 적절히 처리
+	    }
+		
+		return result;
 	}
 	
-	public User signIn(String idForLogin, String passwordForLogin) {
+	public UserJpa signIn(String idForLogin, String passwordForLogin) {
 		// 비밀번호를 암호화 하고 DAO 로 전달한다. 
 		String encryptPassword = EncryptUtils.md5(passwordForLogin);
-		
-		return userDAO.selectUserByIdPassword(idForLogin, encryptPassword);
+		return userRepository.findByLoginIdAndPassword(idForLogin, encryptPassword);
 	}
 	
 	public User userInformation(int userId) {

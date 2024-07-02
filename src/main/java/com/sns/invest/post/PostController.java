@@ -13,8 +13,12 @@ import com.sns.invest.post.model.invest.InvestPostWithOthers;
 import com.sns.invest.post.model.local.LocalPostWithOthers;
 import com.sns.invest.user.bo.UserBO;
 import com.sns.invest.user.model.User;
+
+import lombok.extern.slf4j.Slf4j;
+
 import com.sns.invest.post.bo.PostBO;
 
+@Slf4j
 @Controller
 public class PostController {
 	
@@ -30,6 +34,7 @@ public class PostController {
 	public String investTimeline(
 			HttpServletRequest request
 			, Model model) {
+		log.info("로그인 성공");
 		HttpSession session = request.getSession();
 		int myUserId = (Integer)session.getAttribute("userId");
 		List<InvestPostWithOthers> postList = postBO.getInvestPostList(myUserId);
