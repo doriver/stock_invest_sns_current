@@ -37,51 +37,30 @@
 					<h3>프로필</h3>
 					<div class="card">
 						<div class="p-2">
-							<c:choose>
-								<c:when test="${!empty userInfo.profileImage }" >
-									<img src="${userInfo.profileImage }" width="200" height="200">
-								</c:when>
-								<c:otherwise>
-									<img src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="200" height="200">
-								</c:otherwise>
-							</c:choose>
+							<img th:if="${userInfo.profileImage != null}" th:src="${userInfo.profileImage }" width="200" height="200">
+							<img th:if="${userInfo.profileImage == null}" src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="200" height="200">
 						</div>
 						<div class="pl-2 border-bottom">
-							<b class="user">${userInfo.nickName }</b>
-							<c:if test="${userId eq userInfo.id }">
-									<a href="#" data-toggle="modal" data-target="#profileEditModal"> 
-										프로필 편집
-									</a>
-							</c:if>
+							<b class="user">[[${userInfo.nickName }]]</b>
+							<a th:if="${session.userId == userInfo.id}" href="#" data-toggle="modal" data-target="#profileEditModal"> 
+								프로필 편집
+							</a>
 						</div>
 						<div>
 							<div class="status-message-box border-bottom">
-								<c:choose>
-									<c:when test="${!empty userInfo.profileStatusMessage }" >
-										${userInfo.profileStatusMessage }
-									</c:when>
-									<c:otherwise>
-										상태메세지
-									</c:otherwise>
-								</c:choose>
+								<span th:if="${userInfo.profileStatusMessage != null}" th:text="${userInfo.profileStatusMessage}"></span>
+								<span th:if="${userInfo.profileStatusMessage == null}">상태메세지</span>
 							</div>
 						</div>
 					</div>
 					
 					<h4 class="mt-4">위치정보</h4>
-					<div class="card">				
-						<c:choose>
-							<c:when test="${!empty userInfo.location }" >
-								${userInfo.location }
-							</c:when>
-							<c:otherwise>
-								위치설정 안되있음
-							</c:otherwise>
-						</c:choose>
+					<div class="card">
+						<span th:if="${userInfo.location != null}" th:text="${userInfo.location }"></span>				
+						<span th:if="${userInfo.location == null}" >위치설정 안되있음</span>				
 					</div>
 
-					<c:if test="${userId eq userInfo.id }">
-						
+					<div th:if="${session.userId == userInfo.id}">
 						<h5 class="mt-4">위치정보 설정하기</h5>
 						
 						<!-- 다음 우편번호서비스 변형 -->
@@ -164,11 +143,7 @@
 							    }
 							</script>
 						<!-- /다음 우편번호서비스 변형 -->	
-					</c:if>
-
-						
-					
-					
+					</div>
 				</div>
 				<!-- /개인 프로필 -->
 			</div>
@@ -176,57 +151,53 @@
 			<div class="col-8 d-flex justify-content-center">
 				<!-- 개인의 투자 게시글 -->
 				<div class="post-timeline-box">
-					<h3>${userInfo.nickName }님의 개인홈</h3>
-					<c:forEach var="postWithOthers" items="${postList }">
-						<div class="card mt-3">			
+					<h3>[[${userInfo.nickName }]]님의 개인홈</h3>
+						<div th:each="postWithOthers : ${postList}" class="card mt-3">			
 							<!-- 글 시작부분 -->
 							<div class="d-flex justify-content-between p-2 border-bottom">
 								
 								<!-- 작성,업데이트 시간 -->
 								<div>
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M17 3v-2c0-.552.447-1 1-1s1 .448 1 1v2c0 .552-.447 1-1 1s-1-.448-1-1zm-12 1c.553 0 1-.448 1-1v-2c0-.552-.447-1-1-1-.553 0-1 .448-1 1v2c0 .552.447 1 1 1zm13 13v-3h-1v4h3v-1h-2zm-5 .5c0 2.481 2.019 4.5 4.5 4.5s4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5-4.5 2.019-4.5 4.5zm11 0c0 3.59-2.91 6.5-6.5 6.5s-6.5-2.91-6.5-6.5 2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5zm-14.237 3.5h-7.763v-13h19v1.763c.727.33 1.399.757 2 1.268v-9.031h-3v1c0 1.316-1.278 2.339-2.658 1.894-.831-.268-1.342-1.111-1.342-1.984v-.91h-9v1c0 1.316-1.278 2.339-2.658 1.894-.831-.268-1.342-1.111-1.342-1.984v-.91h-3v21h11.031c-.511-.601-.938-1.273-1.268-2z"/></svg>
-									<fmt:formatDate value="${postWithOthers.investPost.createdAt }" pattern="M월 d일 HH시" /> 	
+									<!-- SVG Icon -->
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+									    <path d="M17 3v-2c0-.552.447-1 1-1s1 .448 1 1v2c0 .552-.447 1-1 1s-1-.448-1-1zm-12 1c.553 0 1-.448 1-1v-2c0-.552-.447-1-1-1-.553 0-1 .448-1 1v2c0 .552.447 1 1 1zm13 13v-3h-1v4h3v-1h-2zm-5 .5c0 2.481 2.019 4.5 4.5 4.5s4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5-4.5 2.019-4.5 4.5zm11 0c0 3.59-2.91 6.5-6.5 6.5s-6.5-2.91-6.5-6.5 2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5zm-14.237 3.5h-7.763v-13h19v1.763c.727.33 1.399.757 2 1.268v-9.031h-3v1c0 1.316-1.278 2.339-2.658 1.894-.831-.268-1.342-1.111-1.342-1.984v-.91h-9v1c0 1.316-1.278 2.339-2.658 1.894-.831-.268-1.342-1.111-1.342-1.984v-.91h-3v21h11.031c-.511-.601-.938-1.273-1.268-2z"/>
+									</svg>
+									<!-- Formatted Date, 타임리프의 날짜 포맷팅 기능을 사용하여 날짜를 포맷 -->
+									<span th:text="${#dates.format(postWithOthers.investPost.createdAt, 'M월 d일 HH시')}"></span>	
 								</div>
 								
 								<!-- 좋아요 -->
 								<div>
 									<a href="#" class="likeBtn" data-post-id="${postWithOthers.investPost.id }">
-										<c:choose>
-											<c:when test="${postWithOthers.like }" >
-												<i class="bi bi-heart-fill heart-icon text-danger" data-status="like" id="heartIcon-${postWithOthers.investPost.id }"></i>
-											</c:when>
-											<c:otherwise>
-												<i class="bi bi-heart heart-icon text-dark" id="heartIcon-${postWithOthers.investPost.id }"></i>	
-											</c:otherwise>
-										</c:choose>
+										<i th:if="${postWithOthers.like}" class="bi bi-heart-fill heart-icon text-danger" data-status="like" id="heartIcon-${postWithOthers.investPost.id }"></i>		
+										<i th:if="${!postWithOthers.like}" class="bi bi-heart heart-icon text-dark" id="heartIcon-${postWithOthers.investPost.id }"></i>	
 									</a>
 									<span class="middle-size ml-1"> 
-										좋아요 <span id="likeCount-${postWithOthers.investPost.id }" >${postWithOthers.likeCount }</span>개 
+										좋아요 <span id="likeCount-${postWithOthers.investPost.id }" >[[${postWithOthers.likeCount }]]</span>개 
 									</span>
 								</div>
 					
-								<%-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 --%>
-								<c:if test="${postWithOthers.investPost.userId eq userId}">
-									<div class="more-icon" >
-										<a href="#" class="text-dark moreBtn" data-toggle="modal" data-target="#postEditModal" data-post-id="${postWithOthers.investPost.id }"> 
-											<i class="bi bi-three-dots-vertical"></i> 
-										</a>
-									</div>
-								</c:if>
+								<!-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 -->
+								<div th:if="${postWithOthers.investPost.userId == session.userId}" class="more-icon" >
+									<a href="#" class="text-dark moreBtn" data-toggle="modal" data-target="#postEditModal" data-post-id="${postWithOthers.investPost.id }"> 
+										<i class="bi bi-three-dots-vertical"></i> 
+									</a>
+								</div>
+		
 							</div>
 							<!-- /글 시작부분 -->
 							
 							<div class="d-flex justify-content-around border-bottom p-1">
-								<div class="font-weight-bold">${postWithOthers.investPost.investStyle }</div>
-								<div class="font-weight-bold">${postWithOthers.investPost.stockItemName }</div>
-								<div class="font-weight-bold">${postWithOthers.investPost.investmentOpinion }</div>
-								<div class="font-weight-bold">${postWithOthers.investPost.investmentProcess }</div>
+								<div class="font-weight-bold">[[${postWithOthers.investPost.investStyle }]]</div>
+								<div class="font-weight-bold">[[${postWithOthers.investPost.stockItemName }]]</div>
+								<div class="font-weight-bold">[[${postWithOthers.investPost.investmentOpinion }]]</div>
+								<div class="font-weight-bold">[[${postWithOthers.investPost.investmentProcess }]]</div>
 							</div>
 							
 							<!-- 내용 -->
 							<div class="middle-size m-2 d-flex justify-content-between">
-								${postWithOthers.investPost.content }
-								<img src="${postWithOthers.investPost.imagePath }" width="285">
+								[[${postWithOthers.investPost.content }]]
+								<img th:src="${postWithOthers.investPost.imagePath }" width="285">
 							</div>
 							
 							<!-- 댓글 -->
@@ -238,11 +209,9 @@
 								
 								<!--  댓글현황  -->
 								<div class="middle-size m-2">
-									<c:forEach var="comment" items="${postWithOthers.commentList }" >
-											<div class="mt-1">
-												<b>${comment.userNickName }</b> ${comment.content }
-											</div>
-									</c:forEach>
+									<div th:each="comment : ${postWithOthers.commentList}" class="mt-1">
+										<b>[[${comment.userNickName }]]</b> [[${comment.content }]]
+									</div>									
 								</div>
 								
 								<!-- 댓글 입력 -->
@@ -255,7 +224,7 @@
 							<!-- /댓글 -->	
 						</div>
 						<!-- /보여지는 투자 게시글 -->
-					</c:forEach>
+					
 				</div>
 			</div>
 			<div class="col-2">
@@ -263,7 +232,7 @@
 		</div>
 	</section>
 	
-	<c:import url="/WEB-INF/jsp/include/footer.jsp" />
+	<div th:replace="~{include/footer}"></div>
 	
 	<!-- 글쓰기Modal -->
 	<div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-hidden="true">

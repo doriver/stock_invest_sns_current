@@ -82,7 +82,7 @@
 						<div>
 							<img th:if="${postWithOthers.writerProfileImage != null}" th:src="${postWithOthers.writerProfileImage }" width="30" height="30">
 							<img th:if="${postWithOthers.writerProfileImage == null}" src="https://mblogthumb-phinf.pstatic.net/20150203_225/hkjwow_1422965971196EfkMV_JPEG/%C4%AB%C5%E5%C7%C1%BB%E7_31.jpg?type=w210" width="30">	
-							<a href="/individual-home-view?userId=${postWithOthers.investPost.userId }" class="font-weight-bold text-dark">
+							<a th:href="@{/individual-home-view(userId=${postWithOthers.investPost.userId})}" class="font-weight-bold text-dark">
 								<span th:text="${postWithOthers.investPost.userNickName}"></span>
 							</a>
 						</div>
