@@ -1,4 +1,4 @@
-package com.sns.invest.post.model.invest;
+package com.sns.invest.post.model;
 
 import java.sql.Timestamp;
 
@@ -13,14 +13,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "invest_post")
+@Table(name = "comment")
 @Getter
 @Setter
-public class InvestJpa {
-
+public class CommentJpa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "type", nullable = false, length = 16)
+    private String type;
+
+    @Column(name = "postId", nullable = false)
+    private int postId;
 
     @Column(name = "userId", nullable = false)
     private int userId;
@@ -28,23 +33,8 @@ public class InvestJpa {
     @Column(name = "userNickName", nullable = false, length = 16)
     private String userNickName;
 
-    @Column(name = "investStyle", nullable = false, length = 16)
-    private String investStyle;
-
-    @Column(name = "stockItemName", nullable = false, length = 32)
-    private String stockItemName;
-
-    @Column(name = "investmentOpinion", length = 16)
-    private String investmentOpinion;
-
-    @Column(name = "investmentProcess", nullable = false, length = 16)
-    private String investmentProcess;
-
-    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "content", length = 256)
     private String content;
-
-    @Column(name = "imagePath", length = 128)
-    private String imagePath;
 
     @Column(name = "createdAt", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;

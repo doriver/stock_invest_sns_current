@@ -3,16 +3,24 @@ package com.sns.invest.post.bo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sns.invest.comment.dao.CommentRepository;
 import com.sns.invest.post.dao.LikeDAO;
+import com.sns.invest.post.dao.LikeRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor // final이 붙은 필드를 모아서 생성자를 만들어줌
 public class LikeBO {
+	
+	private final LikeRepository likeRepository;
+	
 	@Autowired
 	private LikeDAO likeDAO;
 	
 	//사용자기준 좋아요 여부 체크 , 좋아요 되있으면 true, 안되있으면 false
 	public boolean existLike(int postId, int userId, String type) {
-		int count = likeDAO.selectCountLike(postId, userId, type);
+		Long count = likeRepository.countByPostIdAndUserIdAndType(postId, userId, type);
 		
 		if(count >= 1) {
 			return true;
@@ -36,7 +44,8 @@ public class LikeBO {
 	
 	// 좋아요 갯수 
 	public int countLike(int postId, String type) {
-		return likeDAO.selectCountLikeByPostIdType(postId, type);
+		Long count = likeRepository.countByPostIdAndType(postId, type);
+		return count.intValue();
 	}
 	
 	public int deleteLikeInPost(int postId, String type) {

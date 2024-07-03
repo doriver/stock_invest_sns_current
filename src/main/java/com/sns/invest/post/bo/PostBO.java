@@ -8,21 +8,30 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.post.model.Comment;
+import com.sns.invest.post.model.CommentJpa;
 import com.sns.invest.post.model.gossip.GossipPost;
 import com.sns.invest.post.model.gossip.GossipPostWithOthers;
+import com.sns.invest.post.model.invest.InvestJpa;
 import com.sns.invest.post.model.invest.InvestPost;
 import com.sns.invest.post.model.invest.InvestPostWithOthers;
 import com.sns.invest.post.model.local.LocalPost;
 import com.sns.invest.post.model.local.LocalPostWithOthers;
 import com.sns.invest.user.bo.UserBO;
+import com.sns.invest.user.dao.UserRepository;
+
+import lombok.RequiredArgsConstructor;
 
 import com.sns.invest.comment.bo.CommentBO;
 import com.sns.invest.common.FileManagerService;
+import com.sns.invest.post.dao.InvestPostRepository;
 import com.sns.invest.post.dao.PostDAO;
 
 
 @Service
+@RequiredArgsConstructor // final이 붙은 필드를 모아서 생성자를 만들어줌
 public class PostBO {
+	
+	private final InvestPostRepository investPostRepository;
 	
 	@Autowired
 	private PostDAO postDAO;
@@ -62,13 +71,14 @@ public class PostBO {
 	}
 	
 	public List<InvestPostWithOthers> getInvestPostList(int myUserId) {
-		List<InvestPost> postList = postDAO.selectInvestPostList();
+		List<InvestJpa> postList = investPostRepository.findAllByOrderByIdDesc();
+//		List<InvestPost> postList = postDAO.selectInvestPostList();
 		
 		List<InvestPostWithOthers> postWithOthersList = new ArrayList<>();
 		
 		String type = "invest";
-		for(InvestPost post:postList) {
-			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
+		for(InvestJpa post:postList) {
+			List<CommentJpa> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
 			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
