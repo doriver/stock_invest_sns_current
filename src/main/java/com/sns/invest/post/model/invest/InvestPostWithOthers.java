@@ -2,12 +2,12 @@ package com.sns.invest.post.model.invest;
 
 import java.util.List;
 
-import com.sns.invest.post.model.Comment;
+import com.sns.invest.post.model.CommentJpa;
 
 public class InvestPostWithOthers {
 	
-	private InvestPost investPost;
-	private List<Comment> commentList;
+	private InvestJpa investPost;
+	private List<CommentJpa> commentList;
 	private boolean isLike;
 	private int likeCount;
 	private String writerProfileImage;
@@ -18,16 +18,16 @@ public class InvestPostWithOthers {
 	public void setWriterProfileImage(String writerProfileImage) {
 		this.writerProfileImage = writerProfileImage;
 	}
-	public InvestPost getInvestPost() {
+	public InvestJpa getInvestPost() {
 		return investPost;
 	}
-	public void setInvestPost(InvestPost investPost) {
+	public void setInvestPost(InvestJpa investPost) {
 		this.investPost = investPost;
 	}
-	public List<Comment> getCommentList() {
+	public List<CommentJpa> getCommentList() {
 		return commentList;
 	}
-	public void setCommentList(List<Comment> commentList) {
+	public void setCommentList(List<CommentJpa> commentList) {
 		this.commentList = commentList;
 	}
 	public boolean isLike() {

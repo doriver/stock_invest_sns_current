@@ -13,33 +13,32 @@ import com.sns.invest.post.model.invest.InvestPostWithOthers;
 import com.sns.invest.post.model.local.LocalPostWithOthers;
 import com.sns.invest.user.bo.UserBO;
 import com.sns.invest.user.model.User;
+import com.sns.invest.user.model.UserJpa;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import com.sns.invest.post.bo.PostBO;
+import com.sns.invest.post.dao.InvestPostRepository;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor // final이 붙은 필드를 모아서 생성자를 만들어줌
 public class PostController {
 	
-	@Autowired
-	private PostBO postBO;
-	
-	@Autowired
-	private UserBO userBO;
-	
+	private final PostBO postBO;
+	private final UserBO userBO;
 
 	// 투자게시판 화면
 	@GetMapping("/invest-view")
 	public String investTimeline(
 			HttpServletRequest request
 			, Model model) {
-		log.info("로그인 성공");
 		HttpSession session = request.getSession();
 		int myUserId = (Integer)session.getAttribute("userId");
 		List<InvestPostWithOthers> postList = postBO.getInvestPostList(myUserId);
 		
-		User myInfo = userBO.userInformation(myUserId);
+		UserJpa myInfo = userBO.userInformation(myUserId);
 	
 		model.addAttribute("postList", postList);
 		model.addAttribute("myInfo", myInfo);
@@ -48,33 +47,33 @@ public class PostController {
 	}
 
 	
-	// 필터링된 투자게시판 화면
-	@GetMapping("/invest-view-filtered")
-	public String investTimelineFiltering(
-			@RequestParam(value = "investStyleForFiltering", required = false) String investStyleForFiltering
-			, @RequestParam(value = "stockItemNameForFiltering", required = false) String stockItemNameForFiltering
-			, @RequestParam(value = "investmentOpinionForFiltering", required = false) String investmentOpinionForFiltering
-			, @RequestParam(value = "investmentProcessForFiltering", required = false) String investmentProcessForFiltering
-			, HttpServletRequest request
-			, Model model) {
-		
-		HttpSession session = request.getSession();
-		int myUserId = (Integer)session.getAttribute("userId");
-		
-		List<InvestPostWithOthers> postList = postBO.getFilteredInvestPostList(myUserId, investStyleForFiltering, stockItemNameForFiltering,
-				investmentOpinionForFiltering, investmentProcessForFiltering);
-		
-		User myInfo = userBO.userInformation(myUserId);
-		
-		model.addAttribute("postList", postList);
-		model.addAttribute("myInfo", myInfo);
-		model.addAttribute("investStyleForFiltering", investStyleForFiltering);
-		model.addAttribute("stockItemNameForFiltering", stockItemNameForFiltering);
-		model.addAttribute("investmentOpinionForFiltering", investmentOpinionForFiltering);
-		model.addAttribute("investmentProcessForFiltering", investmentProcessForFiltering);
-		
-		return "post/filteredInvestTimeline";
-	}
+	// 필터링된 투자게시판 화면 , 이건 sql이 좀 복잡
+//	@GetMapping("/invest-view-filtered")
+//	public String investTimelineFiltering(
+//			@RequestParam(value = "investStyleForFiltering", required = false) String investStyleForFiltering
+//			, @RequestParam(value = "stockItemNameForFiltering", required = false) String stockItemNameForFiltering
+//			, @RequestParam(value = "investmentOpinionForFiltering", required = false) String investmentOpinionForFiltering
+//			, @RequestParam(value = "investmentProcessForFiltering", required = false) String investmentProcessForFiltering
+//			, HttpServletRequest request
+//			, Model model) {
+//		
+//		HttpSession session = request.getSession();
+//		int myUserId = (Integer)session.getAttribute("userId");
+//		
+//		List<InvestPostWithOthers> postList = postBO.getFilteredInvestPostList(myUserId, investStyleForFiltering, stockItemNameForFiltering,
+//				investmentOpinionForFiltering, investmentProcessForFiltering);
+//		
+//		User myInfo = userBO.userInformation(myUserId);
+//		
+//		model.addAttribute("postList", postList);
+//		model.addAttribute("myInfo", myInfo);
+//		model.addAttribute("investStyleForFiltering", investStyleForFiltering);
+//		model.addAttribute("stockItemNameForFiltering", stockItemNameForFiltering);
+//		model.addAttribute("investmentOpinionForFiltering", investmentOpinionForFiltering);
+//		model.addAttribute("investmentProcessForFiltering", investmentProcessForFiltering);
+//		
+//		return "post/filteredInvestTimeline";
+//	}
 	
 	
 	// 개인 홈 화면
@@ -88,9 +87,9 @@ public class PostController {
 		int myUserId = (Integer)session.getAttribute("userId");
 
 		
-		User userInfo = userBO.userInformation(userId);
+		UserJpa userInfo = userBO.userInformation(userId);
 		List<InvestPostWithOthers> postList = postBO.getInvestPostListByUserId(userId);
-		User myInfo = userBO.userInformation(myUserId);
+		UserJpa myInfo = userBO.userInformation(myUserId);
 		
 		model.addAttribute("postList", postList);
 		model.addAttribute("userInfo", userInfo);
@@ -111,7 +110,7 @@ public class PostController {
 		
 		List<GossipPostWithOthers> postList = postBO.getGossipPostList(myUserId, corporation);
 		
-		User myInfo = userBO.userInformation(myUserId);
+		UserJpa myInfo = userBO.userInformation(myUserId);
 		
 		model.addAttribute("postList", postList);
 		model.addAttribute("corporation", corporation);
@@ -130,7 +129,7 @@ public class PostController {
 		HttpSession session = request.getSession();
 		int myUserId = (Integer)session.getAttribute("userId");
 		
-		User myInfo = userBO.userInformation(myUserId);
+		UserJpa myInfo = userBO.userInformation(myUserId);
 		
 		String userLocation = myInfo.getLocation();
 		

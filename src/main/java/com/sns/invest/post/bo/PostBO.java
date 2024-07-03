@@ -72,7 +72,6 @@ public class PostBO {
 	
 	public List<InvestPostWithOthers> getInvestPostList(int myUserId) {
 		List<InvestJpa> postList = investPostRepository.findAllByOrderByIdDesc();
-//		List<InvestPost> postList = postDAO.selectInvestPostList();
 		
 		List<InvestPostWithOthers> postWithOthersList = new ArrayList<>();
 		
@@ -99,13 +98,13 @@ public class PostBO {
 	}
 
 	public List<InvestPostWithOthers> getInvestPostListByUserId(int userId) {
-		List<InvestPost> postList = postDAO.selectInvestPostListByUserId(userId);
+		List<InvestJpa> postList = investPostRepository.findAllByUserIdOrderByIdDesc(userId);
 		
 		List<InvestPostWithOthers> postWithOthersList = new ArrayList<>();
 		
 		String type = "invest";
-		for(InvestPost post:postList) {
-			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
+		for(InvestJpa post:postList) {
+			List<CommentJpa> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
 			boolean isLike = likeBO.existLike(post.getId(), userId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
@@ -122,36 +121,36 @@ public class PostBO {
 		return postWithOthersList;
 	}
 
-	public List<InvestPostWithOthers> getFilteredInvestPostList(int myUserId
-			, String investStyleForFiltering, String stockItemNameForFiltering
-			, String investmentOpinionForFiltering, String investmentProcessForFiltering) {
-		
-		List<InvestPost> postList = postDAO.selectFilteredInvestPostList(investStyleForFiltering, stockItemNameForFiltering
-				, investmentOpinionForFiltering, investmentProcessForFiltering);
-		
-		List<InvestPostWithOthers> postWithOthersList = new ArrayList<>();
-		
-		String type = "invest";
-		for(InvestPost post:postList) {
-			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
-			
-			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
-			int likeCount = likeBO.countLike(post.getId(), type);
-			
-			String writerProfileImage = userBO.getProfileImage(post.getUserId());
-		
-			InvestPostWithOthers postWithOthers = new InvestPostWithOthers();
-			postWithOthers.setInvestPost(post);
-			postWithOthers.setCommentList(commentList);
-			postWithOthers.setLike(isLike);
-			postWithOthers.setLikeCount(likeCount);
-			postWithOthers.setWriterProfileImage(writerProfileImage);
-			
-			postWithOthersList.add(postWithOthers);
-		}
-		
-		return postWithOthersList;
-	}
+//	public List<InvestPostWithOthers> getFilteredInvestPostList(int myUserId
+//			, String investStyleForFiltering, String stockItemNameForFiltering
+//			, String investmentOpinionForFiltering, String investmentProcessForFiltering) {
+//		
+//		List<InvestPost> postList = postDAO.selectFilteredInvestPostList(investStyleForFiltering, stockItemNameForFiltering
+//				, investmentOpinionForFiltering, investmentProcessForFiltering);
+//		
+//		List<InvestPostWithOthers> postWithOthersList = new ArrayList<>();
+//		
+//		String type = "invest";
+//		for(InvestPost post:postList) {
+//			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
+//			
+//			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
+//			int likeCount = likeBO.countLike(post.getId(), type);
+//			
+//			String writerProfileImage = userBO.getProfileImage(post.getUserId());
+//		
+//			InvestPostWithOthers postWithOthers = new InvestPostWithOthers();
+//			postWithOthers.setInvestPost(post);
+//			postWithOthers.setCommentList(commentList);
+//			postWithOthers.setLike(isLike);
+//			postWithOthers.setLikeCount(likeCount);
+//			postWithOthers.setWriterProfileImage(writerProfileImage);
+//			
+//			postWithOthersList.add(postWithOthers);
+//		}
+//		
+//		return postWithOthersList;
+//	}
 
 	
 	public List<GossipPostWithOthers> getGossipPostList(int myUserId, String corporation) {
@@ -169,7 +168,7 @@ public class PostBO {
 		
 		String type = "gossip";
 		for(GossipPost post:postList) {
-			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
+			List<CommentJpa> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
 			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
@@ -200,7 +199,7 @@ public class PostBO {
 		
 		String type = "local";
 		for(LocalPost post:postList) {
-			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
+			List<CommentJpa> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
 			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);

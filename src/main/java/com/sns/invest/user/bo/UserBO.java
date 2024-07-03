@@ -1,5 +1,7 @@
 package com.sns.invest.user.bo;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,8 +73,9 @@ public class UserBO {
 		return userRepository.findByLoginIdAndPassword(idForLogin, encryptPassword);
 	}
 	
-	public User userInformation(int userId) {
-		return userDAO.selectUserByUserId(userId);
+	public UserJpa userInformation(int userId) {
+		return userRepository.findById(userId);
+//		return userDAO.selectUserByUserId(userId);
 	}
 	
 	public int editLocation(int userId, String location) {
@@ -104,7 +107,7 @@ public class UserBO {
 	}
 	
 	public String getProfileImage(int userId) {
-		return userDAO.selectUserProfileImage(userId);
+		return userRepository.findProfileImageById(userId);
 	}
 
 	public String getlocation(int myUserId) {

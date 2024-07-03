@@ -8,4 +8,5 @@ import com.sns.invest.post.model.invest.InvestJpa;
 
 public interface InvestPostRepository extends JpaRepository<InvestJpa, Integer>{
 	List<InvestJpa> findAllByOrderByIdDesc(); // ORDER BY id DESC
+	List<InvestJpa> findAllByUserIdOrderByIdDesc(int userId); 
 }
