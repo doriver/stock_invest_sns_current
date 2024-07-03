@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.post.model.Comment;
 import com.sns.invest.post.model.CommentJpa;
+import com.sns.invest.post.model.gossip.GossipJpa;
 import com.sns.invest.post.model.gossip.GossipPost;
 import com.sns.invest.post.model.gossip.GossipPostWithOthers;
 import com.sns.invest.post.model.invest.InvestJpa;
@@ -23,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 
 import com.sns.invest.comment.bo.CommentBO;
 import com.sns.invest.common.FileManagerService;
+import com.sns.invest.post.dao.GossipPostRepository;
 import com.sns.invest.post.dao.InvestPostRepository;
 import com.sns.invest.post.dao.PostDAO;
 
@@ -32,6 +34,7 @@ import com.sns.invest.post.dao.PostDAO;
 public class PostBO {
 	
 	private final InvestPostRepository investPostRepository;
+	private final GossipPostRepository gossipPostRepository;
 	
 	@Autowired
 	private PostDAO postDAO;
@@ -155,19 +158,18 @@ public class PostBO {
 	
 	public List<GossipPostWithOthers> getGossipPostList(int myUserId, String corporation) {
 		
-		//List<GossipPost> postList = new ArrayList<>();
-		List<GossipPost> postList = null;
+		List<GossipJpa> postList = null;
 		
 		if (corporation == null) {
-			postList = postDAO.selectGossipPostList();
+			postList = gossipPostRepository.findAllByOrderByIdDesc();
 		} else {
-			postList = postDAO.selectGossipPostListByCorporation(corporation);
+			postList = gossipPostRepository.findAllByCorporationOrderByIdDesc(corporation);
 		}
 	
 		List<GossipPostWithOthers> postWithOthersList = new ArrayList<>();
 		
 		String type = "gossip";
-		for(GossipPost post:postList) {
+		for(GossipJpa post:postList) {
 			List<CommentJpa> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
 			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);

@@ -8,7 +8,7 @@ import com.sns.invest.post.model.CommentJpa;
 
 public class GossipPostWithOthers {
 
-	private GossipPost gossipPost;
+	private GossipJpa gossipPost;
 	private List<CommentJpa> commentList;
 	private boolean isLike;
 	private int likeCount;
@@ -22,10 +22,10 @@ public class GossipPostWithOthers {
 	}
 
 	
-	public GossipPost getGossipPost() {
+	public GossipJpa getGossipPost() {
 		return gossipPost;
 	}
-	public void setGossipPost(GossipPost gossipPost) {
+	public void setGossipPost(GossipJpa gossipPost) {
 		this.gossipPost = gossipPost;
 	}
 	public List<CommentJpa> getCommentList() {

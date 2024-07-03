@@ -23,7 +23,7 @@ import com.sns.invest.post.dao.InvestPostRepository;
 
 @Slf4j
 @Controller
-@RequiredArgsConstructor // final이 붙은 필드를 모아서 생성자를 만들어줌
+@RequiredArgsConstructor
 public class PostController {
 	
 	private final PostBO postBO;

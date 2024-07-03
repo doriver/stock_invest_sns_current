@@ -75,7 +75,6 @@ public class UserBO {
 	
 	public UserJpa userInformation(int userId) {
 		return userRepository.findById(userId);
-//		return userDAO.selectUserByUserId(userId);
 	}
 	
 	public int editLocation(int userId, String location) {
