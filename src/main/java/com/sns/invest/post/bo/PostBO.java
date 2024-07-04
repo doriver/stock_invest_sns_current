@@ -131,15 +131,7 @@ public class PostBO {
 			, String investStyleForFiltering, String stockItemNameForFiltering
 			, String investmentOpinionForFiltering, String investmentProcessForFiltering) {
 		
-		if (investStyleForFiltering != "") {
-			
-		} else if (stockItemNameForFiltering != "") {
-			
-		} else if (investmentOpinionForFiltering != "") {
-			
-		} else if (investmentProcessForFiltering != "") {
-			
-		}
+		
 		
 		List<InvestPost> postList = postDAO.selectFilteredInvestPostList(investStyleForFiltering, stockItemNameForFiltering
 				, investmentOpinionForFiltering, investmentProcessForFiltering);
