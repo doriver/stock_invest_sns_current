@@ -135,7 +135,9 @@ public class PostBO {
 			, String investmentOpinionForFiltering, String investmentProcessForFiltering) {
 		
 
-		List<InvestJpa> postList = investPostRepositoryCustom.findInvestPostsByFilters(investStyleForFiltering, stockItemNameForFiltering, investmentOpinionForFiltering, investmentProcessForFiltering);
+		List<InvestJpa> postList = investPostRepositoryCustom.findInvestPostsByFilters(
+				investStyleForFiltering, stockItemNameForFiltering, investmentOpinionForFiltering, investmentProcessForFiltering
+			);
 //		List<InvestPost> postList = postDAO.selectFilteredInvestPostList(investStyleForFiltering, stockItemNameForFiltering
 //				, investmentOpinionForFiltering, investmentProcessForFiltering);
 		
