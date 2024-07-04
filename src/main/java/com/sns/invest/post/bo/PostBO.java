@@ -15,6 +15,7 @@ import com.sns.invest.post.model.gossip.GossipPostWithOthers;
 import com.sns.invest.post.model.invest.InvestJpa;
 import com.sns.invest.post.model.invest.InvestPost;
 import com.sns.invest.post.model.invest.InvestPostWithOthers;
+import com.sns.invest.post.model.local.LocalJpa;
 import com.sns.invest.post.model.local.LocalPost;
 import com.sns.invest.post.model.local.LocalPostWithOthers;
 import com.sns.invest.user.bo.UserBO;
@@ -26,6 +27,7 @@ import com.sns.invest.comment.bo.CommentBO;
 import com.sns.invest.common.FileManagerService;
 import com.sns.invest.post.dao.GossipPostRepository;
 import com.sns.invest.post.dao.InvestPostRepository;
+import com.sns.invest.post.dao.LocalPostRepository;
 import com.sns.invest.post.dao.PostDAO;
 
 
@@ -35,6 +37,7 @@ public class PostBO {
 	
 	private final InvestPostRepository investPostRepository;
 	private final GossipPostRepository gossipPostRepository;
+	private final LocalPostRepository localPostRepository;
 	
 	@Autowired
 	private PostDAO postDAO;
@@ -124,36 +127,46 @@ public class PostBO {
 		return postWithOthersList;
 	}
 
-//	public List<InvestPostWithOthers> getFilteredInvestPostList(int myUserId
-//			, String investStyleForFiltering, String stockItemNameForFiltering
-//			, String investmentOpinionForFiltering, String investmentProcessForFiltering) {
-//		
-//		List<InvestPost> postList = postDAO.selectFilteredInvestPostList(investStyleForFiltering, stockItemNameForFiltering
-//				, investmentOpinionForFiltering, investmentProcessForFiltering);
-//		
-//		List<InvestPostWithOthers> postWithOthersList = new ArrayList<>();
-//		
-//		String type = "invest";
-//		for(InvestPost post:postList) {
-//			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
-//			
-//			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
-//			int likeCount = likeBO.countLike(post.getId(), type);
-//			
-//			String writerProfileImage = userBO.getProfileImage(post.getUserId());
-//		
-//			InvestPostWithOthers postWithOthers = new InvestPostWithOthers();
+	public List<InvestPostWithOthers> getFilteredInvestPostList(int myUserId
+			, String investStyleForFiltering, String stockItemNameForFiltering
+			, String investmentOpinionForFiltering, String investmentProcessForFiltering) {
+		
+		if (investStyleForFiltering != "") {
+			
+		} else if (stockItemNameForFiltering != "") {
+			
+		} else if (investmentOpinionForFiltering != "") {
+			
+		} else if (investmentProcessForFiltering != "") {
+			
+		}
+		
+		List<InvestPost> postList = postDAO.selectFilteredInvestPostList(investStyleForFiltering, stockItemNameForFiltering
+				, investmentOpinionForFiltering, investmentProcessForFiltering);
+		
+		List<InvestPostWithOthers> postWithOthersList = new ArrayList<>();
+		
+		String type = "invest";
+		for(InvestPost post:postList) {
+			List<CommentJpa> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
+			
+			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
+			int likeCount = likeBO.countLike(post.getId(), type);
+			
+			String writerProfileImage = userBO.getProfileImage(post.getUserId());
+		
+			InvestPostWithOthers postWithOthers = new InvestPostWithOthers();
 //			postWithOthers.setInvestPost(post);
-//			postWithOthers.setCommentList(commentList);
-//			postWithOthers.setLike(isLike);
-//			postWithOthers.setLikeCount(likeCount);
-//			postWithOthers.setWriterProfileImage(writerProfileImage);
-//			
-//			postWithOthersList.add(postWithOthers);
-//		}
-//		
-//		return postWithOthersList;
-//	}
+			postWithOthers.setCommentList(commentList);
+			postWithOthers.setLike(isLike);
+			postWithOthers.setLikeCount(likeCount);
+			postWithOthers.setWriterProfileImage(writerProfileImage);
+			
+			postWithOthersList.add(postWithOthers);
+		}
+		
+		return postWithOthersList;
+	}
 
 	
 	public List<GossipPostWithOthers> getGossipPostList(int myUserId, String corporation) {
@@ -195,12 +208,12 @@ public class PostBO {
 	}
 
 	public List<LocalPostWithOthers> getLocalPostList(int myUserId, String userLocation) {
-		List<LocalPost> postList = postDAO.selectLocalPostList(userLocation);
+		List<LocalJpa> postList = localPostRepository.findAllByUserLocationOrderByIdDesc(userLocation);
 		
 		List<LocalPostWithOthers> postWithOthersList = new ArrayList<>();
 		
 		String type = "local";
-		for(LocalPost post:postList) {
+		for(LocalJpa post:postList) {
 			List<CommentJpa> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
 			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);

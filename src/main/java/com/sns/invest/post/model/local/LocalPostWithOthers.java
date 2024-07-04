@@ -6,7 +6,7 @@ import com.sns.invest.post.model.Comment;
 import com.sns.invest.post.model.CommentJpa;
 
 public class LocalPostWithOthers {
-	private LocalPost localPost;
+	private LocalJpa localPost;
 	private List<CommentJpa> commentList;
 	private boolean isLike;
 	private int likeCount;
@@ -18,10 +18,10 @@ public class LocalPostWithOthers {
 	public void setWriterProfileImage(String writerProfileImage) {
 		this.writerProfileImage = writerProfileImage;
 	}
-	public LocalPost getLocalPost() {
+	public LocalJpa getLocalPost() {
 		return localPost;
 	}
-	public void setLocalPost(LocalPost localPost) {
+	public void setLocalPost(LocalJpa localPost) {
 		this.localPost = localPost;
 	}
 	public List<CommentJpa> getCommentList() {
