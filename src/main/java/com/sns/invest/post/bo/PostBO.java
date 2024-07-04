@@ -29,6 +29,7 @@ import com.sns.invest.post.dao.GossipPostRepository;
 import com.sns.invest.post.dao.InvestPostRepository;
 import com.sns.invest.post.dao.LocalPostRepository;
 import com.sns.invest.post.dao.PostDAO;
+import com.sns.invest.post.dao.custom.InvestPostRepositoryCustom;
 
 
 @Service
@@ -38,6 +39,8 @@ public class PostBO {
 	private final InvestPostRepository investPostRepository;
 	private final GossipPostRepository gossipPostRepository;
 	private final LocalPostRepository localPostRepository;
+	
+	private final InvestPostRepositoryCustom investPostRepositoryCustom;
 	
 	@Autowired
 	private PostDAO postDAO;
@@ -131,15 +134,15 @@ public class PostBO {
 			, String investStyleForFiltering, String stockItemNameForFiltering
 			, String investmentOpinionForFiltering, String investmentProcessForFiltering) {
 		
-		
-		
-		List<InvestPost> postList = postDAO.selectFilteredInvestPostList(investStyleForFiltering, stockItemNameForFiltering
-				, investmentOpinionForFiltering, investmentProcessForFiltering);
+
+		List<InvestJpa> postList = investPostRepositoryCustom.findInvestPostsByFilters(investStyleForFiltering, stockItemNameForFiltering, investmentOpinionForFiltering, investmentProcessForFiltering);
+//		List<InvestPost> postList = postDAO.selectFilteredInvestPostList(investStyleForFiltering, stockItemNameForFiltering
+//				, investmentOpinionForFiltering, investmentProcessForFiltering);
 		
 		List<InvestPostWithOthers> postWithOthersList = new ArrayList<>();
 		
 		String type = "invest";
-		for(InvestPost post:postList) {
+		for(InvestJpa post:postList) {
 			List<CommentJpa> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
 			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
@@ -148,7 +151,7 @@ public class PostBO {
 			String writerProfileImage = userBO.getProfileImage(post.getUserId());
 		
 			InvestPostWithOthers postWithOthers = new InvestPostWithOthers();
-//			postWithOthers.setInvestPost(post);
+			postWithOthers.setInvestPost(post);
 			postWithOthers.setCommentList(commentList);
 			postWithOthers.setLike(isLike);
 			postWithOthers.setLikeCount(likeCount);
