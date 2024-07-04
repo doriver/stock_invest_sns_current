@@ -89,12 +89,12 @@
 						
 						<!-- 좋아요 -->
 						<div>
-							<a href="#" class="likeBtn" data-post-id="${postWithOthers.investPost.id }">
-								<i th:if="${postWithOthers.like}" class="bi bi-heart-fill heart-icon text-danger" data-status="like" id="heartIcon-${postWithOthers.investPost.id }"></i>
-								<i th:if="${!postWithOthers.like}" class="bi bi-heart heart-icon text-dark" id="heartIcon-${postWithOthers.investPost.id }"></i>
+							<a href="#" class="likeBtn" th:data-post-id="${postWithOthers.investPost.id }">
+								<i th:if="${postWithOthers.like}" class="bi bi-heart-fill heart-icon text-danger" data-status="like" th:id="'heartIcon-' + ${postWithOthers.investPost.id}"></i>
+								<i th:if="${!postWithOthers.like}" class="bi bi-heart heart-icon text-dark" th:id="'heartIcon-' + ${postWithOthers.investPost.id}"></i>
 							</a>
 							<span class="middle-size ml-1"> 
-								좋아요 <span id="likeCount-${postWithOthers.investPost.id }" >[[${postWithOthers.likeCount}]]</span>개 
+								좋아요 <span th:id="'likeCount-' + ${postWithOthers.investPost.id }" >[[${postWithOthers.likeCount}]]</span>개 
 							</span>
 						</div>
 						
