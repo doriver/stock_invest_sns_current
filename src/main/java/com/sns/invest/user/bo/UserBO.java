@@ -61,6 +61,7 @@ public class UserBO {
 				logger.info("회원가입 성공");
 			}
 		} catch (Exception e) {
+			logger.error("[UserBO signUp] save()실패");
 	        throw e; // 예외를 다시 던지거나 적절히 처리
 	    }
 		

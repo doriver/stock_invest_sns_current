@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.post.model.Comment;
@@ -255,6 +257,7 @@ public class PostBO {
 		return postDAO.insertLocalPost(myUserId, userNickName, myLocation, content, filePath);
 	}
 	
+    @Transactional // 이 메소드가 트랜잭션 내에서 실행되어야 함을 나타냄
 	public boolean deletePost(int postId, int userId, String type) {
 		
 		String imagePath = null;
