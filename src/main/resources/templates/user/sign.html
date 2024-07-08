@@ -29,10 +29,10 @@
 	
 	<section class="d-flex justify-content-center">
 		
-		<form id="loginForm">
+		<form id="loginForm" th:action="@{/users/sign-in}" method="post">
 			<h2>로그인</h2>
-			<input type="text" id="idForLogin" class="form-control mt-3" placeholder="아이디">
-			<input type="password" id="passwordForLogin" class="form-control mt-3" placeholder="패스워드">
+			<input type="text" id="username" name="username" class="form-control mt-3" placeholder="아이디">
+			<input type="password" id="password" name="password" class="form-control mt-3" placeholder="패스워드">
 			<button id="loginBtn" type="submit" class="btn btn-primary btn-block mt-3">로그인</button>
 		</form>
 		<img src="https://cdn.pixabay.com/photo/2016/11/11/10/41/forex-1816354_960_720.jpg" width="400" height="600">
@@ -60,6 +60,8 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			// <로그인>
+			/*
+			
 			$("#loginForm").on("submit", function(e) {
 				
 				e.preventDefault();
@@ -94,6 +96,7 @@
 					}
 				});
 			});
+			*/
 			// </로그인>
 			
 			var isIdCheck = false;

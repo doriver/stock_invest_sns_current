@@ -8,21 +8,21 @@ public class EncryptUtils {
 	public static String md5(String message) {
 		String encData = "";
 		
-		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");  // "MD5 형식으로 암호화"
-			byte[] bytes = message.getBytes();
-			md.update(bytes);
-			byte[] digest = md.digest();
-						
-			// 16진수 -> 문자열
-			for(int i = 0; i < digest.length; i++) {
-				encData += Integer.toHexString(digest[i]&0xff);
-			}
-			
-		} catch (NoSuchAlgorithmException e) {
-			
-			e.printStackTrace();
-		}
+//		try {
+//			MessageDigest md = MessageDigest.getInstance("MD5");  // "MD5 형식으로 암호화"
+//			byte[] bytes = message.getBytes();
+//			md.update(bytes);
+//			byte[] digest = md.digest();
+//						
+//			// 16진수 -> 문자열
+//			for(int i = 0; i < digest.length; i++) {
+//				encData += Integer.toHexString(digest[i]&0xff);
+//			}
+//			
+//		} catch (NoSuchAlgorithmException e) {
+//			
+//			e.printStackTrace();
+//		}
 		
 		return encData;
 	}

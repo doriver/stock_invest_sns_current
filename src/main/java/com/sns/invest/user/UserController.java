@@ -16,17 +16,17 @@ public class UserController {
 	}
 	
 	// 로그아웃 기능 - 세션에 저장된것들 지우고, 홈화면으로 이동
-	@GetMapping("/sign-out")
-	public String signOut(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		
-		session.removeAttribute("userId");
-		session.removeAttribute("userLoginId");
-		session.removeAttribute("userNickName");
-		session.removeAttribute("userLocation");
-		
-		return "redirect:/sign-view";
-	}
+//	@GetMapping("/sign-out")
+//	public String signOut(HttpServletRequest request) {
+//		HttpSession session = request.getSession();
+//		
+//		session.removeAttribute("userId");
+//		session.removeAttribute("userLoginId");
+//		session.removeAttribute("userNickName");
+//		session.removeAttribute("userLocation");
+//		
+//		return "redirect:/sign-view";
+//	}
 
 	
 }

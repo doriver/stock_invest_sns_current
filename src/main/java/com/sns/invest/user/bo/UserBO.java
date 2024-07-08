@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,8 +27,8 @@ public class UserBO {
 	
 	private final UserRepository userRepository; 
 	
-	public boolean isDuplicateId(String loginId) {
-		if(userRepository.countByLoginId(loginId) == 0) {
+	public boolean isDuplicateId(String username) {
+		if(userRepository.countByUsername(username) == 0) {
 			return false;
 		} else {
 			return true;
@@ -39,8 +40,9 @@ public class UserBO {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	public int signUp(String loginId, String password, String nickName, String email) {
-		
-		String encryptPassword = EncryptUtils.md5(password);	
+			
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String encryptPassword = passwordEncoder.encode(password);	
 		
 		int result = 0;
 		
@@ -50,7 +52,7 @@ public class UserBO {
 		}
 		
 		UserJpa user = new UserJpa();
-		user.setLoginId(loginId);
+		user.setUsername(loginId);
 		user.setPassword(encryptPassword);
 		user.setNickName(nickName);
 		user.setEmail(email);
@@ -68,10 +70,8 @@ public class UserBO {
 		return result;
 	}
 	
-	public UserJpa signIn(String idForLogin, String passwordForLogin) {
-		// 비밀번호를 암호화 하고 DAO 로 전달한다. 
-		String encryptPassword = EncryptUtils.md5(passwordForLogin);
-		return userRepository.findByLoginIdAndPassword(idForLogin, encryptPassword);
+	public UserJpa signIn(String username) {
+		return userRepository.findByUsername(username);
 	}
 	
 	public UserJpa userInformation(int userId) {

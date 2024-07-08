@@ -53,3 +53,13 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+// 소스 디렉토리 설정
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java'
+            , 'build/generated/sources/annotationProcessor/java/main']
+        }
+    }
+}

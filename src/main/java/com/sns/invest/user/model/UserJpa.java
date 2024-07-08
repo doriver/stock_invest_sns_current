@@ -22,10 +22,10 @@ public class UserJpa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "loginId", nullable = false, length = 16)
-    private String loginId;
+    @Column(name = "username", nullable = false, length = 16)
+    private String username;
 
-    @Column(name = "password", nullable = false, length = 32)
+    @Column(name = "password", nullable = false, length = 128)
     private String password;
 
     @Column(name = "nickName", nullable = false, length = 16)
