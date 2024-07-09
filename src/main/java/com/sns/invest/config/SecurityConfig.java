@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -20,14 +21,20 @@ public class SecurityConfig {
 
 	private final CustomUserDetailsService userDetailsService;
 	
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web
+                .ignoring().antMatchers("static/**");
+    }
+	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		// HTTP 요청에 대한 보안 설정을 구성합니다.
         http.csrf(AbstractHttpConfigurer::disable)
         	.authorizeHttpRequests((requests) -> requests
-//				.antMatchers("/sign-view").permitAll()
-//				.anyRequest().authenticated()
-				.anyRequest().permitAll()
+				.antMatchers("/sign-view", "/users", "/users/*").permitAll()
+				.anyRequest().authenticated()
+//				.anyRequest().permitAll()
 			)  
         	.formLogin((form) -> form
 				.loginPage("/sign-view")
