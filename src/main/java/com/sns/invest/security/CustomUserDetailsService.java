@@ -1,5 +1,6 @@
 package com.sns.invest.security;
 
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,7 +25,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 			return null;
 		}
 		
+		String role = user.getRole();
+		if (role == "user") {
+			
+		} else if (role == "master") {
+			
+		}
+		
 		return new CustomUserDetails(user);
+//		User도 UserDetails구현체임
 	}
 
 }

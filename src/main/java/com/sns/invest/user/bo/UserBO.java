@@ -56,6 +56,7 @@ public class UserBO {
 		user.setPassword(encryptPassword);
 		user.setNickName(nickName);
 		user.setEmail(email);
+		user.setRole("user");
 		
 		try {
 			if ( userRepository.save(user) instanceof UserJpa ) {
