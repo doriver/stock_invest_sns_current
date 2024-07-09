@@ -29,13 +29,15 @@
 	
 	<section class="d-flex justify-content-center">
 		
-		<form id="loginForm" th:action="@{/users/sign-in}" method="post">
+		<form id="loginForm" th:action="@{/users/sign-in}" method="post" onsubmit="return loginValidation();">
 			<h2>로그인</h2>
 			<input type="text" id="username" name="username" class="form-control mt-3" placeholder="아이디">
 			<input type="password" id="password" name="password" class="form-control mt-3" placeholder="패스워드">
 			<button id="loginBtn" type="submit" class="btn btn-primary btn-block mt-3">로그인</button>
 		</form>
+		
 		<img src="https://cdn.pixabay.com/photo/2016/11/11/10/41/forex-1816354_960_720.jpg" width="400" height="600">
+		
 		<form id="signUpForm">
 			<h2>회원가입</h2>
 			<input type="text" id="loginIdInput" class="form-control" placeholder="아이디">
@@ -54,10 +56,26 @@
 		</form>
 	</section>
 	
-	<!-- JSP의 <c:import url=" " />와 유사하게 다른 템플릿 파일을 포함 -->
 	<div th:replace="~{include/footer}"></div>
 	
 	<script type="text/javascript">
+		function loginValidation() {
+			var idForLogin = $("#username").val();
+			var passwordForLogin = $("#password").val();
+			
+			if(idForLogin == null || idForLogin == "") {
+				alert("아이디를 입력해주세요");
+				return false;
+			}
+			
+			if(passwordForLogin == null || passwordForLogin == "") {
+				alert("비밀번호를 입력해주세요");
+				return false;
+			}
+			
+			return true;
+		}
+	
 		$(document).ready(function() {
 			// <로그인>
 			/*

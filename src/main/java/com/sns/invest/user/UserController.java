@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserController {
 	
-	// 홈 화면(로그인, 회원가입 화면) - 해당jsp 전달
+	// 홈 화면(로그인, 회원가입 화면)
 	@GetMapping("/sign-view")
 	public String signView() {
 		return "user/sign";
