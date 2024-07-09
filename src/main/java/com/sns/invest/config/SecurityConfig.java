@@ -21,18 +21,19 @@ public class SecurityConfig {
 
 	private final CustomUserDetailsService userDetailsService;
 	
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web
-                .ignoring().antMatchers("static/**", "/favicon.ico", "/images/**");
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return (web) -> web
+//                .ignoring().antMatchers();
+//    }
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		// HTTP 요청에 대한 보안 설정을 구성합니다.
         http.csrf(AbstractHttpConfigurer::disable)
         	.authorizeHttpRequests((requests) -> requests
-				.antMatchers("/sign-view", "/users", "/users/*").permitAll()
+				.antMatchers("/sign-view", "/users", "/users/*"
+						, "static/**", "/favicon.ico", "/images/**").permitAll()
 				.antMatchers("/admin-view").hasRole("ADMIN")
 				.anyRequest().authenticated()
 //				.anyRequest().permitAll()

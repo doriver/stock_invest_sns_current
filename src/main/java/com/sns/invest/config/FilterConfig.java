@@ -13,9 +13,6 @@ import com.sns.invest.common.filter.LogFilter;
 @Configuration
 public class FilterConfig {
 
-	/*
-	 * FilterRegistrationBean를 사용해서 필터를 등록
-	 */
 	@Bean
 	public FilterRegistrationBean logFilter() {
 		FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean();
