@@ -14,6 +14,12 @@ public class UserController {
 	public String signView() {
 		return "user/sign";
 	}
+
+	// 관리자 페이지
+	@GetMapping("/admin-view")
+	public String adminView() {
+		return "user/admin";
+	}
 	
 	// 로그아웃 기능 - 세션에 저장된것들 지우고, 홈화면으로 이동
 //	@GetMapping("/sign-out")

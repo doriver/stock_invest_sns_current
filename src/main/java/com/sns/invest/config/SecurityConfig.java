@@ -24,7 +24,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web
-                .ignoring().antMatchers("static/**");
+                .ignoring().antMatchers("static/**", "/favicon.ico");
     }
 	
 	@Bean
@@ -33,6 +33,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
         	.authorizeHttpRequests((requests) -> requests
 				.antMatchers("/sign-view", "/users", "/users/*").permitAll()
+				.antMatchers("/admin-view").hasRole("ADMIN")
 				.anyRequest().authenticated()
 //				.anyRequest().permitAll()
 			)  

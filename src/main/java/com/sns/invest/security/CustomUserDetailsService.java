@@ -1,5 +1,10 @@
 package com.sns.invest.security;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,14 +31,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 		}
 		
 		String role = user.getRole();
-		if (role == "user") {
-			
-		} else if (role == "master") {
-			
+		Collection<GrantedAuthority> authorities = new ArrayList();		
+		
+		if (role.equals("user") ) {
+			authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));			
+		} else if (role.equals("master")) {
+			authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
 		}
 		
-		return new CustomUserDetails(user);
-//		User도 UserDetails구현체임
+		return new CustomUserDetails(user, authorities);
 	}
 
 }

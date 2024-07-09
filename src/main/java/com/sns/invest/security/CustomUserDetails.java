@@ -1,9 +1,15 @@
 package com.sns.invest.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.Assert;
 
 import com.sns.invest.user.model.UserJpa;
 
@@ -11,8 +17,11 @@ public class CustomUserDetails implements UserDetails {
 
 	private final UserJpa user;
 	
-	public CustomUserDetails(UserJpa user) {
+	private final Collection<GrantedAuthority> authorities;
+	
+	public CustomUserDetails(UserJpa user, Collection<GrantedAuthority> authorities) {
 		this.user = user;
+		this.authorities = authorities;
 	}
 
 	public int getId() {
@@ -36,11 +45,9 @@ public class CustomUserDetails implements UserDetails {
 		return user.getLocation();
 	}
 
-	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+        return authorities;
 	}
 
 	@Override
@@ -76,5 +83,4 @@ public class CustomUserDetails implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
 }

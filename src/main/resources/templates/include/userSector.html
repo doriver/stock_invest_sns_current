@@ -12,6 +12,7 @@
 				글쓰기
 		</a>
 	    <a class="dropdown-item" href="/sign-out">로그아웃</a>
+	    <a class="dropdown-item" sec:authorize="hasRole('ROLE_ADMIN')" href="/admin-view">관리자 페이지</a>
 	  </div>
 	</div>
 </div>
