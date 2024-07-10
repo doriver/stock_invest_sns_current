@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileManagerService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	private final String FILE_UPLOAD_PATH = "D:\\웹개발\\springTest\\upload\\invest\\images/";
+	private final String FILE_UPLOAD_PATH = "D:\\Sts4.14.0\\springTest\\upload\\invest\\images/";
 //	private final String FILE_UPLOAD_PATH = "/home/ec2-user/upload_images/";
 	
 	// 파일 업로드 
@@ -54,7 +54,7 @@ public class FileManagerService {
 	public void removeFile(String filePath) {
 		// 삭제할 파일 경로
 		// filePath : /images/10_21924214/test.png
-		// 실제 파일이 저장된 경로 : D:\\김인규강사\\web\\0415\\spring_test\\upload\\marondalgram\\images\\10_21924214\\test.png
+		// 실제 파일이 저장된 경로 : D:\\web\\0415\\spring_test\\upload\\marondalgram\\images\\10_21924214\\test.png
 		
 		
 		String realFilePath = FILE_UPLOAD_PATH + filePath.replace("/images/", "");
@@ -71,7 +71,7 @@ public class FileManagerService {
 		}
 		
 		// 디렉토리(폴더) 지우고
-		//D:\\김인규강사\\web\\0415\\spring_test\\upload\\marondalgram\\images\\10_21924214
+		//D:\\web\\0415\\spring_test\\upload\\marondalgram\\images\\10_21924214
 		path = path.getParent();
 		
 		if(Files.exists(path)) {
