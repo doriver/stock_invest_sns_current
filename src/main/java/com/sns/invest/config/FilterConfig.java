@@ -13,7 +13,7 @@ import com.sns.invest.common.filter.LogFilter;
 @Configuration
 public class FilterConfig {
 
-	@Bean
+//	@Bean // 인터셉터에서 로그처리 해줌
 	public FilterRegistrationBean logFilter() {
 		FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean();
 		filterRegistrationBean.setFilter(new LogFilter()); // 등록할 필터를 지정

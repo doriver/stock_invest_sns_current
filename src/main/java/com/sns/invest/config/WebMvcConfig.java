@@ -13,3 +13,8 @@ public class WebMvcConfig implements WebMvcConfigurer{
 //		.addResourceLocations("file:/home/ec2-user/upload_images/");
 	}
 }
+/*
+ * file:abc/xyz  상대경로 abc/xyz.
+ * file:///abc/xyz  절대경로 /abc/xyz
+ * 
+ */ 
