@@ -9,13 +9,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "user")
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserJpa {
 	
     @Id
@@ -53,4 +56,19 @@ public class UserJpa {
 
     @Column(name = "updatedAt", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
+
+    @Builder
+	public UserJpa(String username, String password, String nickName, String email, String profileImage,
+			String profileStatusMessage, String location, String role) {
+		this.username = username;
+		this.password = password;
+		this.nickName = nickName;
+		this.email = email;
+		this.profileImage = profileImage;
+		this.profileStatusMessage = profileStatusMessage;
+		this.location = location;
+		this.role = role;
+	}
+    
+    
 }

@@ -51,12 +51,10 @@ public class UserBO {
 			return result;
 		}
 		
-		UserJpa user = new UserJpa();
-		user.setUsername(loginId);
-		user.setPassword(encryptPassword);
-		user.setNickName(nickName);
-		user.setEmail(email);
-		user.setRole("user");
+		UserJpa user = UserJpa.builder()
+				.username(loginId).password(encryptPassword)
+				.nickName(nickName).email(email).role("user")
+				.build();
 		
 		try {
 			if ( userRepository.save(user) instanceof UserJpa ) {
