@@ -37,14 +37,6 @@ CREATE TABLE comment (
     updatedAt timestamp DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE like (
-    id int NOT NULL AUTO_INCREMENT primary key,
-    type varchar(16) NOT NULL,
-	postId int NOT NULL,
-	userId int NOT NULL,
-    createdAt timestamp DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 CREATE TABLE gossip_post (
     id int NOT NULL AUTO_INCREMENT primary key,
 	userId int NOT NULL,

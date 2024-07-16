@@ -46,14 +46,9 @@ public class PostBO {
 	@Autowired
 	private PostDAO postDAO;
 
-	@Autowired
-	private CommentBO commentBO;
-	
-	@Autowired
-	private LikeBO likeBO;
-	
-	@Autowired
-	private UserBO userBO;
+	private final CommentBO commentBO;	
+	private final LikeBO likeBO;
+	private final UserBO userBO;
 	
 	public int addPost(int userId, String userNickName, String content, MultipartFile file
 			, String investStyle, String stockItemName, String investmentOpinion, String investmentProcess) {
@@ -62,20 +57,12 @@ public class PostBO {
 		
 		if(file != null) {
 			FileManagerService fileManager = new FileManagerService();
-			
 			filePath = fileManager.saveFile(userId, file);
-			
+		
 			if(filePath == null) {
 				return -1;
 			}	
 		}
-//		FileManagerService fileManager = new FileManagerService();
-//		
-//		String filePath = fileManager.saveFile(userId, file);
-//		
-//		if(filePath == null) {
-//			return -1;
-//		}
 		
 		return postDAO.insertInvestPost(userId, userNickName, content, filePath, investStyle, stockItemName, investmentOpinion, investmentProcess);
 	}
