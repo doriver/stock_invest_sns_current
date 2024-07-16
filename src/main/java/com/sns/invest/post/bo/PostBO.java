@@ -1,6 +1,7 @@
 package com.sns.invest.post.bo;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,7 @@ public class PostBO {
 	public List<InvestPostWithOthers> getInvestPostList(int myUserId) {
 		List<InvestJpa> postList = investPostRepository.findAllByOrderByIdDesc();
 		
-		List<InvestPostWithOthers> postWithOthersList = new ArrayList<>();
+		List<InvestPostWithOthers> postWithOthersList = new LinkedList<>();
 		
 		String type = "invest";
 		for(InvestJpa post:postList) {
