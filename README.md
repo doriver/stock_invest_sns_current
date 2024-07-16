@@ -1,3 +1,6 @@
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
+![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)  
+
 ## Invest SNS
 ### 프로젝트 설명
 * 투자(주식)라는 주제에 집중한 SNS
