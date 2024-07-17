@@ -4,37 +4,30 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sns.invest.post.model.Comment;
 import com.sns.invest.post.model.CommentJpa;
 import com.sns.invest.post.model.gossip.GossipJpa;
-import com.sns.invest.post.model.gossip.GossipPost;
 import com.sns.invest.post.model.gossip.GossipPostWithOthers;
 import com.sns.invest.post.model.invest.InvestJpa;
-import com.sns.invest.post.model.invest.InvestPost;
 import com.sns.invest.post.model.invest.InvestPostWithOthers;
 import com.sns.invest.post.model.local.LocalJpa;
-import com.sns.invest.post.model.local.LocalPost;
 import com.sns.invest.post.model.local.LocalPostWithOthers;
 import com.sns.invest.user.bo.UserBO;
-import com.sns.invest.user.dao.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import com.sns.invest.comment.bo.CommentBO;
+import com.sns.invest.comment.dao.CommentRepository;
 import com.sns.invest.common.FileManagerService;
 import com.sns.invest.post.dao.GossipPostRepository;
 import com.sns.invest.post.dao.InvestPostRepository;
 import com.sns.invest.post.dao.LocalPostRepository;
-import com.sns.invest.post.dao.PostDAO;
-import com.sns.invest.post.dao.custom.InvestPostRepositoryCustom;
 
-
+@Slf4j
 @Service
 @RequiredArgsConstructor // final이 붙은 필드를 모아서 생성자를 만들어줌
 public class PostBO {
@@ -42,14 +35,13 @@ public class PostBO {
 	private final InvestPostRepository investPostRepository;
 	private final GossipPostRepository gossipPostRepository;
 	private final LocalPostRepository localPostRepository;
+	private final CommentRepository commentRepository;
 		
-	@Autowired
-	private PostDAO postDAO;
-
 	private final CommentBO commentBO;	
 	private final LikeBO likeBO;
 	private final UserBO userBO;
 	
+	@Transactional
 	public int addPost(int userId, String userNickName, String content, MultipartFile file
 			, String investStyle, String stockItemName, String investmentOpinion, String investmentProcess) {
 		
@@ -64,7 +56,23 @@ public class PostBO {
 			}	
 		}
 		
-		return postDAO.insertInvestPost(userId, userNickName, content, filePath, investStyle, stockItemName, investmentOpinion, investmentProcess);
+		int result = -1;
+		
+		InvestJpa post = InvestJpa.builder()
+							.userId(userId).userNickName(userNickName).content(content).imagePath(filePath)
+							.investStyle(investStyle).stockItemName(stockItemName).investmentOpinion(investmentOpinion).investmentProcess(investmentProcess)
+							.build();
+		
+		try {
+			if ( investPostRepository.save(post) instanceof InvestJpa ) {
+				result = 1;
+			}
+		} catch (Exception e) {
+			log.error("[PostBO addPost] save()실패");
+	        throw e;
+		}
+		
+		return result;
 	}
 	
 	public List<InvestPostWithOthers> getInvestPostList(int myUserId) {
@@ -186,8 +194,26 @@ public class PostBO {
 		return postWithOthersList;
 	}
 	
+	@Transactional
 	public int addGossipPost(int userId, String userNickName, String corporation, String content) {
-		return postDAO.insertGossipPost(userId, userNickName, corporation, content);
+		
+		int result = -1;
+		
+		GossipJpa post = GossipJpa.builder()
+							.userId(userId).userNickName(userNickName)
+							.corporation(corporation).content(content)
+							.build();
+	
+		try {
+			if ( gossipPostRepository.save(post) instanceof GossipJpa ) {
+				result = 1;
+			}
+		} catch (Exception e) {
+			log.error("[PostBO addGossipPost] save()실패");
+	        throw e;
+		}
+		
+		return result;
 	}
 
 	public List<LocalPostWithOthers> getLocalPostList(int myUserId, String userLocation) {
@@ -218,6 +244,7 @@ public class PostBO {
 		return postWithOthersList;
 	}
 
+	@Transactional
 	public int addLocalPost(int myUserId, String userNickName,
 			String content, MultipartFile file) {
 		
@@ -232,17 +259,26 @@ public class PostBO {
 				return -1;
 			}	
 		}
-//		FileManagerService fileManager = new FileManagerService();
-//		
-//		String filePath = fileManager.saveFile(userId, file);
-//		
-//		if(filePath == null) {
-//			return -1;
-//		}
-		
+
 		String myLocation = userBO.getlocation(myUserId);
 		
-		return postDAO.insertLocalPost(myUserId, userNickName, myLocation, content, filePath);
+		LocalJpa post = LocalJpa.builder()
+							.userId(myUserId).userNickName(userNickName)
+							.userLocation(myLocation).content(content).imagePath(filePath)
+							.build();
+		
+		int result = -1;
+		
+		try {
+			if ( localPostRepository.save(post) instanceof LocalJpa ) {
+				result = 1;
+			}
+		} catch (Exception e) {
+			log.error("[PostBO addLocalPost] save()실패");
+	        throw e;
+		}					
+		
+		return result;
 	}
 	
     @Transactional // 이 메소드가 트랜잭션 내에서 실행되어야 함을 나타냄
@@ -252,21 +288,17 @@ public class PostBO {
 		int deleteCount = 0;
 		
 		if (type.equals("invest")) {		
-			imagePath = postDAO.selectInvestPostImagePath(postId);
-			deleteCount = postDAO.deleteInvestPost(postId, userId);	
+			imagePath = investPostRepository.findImagePathById(postId);
+			investPostRepository.deleteByIdAndUserId(postId, userId);
 		} 
 			
 		if (type.equals("local")) {
-			imagePath = postDAO.selectLocalPostImagePath(postId);
-			deleteCount = postDAO.deleteLocalPost(postId, userId);
+			imagePath = localPostRepository.findImagePathById(postId);
+			localPostRepository.deleteByIdAndUserId(postId, userId);
 		}
 
 		if (type.equals("gossip")) {
-			deleteCount = postDAO.deleteGossipPost(postId, userId);	
-		}
-		
-		if(deleteCount != 1) {
-			return false;
+			gossipPostRepository.deleteByIdAndUserId(postId, userId);
 		}
 		
 		if(imagePath != null) {
@@ -274,7 +306,7 @@ public class PostBO {
 			fileManagerService.removeFile(imagePath);			
 		}
 
-		commentBO.deleteComment(postId, type);
+		commentRepository.deleteByPostIdAndType(postId, type);
 		likeBO.deleteLikeInPost(postId, type);
 		return true;
 	}

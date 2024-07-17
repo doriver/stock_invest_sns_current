@@ -9,4 +9,6 @@ import com.sns.invest.post.model.gossip.GossipJpa;
 public interface GossipPostRepository extends JpaRepository<GossipJpa, Integer>{
 	List<GossipJpa> findAllByOrderByIdDesc(); // ORDER BY id DESC
 	List<GossipJpa> findAllByCorporationOrderByIdDesc(String corporation);
+	
+	void deleteByIdAndUserId(int id, int userId);
 }

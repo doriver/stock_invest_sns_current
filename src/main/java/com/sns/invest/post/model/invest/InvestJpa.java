@@ -9,13 +9,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.sns.invest.user.model.UserJpa;
+
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "invest_post")
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class InvestJpa {
 
     @Id
@@ -51,4 +56,19 @@ public class InvestJpa {
 
     @Column(name = "updatedAt", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
+
+    @Builder
+	public InvestJpa(int userId, String userNickName, String investStyle, String stockItemName,
+			String investmentOpinion, String investmentProcess, String content, String imagePath) {
+		this.userId = userId;
+		this.userNickName = userNickName;
+		this.investStyle = investStyle;
+		this.stockItemName = stockItemName;
+		this.investmentOpinion = investmentOpinion;
+		this.investmentProcess = investmentProcess;
+		this.content = content;
+		this.imagePath = imagePath;
+	}
+    
+    
 }
