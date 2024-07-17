@@ -9,13 +9,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "comment")
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommentJpa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,4 +44,15 @@ public class CommentJpa {
 
     @Column(name = "updatedAt", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
+
+    @Builder
+	public CommentJpa(String type, int postId, int userId, String userNickName, String content) {
+		this.type = type;
+		this.postId = postId;
+		this.userId = userId;
+		this.userNickName = userNickName;
+		this.content = content;
+	}
+    
+    
 }

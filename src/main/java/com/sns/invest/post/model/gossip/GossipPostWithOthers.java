@@ -3,7 +3,6 @@ package com.sns.invest.post.model.gossip;
 
 import java.util.List;
 
-import com.sns.invest.post.model.Comment;
 import com.sns.invest.post.model.CommentJpa;
 
 public class GossipPostWithOthers {

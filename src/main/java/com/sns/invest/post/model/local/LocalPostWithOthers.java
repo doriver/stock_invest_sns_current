@@ -2,7 +2,6 @@ package com.sns.invest.post.model.local;
 
 import java.util.List;
 
-import com.sns.invest.post.model.Comment;
 import com.sns.invest.post.model.CommentJpa;
 
 public class LocalPostWithOthers {
