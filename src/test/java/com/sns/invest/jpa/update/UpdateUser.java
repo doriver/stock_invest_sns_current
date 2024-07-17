@@ -23,7 +23,7 @@ public class UpdateUser {
 	
 	@Test
 	public void aa() {
-		UserJpa user = userRepository.findById(1);
+		UserJpa user = userRepository.findById(1); // 조회한 결과 값만 바꿔주면 자동 업데이트 됨
 		user.updateLocation("위치 ");
 	}
 }

@@ -12,9 +12,12 @@ import com.sns.invest.user.model.UserJpa;
 public interface UserRepository extends JpaRepository<UserJpa, Integer>{
 	long countByUsername(String username); // 아이디 중복체크
 	UserJpa findByUsername(String username); // 로그인
-	
-	@Query("SELECT profileImage FROM UserJpa  WHERE id = :id") // From뒤에 테이블 이름이 아니라 entity이름 와야함
-    String findProfileImageById(@Param("id") int id);
-	
 	UserJpa findById(int id);
+	
+	@Query("SELECT profileImage FROM UserJpa WHERE id = :id") // From뒤에 테이블 이름이 아니라 entity이름 와야함
+    String findProfileImageById(@Param("id") int id);
+
+	@Query("SELECT location FROM UserJpa WHERE id = :id") // From뒤에 테이블 이름이 아니라 entity이름 와야함
+	String findLocationById(@Param("id") int id);
+	
 }

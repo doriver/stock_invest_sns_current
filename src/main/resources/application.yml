@@ -10,6 +10,12 @@ spring:
     url: jdbc:mysql://localhost:3306/invest_sns_new?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
     password: qlqjs
+    
+  data:
+    redis:
+      repositories:
+        enabled: false # 이거 없으면 JPA의 repository를 Redis가 인식히려해서 콘솔창에 뭐 뜸
+        
   jpa:
     hibernate:
       ddl-auto: update
@@ -22,6 +28,8 @@ spring:
     host: localhost
 #    host: host.docker.internal
     port: 6379
+    repositories:
+      enabled: false
 logging:
   level:
     root: info

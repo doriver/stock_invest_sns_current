@@ -80,6 +80,10 @@ public class UserJpa {
 		this.profileImage = profileImage;
 	}
 
+	public void updateProfileStatusMessage(String profileStatusMessage) {
+		this.profileStatusMessage = profileStatusMessage;
+	}
+	
 	public void updateLocation(String location) {
 		this.location = location;
 	}
