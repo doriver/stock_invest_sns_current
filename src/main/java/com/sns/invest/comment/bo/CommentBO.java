@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.sns.invest.comment.dao.CommentDAO;
 import com.sns.invest.comment.dao.CommentRepository;
-import com.sns.invest.post.dao.InvestPostRepository;
-import com.sns.invest.post.model.Comment;
 import com.sns.invest.post.model.CommentJpa;
 
 import lombok.RequiredArgsConstructor;
