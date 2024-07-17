@@ -34,7 +34,6 @@ public class UserBO {
 			return true;
 		}
 		
-		// return (userDAO.selectCountById(loginId) != 0);
 	}
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -94,13 +93,6 @@ public class UserBO {
 				return -1;
 			}	
 		}
-//		FileManagerService fileManager = new FileManagerService();
-//		이건 파일첨부 필수였을때
-//		String filePath = fileManager.saveFile(userId, file);
-//		
-//		if(filePath == null) {
-//			return -1;
-//		}
 	
 		return userDAO.updateUserProfile(userId, profileStatusMessage, filePath);
 	}

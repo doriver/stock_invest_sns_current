@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import lombok.AccessLevel;
@@ -54,9 +55,14 @@ public class UserJpa {
     @Column(name = "createdAt", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
 
-    @Column(name = "updatedAt", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "updatedAt", insertable = false, updatable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
 
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
+    
     @Builder
 	public UserJpa(String username, String password, String nickName, String email, String profileImage,
 			String profileStatusMessage, String location, String role) {
@@ -69,6 +75,15 @@ public class UserJpa {
 		this.location = location;
 		this.role = role;
 	}
+
+	public void updateProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
+
+	public void updateLocation(String location) {
+		this.location = location;
+	}
+    
     
     
 }
