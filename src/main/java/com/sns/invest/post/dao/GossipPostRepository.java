@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.sns.invest.post.model.gossip.GossipJpa;
+import com.sns.invest.post.model.gossip.GossipPost;
 
-public interface GossipPostRepository extends JpaRepository<GossipJpa, Integer>{
-	List<GossipJpa> findAllByOrderByIdDesc(); // ORDER BY id DESC
-	List<GossipJpa> findAllByCorporationOrderByIdDesc(String corporation);
+public interface GossipPostRepository extends JpaRepository<GossipPost, Integer>{
+	List<GossipPost> findAllByOrderByIdDesc(); // ORDER BY id DESC
+	List<GossipPost> findAllByCorporationOrderByIdDesc(String corporation);
 	
 	void deleteByIdAndUserId(int id, int userId);
 }

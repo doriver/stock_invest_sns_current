@@ -13,7 +13,6 @@ import com.sns.invest.post.model.invest.InvestPostWithOthers;
 import com.sns.invest.post.model.local.LocalPostWithOthers;
 import com.sns.invest.user.bo.UserBO;
 import com.sns.invest.user.model.User;
-import com.sns.invest.user.model.UserJpa;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +37,7 @@ public class PostController {
 		int myUserId = (Integer)session.getAttribute("userId");
 		List<InvestPostWithOthers> postList = postBO.getInvestPostList(myUserId);
 		
-		UserJpa myInfo = userBO.userInformation(myUserId);
+		User myInfo = userBO.userInformation(myUserId);
 	
 		model.addAttribute("postList", postList);
 		model.addAttribute("myInfo", myInfo);
@@ -63,7 +62,7 @@ public class PostController {
 		List<InvestPostWithOthers> postList = postBO.getFilteredInvestPostList(myUserId, investStyleForFiltering, stockItemNameForFiltering,
 				investmentOpinionForFiltering, investmentProcessForFiltering);
 		
-		UserJpa myInfo = userBO.userInformation(myUserId);
+		User myInfo = userBO.userInformation(myUserId);
 		
 		model.addAttribute("postList", postList);
 		model.addAttribute("myInfo", myInfo);
@@ -87,9 +86,9 @@ public class PostController {
 		int myUserId = (Integer)session.getAttribute("userId");
 
 		
-		UserJpa userInfo = userBO.userInformation(userId);
+		User userInfo = userBO.userInformation(userId);
 		List<InvestPostWithOthers> postList = postBO.getInvestPostListByUserId(userId);
-		UserJpa myInfo = userBO.userInformation(myUserId);
+		User myInfo = userBO.userInformation(myUserId);
 		
 		model.addAttribute("postList", postList);
 		model.addAttribute("userInfo", userInfo);
@@ -110,7 +109,7 @@ public class PostController {
 		
 		List<GossipPostWithOthers> postList = postBO.getGossipPostList(myUserId, corporation);
 		
-		UserJpa myInfo = userBO.userInformation(myUserId);
+		User myInfo = userBO.userInformation(myUserId);
 		
 		model.addAttribute("postList", postList);
 		model.addAttribute("corporation", corporation);
@@ -129,7 +128,7 @@ public class PostController {
 		HttpSession session = request.getSession();
 		int myUserId = (Integer)session.getAttribute("userId");
 		
-		UserJpa myInfo = userBO.userInformation(myUserId);
+		User myInfo = userBO.userInformation(myUserId);
 		
 		String userLocation = myInfo.getLocation();
 		

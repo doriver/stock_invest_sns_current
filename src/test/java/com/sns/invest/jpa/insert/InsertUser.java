@@ -10,7 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.sns.invest.config.QueryDslCofig;
 import com.sns.invest.user.dao.UserRepository;
-import com.sns.invest.user.model.UserJpa;
+import com.sns.invest.user.model.User;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -23,12 +23,12 @@ public class InsertUser {
 	
 	@Test
 	public void signUp() {
-		UserJpa user = UserJpa.builder()
+		User user = User.builder()
 				.username("loginId").password("encryptPassword")
 				.nickName("nickName").email("email").role("user")
 				.build();
 		
-		UserJpa aa = userRepository.save(user);
+		User aa = userRepository.save(user);
 		
 //		System.out.println(aa);
 		// 뭘 테스트 할지

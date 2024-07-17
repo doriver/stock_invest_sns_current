@@ -2,11 +2,11 @@ package com.sns.invest.post.model.local;
 
 import java.util.List;
 
-import com.sns.invest.post.model.CommentJpa;
+import com.sns.invest.post.model.Comment;
 
 public class LocalPostWithOthers {
-	private LocalJpa localPost;
-	private List<CommentJpa> commentList;
+	private LocalPost localPost;
+	private List<Comment> commentList;
 	private boolean isLike;
 	private int likeCount;
 	private String writerProfileImage;
@@ -17,16 +17,16 @@ public class LocalPostWithOthers {
 	public void setWriterProfileImage(String writerProfileImage) {
 		this.writerProfileImage = writerProfileImage;
 	}
-	public LocalJpa getLocalPost() {
+	public LocalPost getLocalPost() {
 		return localPost;
 	}
-	public void setLocalPost(LocalJpa localPost) {
+	public void setLocalPost(LocalPost localPost) {
 		this.localPost = localPost;
 	}
-	public List<CommentJpa> getCommentList() {
+	public List<Comment> getCommentList() {
 		return commentList;
 	}
-	public void setCommentList(List<CommentJpa> commentList) {
+	public void setCommentList(List<Comment> commentList) {
 		this.commentList = commentList;
 	}
 	public boolean isLike() {

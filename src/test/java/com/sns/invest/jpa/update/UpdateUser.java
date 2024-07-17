@@ -10,7 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.sns.invest.config.QueryDslCofig;
 import com.sns.invest.user.dao.UserRepository;
-import com.sns.invest.user.model.UserJpa;
+import com.sns.invest.user.model.User;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -23,7 +23,7 @@ public class UpdateUser {
 	
 	@Test
 	public void aa() {
-		UserJpa user = userRepository.findById(1); // 조회한 결과 값만 바꿔주면 자동 업데이트 됨
+		User user = userRepository.findById(1); // 조회한 결과 값만 바꿔주면 자동 업데이트 됨
 		user.updateLocation("위치 ");
 	}
 }

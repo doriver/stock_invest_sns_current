@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.user.dao.UserRepository;
-import com.sns.invest.user.model.UserJpa;
+import com.sns.invest.user.model.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -45,13 +45,13 @@ public class UserBO {
 			return result;
 		}
 		
-		UserJpa user = UserJpa.builder()
+		User user = User.builder()
 				.username(loginId).password(encryptPassword)
 				.nickName(nickName).email(email).role("user")
 				.build();
 		
 		try {
-			if ( userRepository.save(user) instanceof UserJpa ) {
+			if ( userRepository.save(user) instanceof User ) {
 				result = 1;
 				logger.info("회원가입 성공");
 			}
@@ -63,11 +63,11 @@ public class UserBO {
 		return result;
 	}
 	
-	public UserJpa signIn(String username) {
+	public User signIn(String username) {
 		return userRepository.findByUsername(username);
 	}
 	
-	public UserJpa userInformation(int userId) {
+	public User userInformation(int userId) {
 		return userRepository.findById(userId);
 	}
 	
@@ -75,7 +75,7 @@ public class UserBO {
 		
 		int result = -1;
 		
-		UserJpa user = userRepository.findById(userId);
+		User user = userRepository.findById(userId);
 		
 		if (user != null) {
 			user.updateLocation(location);
@@ -101,7 +101,7 @@ public class UserBO {
 			}	
 		}
 		
-		UserJpa user = userRepository.findById(userId);
+		User user = userRepository.findById(userId);
 		
 		if (user != null) {
 			user.updateProfileStatusMessage(profileStatusMessage);

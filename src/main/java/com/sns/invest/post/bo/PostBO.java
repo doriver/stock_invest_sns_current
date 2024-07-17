@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sns.invest.post.model.CommentJpa;
-import com.sns.invest.post.model.gossip.GossipJpa;
+import com.sns.invest.post.model.Comment;
+import com.sns.invest.post.model.gossip.GossipPost;
 import com.sns.invest.post.model.gossip.GossipPostWithOthers;
-import com.sns.invest.post.model.invest.InvestJpa;
+import com.sns.invest.post.model.invest.InvestPost;
 import com.sns.invest.post.model.invest.InvestPostWithOthers;
-import com.sns.invest.post.model.local.LocalJpa;
+import com.sns.invest.post.model.local.LocalPost;
 import com.sns.invest.post.model.local.LocalPostWithOthers;
 import com.sns.invest.user.bo.UserBO;
 
@@ -58,13 +58,13 @@ public class PostBO {
 		
 		int result = -1;
 		
-		InvestJpa post = InvestJpa.builder()
+		InvestPost post = InvestPost.builder()
 							.userId(userId).userNickName(userNickName).content(content).imagePath(filePath)
 							.investStyle(investStyle).stockItemName(stockItemName).investmentOpinion(investmentOpinion).investmentProcess(investmentProcess)
 							.build();
 		
 		try {
-			if ( investPostRepository.save(post) instanceof InvestJpa ) {
+			if ( investPostRepository.save(post) instanceof InvestPost ) {
 				result = 1;
 			}
 		} catch (Exception e) {
@@ -76,13 +76,13 @@ public class PostBO {
 	}
 	
 	public List<InvestPostWithOthers> getInvestPostList(int myUserId) {
-		List<InvestJpa> postList = investPostRepository.findAllByOrderByIdDesc();
+		List<InvestPost> postList = investPostRepository.findAllByOrderByIdDesc();
 		
 		List<InvestPostWithOthers> postWithOthersList = new LinkedList<>();
 		
 		String type = "invest";
-		for(InvestJpa post:postList) {
-			List<CommentJpa> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
+		for(InvestPost post:postList) {
+			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
 			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
@@ -103,13 +103,13 @@ public class PostBO {
 	}
 
 	public List<InvestPostWithOthers> getInvestPostListByUserId(int userId) {
-		List<InvestJpa> postList = investPostRepository.findAllByUserIdOrderByIdDesc(userId);
+		List<InvestPost> postList = investPostRepository.findAllByUserIdOrderByIdDesc(userId);
 		
 		List<InvestPostWithOthers> postWithOthersList = new ArrayList<>();
 		
 		String type = "invest";
-		for(InvestJpa post:postList) {
-			List<CommentJpa> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
+		for(InvestPost post:postList) {
+			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
 			boolean isLike = likeBO.existLike(post.getId(), userId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
@@ -131,15 +131,15 @@ public class PostBO {
 			, String investmentOpinionForFiltering, String investmentProcessForFiltering) {
 		
 
-		List<InvestJpa> postList = investPostRepository.findInvestPostsByFilters(
+		List<InvestPost> postList = investPostRepository.findInvestPostsByFilters(
 				investStyleForFiltering, stockItemNameForFiltering, investmentOpinionForFiltering, investmentProcessForFiltering
 			);
 
 		List<InvestPostWithOthers> postWithOthersList = new ArrayList<>();
 		
 		String type = "invest";
-		for(InvestJpa post:postList) {
-			List<CommentJpa> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
+		for(InvestPost post:postList) {
+			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
 			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
@@ -162,7 +162,7 @@ public class PostBO {
 	
 	public List<GossipPostWithOthers> getGossipPostList(int myUserId, String corporation) {
 		
-		List<GossipJpa> postList = null;
+		List<GossipPost> postList = null;
 		
 		if (corporation == null) {
 			postList = gossipPostRepository.findAllByOrderByIdDesc();
@@ -173,8 +173,8 @@ public class PostBO {
 		List<GossipPostWithOthers> postWithOthersList = new ArrayList<>();
 		
 		String type = "gossip";
-		for(GossipJpa post:postList) {
-			List<CommentJpa> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
+		for(GossipPost post:postList) {
+			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
 			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
@@ -199,13 +199,13 @@ public class PostBO {
 		
 		int result = -1;
 		
-		GossipJpa post = GossipJpa.builder()
+		GossipPost post = GossipPost.builder()
 							.userId(userId).userNickName(userNickName)
 							.corporation(corporation).content(content)
 							.build();
 	
 		try {
-			if ( gossipPostRepository.save(post) instanceof GossipJpa ) {
+			if ( gossipPostRepository.save(post) instanceof GossipPost ) {
 				result = 1;
 			}
 		} catch (Exception e) {
@@ -217,13 +217,13 @@ public class PostBO {
 	}
 
 	public List<LocalPostWithOthers> getLocalPostList(int myUserId, String userLocation) {
-		List<LocalJpa> postList = localPostRepository.findAllByUserLocationOrderByIdDesc(userLocation);
+		List<LocalPost> postList = localPostRepository.findAllByUserLocationOrderByIdDesc(userLocation);
 		
 		List<LocalPostWithOthers> postWithOthersList = new ArrayList<>();
 		
 		String type = "local";
-		for(LocalJpa post:postList) {
-			List<CommentJpa> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
+		for(LocalPost post:postList) {
+			List<Comment> commentList = commentBO.getCommentListByPostIdType(post.getId(),type);
 			
 			boolean isLike = likeBO.existLike(post.getId(), myUserId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
@@ -262,7 +262,7 @@ public class PostBO {
 
 		String myLocation = userBO.getlocation(myUserId);
 		
-		LocalJpa post = LocalJpa.builder()
+		LocalPost post = LocalPost.builder()
 							.userId(myUserId).userNickName(userNickName)
 							.userLocation(myLocation).content(content).imagePath(filePath)
 							.build();
@@ -270,7 +270,7 @@ public class PostBO {
 		int result = -1;
 		
 		try {
-			if ( localPostRepository.save(post) instanceof LocalJpa ) {
+			if ( localPostRepository.save(post) instanceof LocalPost ) {
 				result = 1;
 			}
 		} catch (Exception e) {

@@ -1,4 +1,4 @@
-package com.sns.invest.post.model.local;
+package com.sns.invest.post.model;
 
 import java.sql.Timestamp;
 
@@ -16,13 +16,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "local_post")
+@Table(name = "comment")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class LocalJpa {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "type", nullable = false, length = 16)
+    private String type;
+
+    @Column(name = "postId", nullable = false)
+    private int postId;
 
     @Column(name = "userId", nullable = false)
     private int userId;
@@ -30,14 +36,8 @@ public class LocalJpa {
     @Column(name = "userNickName", nullable = false, length = 16)
     private String userNickName;
 
-    @Column(name = "userLocation", length = 64)
-    private String userLocation;
-
-    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "content", length = 256)
     private String content;
-
-    @Column(name = "imagePath", length = 128)
-    private String imagePath;
 
     @Column(name = "createdAt", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
@@ -46,12 +46,12 @@ public class LocalJpa {
     private Timestamp updatedAt;
 
     @Builder
-	public LocalJpa(int userId, String userNickName, String userLocation, String content, String imagePath) {
+	public Comment(String type, int postId, int userId, String userNickName, String content) {
+		this.type = type;
+		this.postId = postId;
 		this.userId = userId;
 		this.userNickName = userNickName;
-		this.userLocation = userLocation;
 		this.content = content;
-		this.imagePath = imagePath;
 	}
     
     

@@ -2,7 +2,7 @@ package com.sns.invest.post.model.invest;
 
 import java.util.List;
 
-import com.sns.invest.post.model.CommentJpa;
+import com.sns.invest.post.model.Comment;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +11,8 @@ import lombok.Setter;
 @Setter
 public class InvestPostWithOthers {
 	
-	private InvestJpa investPost;
-	private List<CommentJpa> commentList;
+	private InvestPost investPost;
+	private List<Comment> commentList;
 	private boolean isLike;
 	private int likeCount;
 	private String writerProfileImage;

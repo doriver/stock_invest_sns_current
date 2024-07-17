@@ -1,4 +1,4 @@
-package com.sns.invest.post.model.gossip;
+package com.sns.invest.post.model.local;
 
 import java.sql.Timestamp;
 
@@ -16,10 +16,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "gossip_post")
+@Table(name = "local_post")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class GossipJpa {
+public class LocalPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -30,11 +30,14 @@ public class GossipJpa {
     @Column(name = "userNickName", nullable = false, length = 16)
     private String userNickName;
 
-    @Column(name = "corporation", nullable = false, length = 32)
-    private String corporation;
+    @Column(name = "userLocation", length = 64)
+    private String userLocation;
 
     @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
+
+    @Column(name = "imagePath", length = 128)
+    private String imagePath;
 
     @Column(name = "createdAt", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
@@ -43,11 +46,12 @@ public class GossipJpa {
     private Timestamp updatedAt;
 
     @Builder
-	public GossipJpa(int userId, String userNickName, String corporation, String content) {
+	public LocalPost(int userId, String userNickName, String userLocation, String content, String imagePath) {
 		this.userId = userId;
 		this.userNickName = userNickName;
-		this.corporation = corporation;
+		this.userLocation = userLocation;
 		this.content = content;
+		this.imagePath = imagePath;
 	}
     
     

@@ -10,7 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.sns.invest.config.QueryDslCofig;
 import com.sns.invest.user.dao.UserRepository;
-import com.sns.invest.user.model.UserJpa;
+import com.sns.invest.user.model.User;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -23,7 +23,7 @@ public class SelectUser {
 	
 	@Test
 	public void aa() {
-		UserJpa user = userRepository.findById(1);
+		User user = userRepository.findById(1);
 
 		user = userRepository.findById(4); // select결과 없으면 null찍힘
 		System.out.println(user);

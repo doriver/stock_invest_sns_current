@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.user.model.User;
-import com.sns.invest.user.model.UserJpa;
 import com.sns.invest.user.bo.UserBO;
 
 @RestController

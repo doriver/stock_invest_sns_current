@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.sns.invest.comment.dao.CommentRepository;
-import com.sns.invest.post.model.CommentJpa;
+import com.sns.invest.post.model.Comment;
 
 
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class CommentBO {
 	
 	private final CommentRepository commentRepository;
 	
-	public List<CommentJpa> getCommentListByPostIdType(int postId, String type) {
+	public List<Comment> getCommentListByPostIdType(int postId, String type) {
 		return commentRepository.findByPostIdAndTypeOrderByIdDesc(postId, type);
 	}
 	
@@ -26,13 +26,13 @@ public class CommentBO {
 		
 		int result = -1;
 		
-		CommentJpa comment = CommentJpa.builder()
+		Comment comment = Comment.builder()
 								.type(type).userId(userId).postId(postId)
 								.userNickName(userNickName).content(content)
 								.build();
 		
 		try {
-			if ( commentRepository.save(comment) instanceof CommentJpa ) {
+			if ( commentRepository.save(comment) instanceof Comment ) {
 				result = 1;
 			}
 		} catch (Exception e) {

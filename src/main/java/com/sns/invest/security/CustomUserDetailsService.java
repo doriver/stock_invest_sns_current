@@ -5,14 +5,14 @@ import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.sns.invest.user.bo.UserBO;
-import com.sns.invest.user.model.UserJpa;
+import com.sns.invest.user.model.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserJpa user = userBO.signIn(username);
+		User user = userBO.signIn(username);
 		
 		if (user == null) {			
 			return null;

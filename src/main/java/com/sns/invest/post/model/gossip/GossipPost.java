@@ -1,4 +1,4 @@
-package com.sns.invest.post.model.invest;
+package com.sns.invest.post.model.gossip;
 
 import java.sql.Timestamp;
 
@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.sns.invest.user.model.UserJpa;
-
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,11 +16,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "invest_post")
+@Table(name = "gossip_post")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class InvestJpa {
-
+public class GossipPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -33,23 +30,11 @@ public class InvestJpa {
     @Column(name = "userNickName", nullable = false, length = 16)
     private String userNickName;
 
-    @Column(name = "investStyle", nullable = false, length = 16)
-    private String investStyle;
-
-    @Column(name = "stockItemName", nullable = false, length = 32)
-    private String stockItemName;
-
-    @Column(name = "investmentOpinion", length = 16)
-    private String investmentOpinion;
-
-    @Column(name = "investmentProcess", nullable = false, length = 16)
-    private String investmentProcess;
+    @Column(name = "corporation", nullable = false, length = 32)
+    private String corporation;
 
     @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
-
-    @Column(name = "imagePath", length = 128)
-    private String imagePath;
 
     @Column(name = "createdAt", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
@@ -58,16 +43,11 @@ public class InvestJpa {
     private Timestamp updatedAt;
 
     @Builder
-	public InvestJpa(int userId, String userNickName, String investStyle, String stockItemName,
-			String investmentOpinion, String investmentProcess, String content, String imagePath) {
+	public GossipPost(int userId, String userNickName, String corporation, String content) {
 		this.userId = userId;
 		this.userNickName = userNickName;
-		this.investStyle = investStyle;
-		this.stockItemName = stockItemName;
-		this.investmentOpinion = investmentOpinion;
-		this.investmentProcess = investmentProcess;
+		this.corporation = corporation;
 		this.content = content;
-		this.imagePath = imagePath;
 	}
     
     

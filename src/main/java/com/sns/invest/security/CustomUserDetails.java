@@ -11,15 +11,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
-import com.sns.invest.user.model.UserJpa;
+import com.sns.invest.user.model.User;
 
 public class CustomUserDetails implements UserDetails {
 
-	private final UserJpa user;
+	private final User user;
 	
 	private final Collection<GrantedAuthority> authorities;
 	
-	public CustomUserDetails(UserJpa user, Collection<GrantedAuthority> authorities) {
+	public CustomUserDetails(User user, Collection<GrantedAuthority> authorities) {
 		this.user = user;
 		this.authorities = authorities;
 	}
