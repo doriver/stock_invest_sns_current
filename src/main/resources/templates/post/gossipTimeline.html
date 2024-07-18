@@ -69,7 +69,7 @@
 						
 						<!-- 글 의 userId 와 세션의 userId 가 일치하면 더보기 버튼 노출 -->
 						<div th:if="${postWithOthers.gossipPost.userId == session.userId}" class="more-icon" > 
-							<a href="#" class="text-dark moreBtn" data-toggle="modal" data-target="#postEditModal" data-post-id="${postWithOthers.gossipPost.id }"> 
+							<a href="#" class="text-dark moreBtn" data-toggle="modal" data-target="#postEditModal" th:data-post-id="${postWithOthers.gossipPost.id }"> 
 								<i class="bi bi-three-dots-vertical"></i> 
 							</a>
 						</div>
