@@ -145,8 +145,8 @@
 						
 						<!-- 댓글 입력 -->
 						<div class="d-flex mt-2 border-top">
-							<input type="text" class="form-control border-0 " id="commentInput-${postWithOthers.investPost.id }">
-							<button class="btn btn-info ml-2 commentBtn" data-post-id="${postWithOthers.investPost.id }">게시</button>
+							<input type="text" class="form-control border-0 " th:id="'commentInput-' + ${postWithOthers.investPost.id }">
+							<button class="btn btn-info ml-2 commentBtn" th:data-post-id="${postWithOthers.investPost.id }">게시</button>
 						</div>
 						
 					</div>
