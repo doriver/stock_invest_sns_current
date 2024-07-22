@@ -29,8 +29,7 @@ public class LogInterceptor implements HandlerInterceptor {
 		
 		log.info("[firstInterceptor] Request in preHandle [{}][{}][{}][{}]", logId, ip, requestURI, handler);
 		
-		return true; // 다음 인터셉터나 컨트롤러가 호출됨
-		// false인경우 나머지 인터셉터는 물론이고, 핸들러 어댑터도 호출되지 않고 요청 처리 끝냄  ,  응답 주는쪽으로 넘어감
+		return true;
 	}
 
 	@Override

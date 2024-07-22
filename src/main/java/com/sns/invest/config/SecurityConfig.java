@@ -21,12 +21,6 @@ public class SecurityConfig {
 
 	private final CustomUserDetailsService userDetailsService;
 	
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web
-//                .ignoring().antMatchers();
-//    }
-	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		// HTTP 요청에 대한 보안 설정을 구성합니다.
@@ -36,7 +30,6 @@ public class SecurityConfig {
 						, "static/**", "/favicon.ico", "/images/**").permitAll()
 				.antMatchers("/admin-view").hasRole("ADMIN")
 				.anyRequest().authenticated()
-//				.anyRequest().permitAll()
 			)  
         	.formLogin((form) -> form
 				.loginPage("/sign-view")
