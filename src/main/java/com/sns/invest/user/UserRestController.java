@@ -66,32 +66,6 @@ public class UserRestController {
 		return result;
 	}
 	
-	
-	// 로그인 기능
-//	@PostMapping("/users/sign-in")
-//	public Map<String, String> signIn(
-//			@RequestParam("idForLogin") String idForLogin
-//			, @RequestParam("passwordForLogin") String passwordForLogin
-//			, HttpServletRequest request) {
-//		
-//		Map<String, String> result = new HashMap<>();
-//		UserJpa user = userBO.signIn(idForLogin, passwordForLogin);
-//		if(user != null) {
-//			result.put("result", "success");
-//			
-//			HttpSession session = request.getSession();
-//			session.setAttribute("userId", user.getId());
-//			session.setAttribute("userLoginId", user.getLoginId());
-//			session.setAttribute("userNickName", user.getNickName());
-//			session.setAttribute("userLocation", user.getLocation());
-//			
-//		} else {
-//			result.put("result", "fail");
-//		}
-//		return result;	
-//	}
-	
-	
 	// 사용자의 위치설정 기능
 	@PatchMapping("/users/location")
 	public Map<String, String> userLocation(
