@@ -89,13 +89,12 @@ public class PostBO {
 			
 			String writerProfileImage = userBO.getProfileImage(post.getUserId());
 			
-			InvestPostWithOthers postWithOthers = new InvestPostWithOthers();
-			postWithOthers.setInvestPost(post);
-			postWithOthers.setCommentList(commentList);
-			postWithOthers.setLike(isLike);
-			postWithOthers.setLikeCount(likeCount);
-			postWithOthers.setWriterProfileImage(writerProfileImage);
-			
+			InvestPostWithOthers postWithOthers 
+				= InvestPostWithOthers.builder()
+							.investPost(post).writerProfileImage(writerProfileImage)
+							.commentList(commentList).isLike(isLike).likeCount(likeCount)
+							.build();
+				
 			postWithOthersList.add(postWithOthers);
 		}
 		
@@ -114,11 +113,11 @@ public class PostBO {
 			boolean isLike = likeBO.existLike(post.getId(), userId, type);
 			int likeCount = likeBO.countLike(post.getId(), type);
 			
-			InvestPostWithOthers postWithOthers = new InvestPostWithOthers();
-			postWithOthers.setInvestPost(post);
-			postWithOthers.setCommentList(commentList);
-			postWithOthers.setLike(isLike);
-			postWithOthers.setLikeCount(likeCount);
+			InvestPostWithOthers postWithOthers 
+				= InvestPostWithOthers.builder()
+							.investPost(post)
+							.commentList(commentList).isLike(isLike).likeCount(likeCount)
+							.build();
 			
 			postWithOthersList.add(postWithOthers);
 		}
@@ -145,13 +144,12 @@ public class PostBO {
 			int likeCount = likeBO.countLike(post.getId(), type);
 			
 			String writerProfileImage = userBO.getProfileImage(post.getUserId());
-		
-			InvestPostWithOthers postWithOthers = new InvestPostWithOthers();
-			postWithOthers.setInvestPost(post);
-			postWithOthers.setCommentList(commentList);
-			postWithOthers.setLike(isLike);
-			postWithOthers.setLikeCount(likeCount);
-			postWithOthers.setWriterProfileImage(writerProfileImage);
+			
+			InvestPostWithOthers postWithOthers 
+				= InvestPostWithOthers.builder()
+							.investPost(post).writerProfileImage(writerProfileImage)
+							.commentList(commentList).isLike(isLike).likeCount(likeCount)
+							.build();
 			
 			postWithOthersList.add(postWithOthers);
 		}
