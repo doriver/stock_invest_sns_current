@@ -33,3 +33,9 @@ spring:
 logging:
   level:
     root: info
+    
+
+server:
+  error:
+    whitelabel:
+      enabled:false # 스프링 부트가 제공하는 기본 예외 페이지 끄는거
