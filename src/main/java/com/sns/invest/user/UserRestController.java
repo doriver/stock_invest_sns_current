@@ -21,9 +21,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.user.model.User;
 import com.sns.invest.user.model.UserSaveForm;
+
+import lombok.extern.slf4j.Slf4j;
+
 import com.sns.invest.user.bo.UserBO;
 
 @RestController
+@Slf4j
 public class UserRestController {
 	
 	@Autowired
@@ -54,6 +58,12 @@ public class UserRestController {
 			, BindingResult bindingResult ) {
 		
 		Map<String, String> result = new HashMap<>();
+		
+		if (bindingResult.hasErrors()) {
+			log.info("회원가입 검증 오류 발생 errors={}", bindingResult);
+			result.put("result", "fail");
+			return result;
+		}
 		
 		int count = userBO.signUp(form.getLoginId(), form.getPassword(), form.getNickName(), form.getEmail());
 		
