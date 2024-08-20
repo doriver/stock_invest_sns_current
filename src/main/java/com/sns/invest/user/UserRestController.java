@@ -108,7 +108,6 @@ public class UserRestController {
 		HttpSession session = request.getSession();
 		int userId = (Integer)session.getAttribute("userId");
 		
-//		System.out.println("file:"+file);
 		int count = userBO.editProfile(userId, file, profileStatusMessage);
 		Map<String, String> result = new HashMap<>();
 		
