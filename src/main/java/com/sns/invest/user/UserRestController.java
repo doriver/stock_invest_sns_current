@@ -24,6 +24,7 @@ import com.sns.invest.user.model.UserSaveForm;
 
 import lombok.extern.slf4j.Slf4j;
 
+import com.sns.invest.common.argumentResolver.UserInfo;
 import com.sns.invest.user.bo.UserBO;
 
 @RestController
@@ -80,12 +81,9 @@ public class UserRestController {
 	@PatchMapping("/users/location")
 	public Map<String, String> userLocation(
 			@RequestParam("location") String location
-			, HttpServletRequest request) {
+			, UserInfo userInfo) {
 		
-		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
-		
-		int count = userBO.editLocation(userId, location);
+		int count = userBO.editLocation(userInfo.getUserId(), location);
 		Map<String, String> result = new HashMap<>();
 		
 		if (count == 1) {
@@ -103,12 +101,9 @@ public class UserRestController {
 	public Map<String, String> userProfile(
 			@RequestParam("profileStatusMessage") String profileStatusMessage
 			, @RequestParam(value = "file", required = false) MultipartFile file
-			, HttpServletRequest request) {
+			, UserInfo userInfo) {
 		
-		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
-		
-		int count = userBO.editProfile(userId, file, profileStatusMessage);
+		int count = userBO.editProfile(userInfo.getUserId(), file, profileStatusMessage);
 		Map<String, String> result = new HashMap<>();
 		
 		if (count == 1) {
