@@ -17,6 +17,7 @@ import com.sns.invest.user.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import com.sns.invest.common.argumentResolver.UserInfo;
 import com.sns.invest.post.bo.PostBO;
 import com.sns.invest.post.dao.InvestPostRepository;
 
@@ -30,11 +31,10 @@ public class PostController {
 
 	// 투자게시판 화면
 	@GetMapping("/invest-view")
-	public String investTimeline(
-			HttpServletRequest request
-			, Model model) {
-		HttpSession session = request.getSession();
-		int myUserId = (Integer)session.getAttribute("userId");
+	public String investTimeline( UserInfo userInfo, Model model) {
+		
+		int myUserId = userInfo.getUserId();
+		
 		List<InvestPostWithOthers> postList = postBO.getInvestPostList(myUserId);
 		
 		User myInfo = userBO.userInformation(myUserId);
@@ -53,11 +53,9 @@ public class PostController {
 			, @RequestParam(value = "stockItemNameForFiltering", required = false) String stockItemNameForFiltering
 			, @RequestParam(value = "investmentOpinionForFiltering", required = false) String investmentOpinionForFiltering
 			, @RequestParam(value = "investmentProcessForFiltering", required = false) String investmentProcessForFiltering
-			, HttpServletRequest request
-			, Model model) {
+			, UserInfo userInfo, Model model) {
 		
-		HttpSession session = request.getSession();
-		int myUserId = (Integer)session.getAttribute("userId");
+		int myUserId = userInfo.getUserId();
 		
 		List<InvestPostWithOthers> postList = postBO.getFilteredInvestPostList(myUserId, investStyleForFiltering, stockItemNameForFiltering,
 				investmentOpinionForFiltering, investmentProcessForFiltering);
@@ -77,21 +75,17 @@ public class PostController {
 	
 	// 개인 홈 화면
 	@GetMapping("/individual-home-view")
-	public String individualHome(
-			@RequestParam("userId") int userId
-			, HttpServletRequest request
-			, Model model) {
+	public String individualHome( @RequestParam("userId") int userId
+			, UserInfo userInfo, Model model) {
 
-		HttpSession session = request.getSession();
-		int myUserId = (Integer)session.getAttribute("userId");
+		int myUserId = userInfo.getUserId();
 
-		
-		User userInfo = userBO.userInformation(userId);
+		User user = userBO.userInformation(userId);
 		List<InvestPostWithOthers> postList = postBO.getInvestPostListByUserId(userId);
 		User myInfo = userBO.userInformation(myUserId);
 		
 		model.addAttribute("postList", postList);
-		model.addAttribute("userInfo", userInfo);
+		model.addAttribute("userInfo", user);
 		model.addAttribute("myInfo", myInfo);
 
 		return "post/individualHome";
@@ -102,10 +96,9 @@ public class PostController {
 	@GetMapping("/gossip-view")
 	public String gossipTimeline(
 			@RequestParam(value = "corporation", required = false) String corporation
-			, HttpServletRequest request
-			, Model model) {
-		HttpSession session = request.getSession();
-		int myUserId = (Integer)session.getAttribute("userId");
+			, UserInfo userInfo, Model model) {
+		
+		int myUserId = userInfo.getUserId();
 		
 		List<GossipPostWithOthers> postList = postBO.getGossipPostList(myUserId, corporation);
 		
@@ -121,12 +114,8 @@ public class PostController {
 	
 	// 지역 커뮤니티 화면
 	@GetMapping("/local-view")
-	public String localTimeline(
-			HttpServletRequest request
-			, Model model) {
-		
-		HttpSession session = request.getSession();
-		int myUserId = (Integer)session.getAttribute("userId");
+	public String localTimeline( UserInfo userInfo, Model model) {
+		int myUserId = userInfo.getUserId();
 		
 		User myInfo = userBO.userInformation(myUserId);
 		
