@@ -12,6 +12,17 @@
 * [Nginx](https://github.com/doriver/DockerTest01/blob/master/compose/03/webServer/etcNginx/conf.d/default.conf)
 ## Rest API
 
+
+## 인증, 로그인 처리
+[SecurityConfig.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/config/SecurityConfig.java) : SecurityFilterChain을 사용해 FormLogin으로 인증처리를 함     
+[src/main/java/com/sns/invest/security](https://github.com/doriver/stock_invest_sns_current/tree/master/src/main/java/com/sns/invest/security)
+* UserDetailsServices를 구현해서 로그인, 권한부여를 했다.
+* AuthenticationSuccessHandler를 구현해서 HttpSession에 사용자 데이터를 담음
+
+## 요청마다 'ip주소'로 구분
+[CommonFilterInterceptor.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/CommonFilterInterceptor.java) : ip주소 얻는 메소드 있음    
+[LogInterceptor.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/interceptor/LogInterceptor.java) : Interceptor에서 요청마다 ip주소와 id값(UUID)을 부여하고 log로 남김
+
 ## 미리 보기
 * 회원가입,로그인,로그아웃
 * 프로필설정과 프로필 이미지 반영
