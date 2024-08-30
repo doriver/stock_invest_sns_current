@@ -16,22 +16,22 @@
 * 회원가입,로그인,로그아웃
 * 프로필설정과 프로필 이미지 반영
 <div>
-  <img src="demo_gif/회원가입,로그인,로그아웃.gif" alt="demo1" width="400" height="300">
-  <img src="demo_gif/프로필설정.gif" alt="demo3" width="400" height="300">  
+  <img src="demo_gif/회원가입,로그인,로그아웃.gif" alt="demo1" width="400" height="250">
+  <img src="demo_gif/프로필설정.gif" alt="demo3" width="400" height="250">  
 </div>
      
 * 이미지 첨부 글쓰기, 좋아요,댓글기능, 글 삭제기능    
 * 게시글 필터링
 <div>
-  <img src="demo_gif/글쓰기,좋아요,댓글,글삭제.gif" alt="demo2" width="300" height="300">
-  <img src="demo_gif/필터링.gif" alt="demo4" width="300" height="300">  
+  <img src="demo_gif/글쓰기,좋아요,댓글,글삭제.gif" alt="demo2" width="400" height="250">
+  <img src="demo_gif/필터링.gif" alt="demo4" width="400" height="250">  
 </div>
 
 * 위치정보 설정과 지역커뮤니티
 * 다른사람의 개인홈 , 가십게시판    
 <div>
-  <img src="demo_gif/위치설정.gif" alt="demo5" width="500" height="300">
-  <img src="demo_gif/개인홈,가십게시판.gif" alt="demo6" width="500" height="300">  
+  <img src="demo_gif/위치설정.gif" alt="demo5" width="400" height="250">
+  <img src="demo_gif/개인홈,가십게시판.gif" alt="demo6" width="400" height="250">  
 </div>
 
 
