@@ -8,8 +8,9 @@
 ## 사용된 기술들
 * [Docker Compose](https://github.com/doriver/DockerTest01/tree/master/compose/03)
 도커 컨테이너 운영에 필요한 것들( buildContext, volume등을 compose.yaml이 있는 디렉토리에서 모아서 관리 )
-* [Redis](https://github.com/doriver/SpringRedis01)
-* [Nginx](https://github.com/doriver/DockerTest01/blob/master/compose/03/webServer/etcNginx/conf.d/default.conf)
+* [Redis with Spring](https://github.com/doriver/SpringRedis01) : 여기서 연습, 테스트 해보고 프로젝트에 적용
+  * [RedisConfig.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/config/RedisConfig.java) 설정파일, [RedisDAO.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/post/dao/RedisDAO.java) 자료구조set관련 crud
+* [Nginx](https://github.com/doriver/DockerTest01/blob/master/compose/03/webServer/etcNginx/conf.d/default.conf) : nginx설정 파일
 ## Rest API
 
 
@@ -28,6 +29,7 @@
 * 프로필설정과 프로필 이미지 반영
 <div>
   <img src="demo_gif/회원가입,로그인,로그아웃.gif" alt="demo1" width="400" height="250">
+  &nbsp&nbsp&nbsp
   <img src="demo_gif/프로필설정.gif" alt="demo3" width="400" height="250">  
 </div>
      
@@ -35,6 +37,7 @@
 * 게시글 필터링
 <div>
   <img src="demo_gif/글쓰기,좋아요,댓글,글삭제.gif" alt="demo2" width="400" height="250">
+  &nbsp&nbsp&nbsp
   <img src="demo_gif/필터링.gif" alt="demo4" width="400" height="250">  
 </div>
 
@@ -42,6 +45,7 @@
 * 다른사람의 개인홈 , 가십게시판    
 <div>
   <img src="demo_gif/위치설정.gif" alt="demo5" width="400" height="250">
+  &nbsp&nbsp&nbsp
   <img src="demo_gif/개인홈,가십게시판.gif" alt="demo6" width="400" height="250">  
 </div>
 
