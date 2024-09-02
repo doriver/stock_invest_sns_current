@@ -10,7 +10,8 @@
 도커 컨테이너 운영에 필요한 것들( buildContext, volume등을 compose.yaml이 있는 디렉토리에서 모아서 관리 )
 * [Redis with Spring](https://github.com/doriver/SpringRedis01) : 여기서 연습, 테스트 해보고 프로젝트에 적용
   * [RedisConfig.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/config/RedisConfig.java) 설정파일, [RedisDAO.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/post/dao/RedisDAO.java) 자료구조set관련 crud
-* [Nginx](https://github.com/doriver/DockerTest01/blob/master/compose/03/webServer/etcNginx/conf.d/default.conf) : nginx설정 파일
+* [Nginx](https://github.com/doriver/DockerTest01/blob/master/compose/03/webServer/etcNginx/conf.d/default.conf) : nginx설정 파일( 리버스 프록시로서 로드밸런싱, 캐싱기능, 무중단 배포를 구현 )
+* [Querydsl사용 부분](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/post/dao/custom/InvestPostRepositoryCustomImpl.java)  ‘게시글 필터링 기능’에서 필터링 조건에 따라 sql문을 동적으로 처리
 ## Rest API
 
 
