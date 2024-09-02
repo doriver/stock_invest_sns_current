@@ -1,8 +1,5 @@
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
 ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)  
-[사용된 기술들](#사용된-기술들)
-[Rest API](#rest-api)
-[인증, 로그인 처리](#인증-로그인-처리)
 
 # Invest SNS
 * 투자(주식)라는 주제에 집중한 SNS, 투자를 하면서 사람들과 소통하면 재밌을꺼 같아 만들었다.
