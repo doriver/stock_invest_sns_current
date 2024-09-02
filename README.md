@@ -15,7 +15,7 @@
 ## Rest API
 
 
-## 인증, 로그인 처리
+## 인증, 권한 처리
 [SecurityConfig.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/config/SecurityConfig.java) : SecurityFilterChain을 사용해 FormLogin으로 인증처리를 함     
 [src/main/java/com/sns/invest/security](https://github.com/doriver/stock_invest_sns_current/tree/master/src/main/java/com/sns/invest/security)
 * UserDetailsServices를 구현해서 로그인, 권한부여를 했다.
