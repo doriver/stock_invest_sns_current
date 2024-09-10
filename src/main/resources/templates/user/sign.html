@@ -181,8 +181,10 @@
 							alert("회원 가입 실패");
 						}
 					}, 
-					error:function(e) {
-						alert("회원 가입 실패");
+					error:function(xhr) {
+						let response = xhr.responseJSON;
+						console.log(response);
+						alert("회원 가입 실패 \n" + response.message);
 					}
 					
 					
@@ -219,11 +221,11 @@
 						//isDuplicate = data.is_duplicate;
 						
 					},
-					error:function(e){
-						alert("중복확인 실패");
-					}
-					
-					
+					error:function(xhr) {
+						let response = xhr.responseJSON;
+						console.log(response);
+						alert("중복확인 실패 \n" + response.message);
+					}		
 				});
 			})
 			// </중복확인>
