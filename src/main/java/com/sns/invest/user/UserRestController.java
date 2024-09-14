@@ -59,7 +59,7 @@ public class UserRestController {
 		
 		Map<String, String> result = new HashMap<>();
 		
-		if (bindingResult.hasErrors()) { // 이것도 체크 해봐야함
+		if (bindingResult.hasErrors()) {
 			log.info("회원가입 검증 오류 발생 errors={}", bindingResult);
 			return ApiResponse.fail("입력값이 잘못됐습니다.");
 		}
