@@ -57,8 +57,6 @@ public class UserRestController {
 	public ApiResponse<?> signUp( @Validated @RequestBody UserSaveForm form
 			, BindingResult bindingResult ) {
 		
-		Map<String, String> result = new HashMap<>();
-		
 		if (bindingResult.hasErrors()) {
 			log.info("회원가입 검증 오류 발생 errors={}", bindingResult);
 			return ApiResponse.fail("입력값이 잘못됐습니다.");
