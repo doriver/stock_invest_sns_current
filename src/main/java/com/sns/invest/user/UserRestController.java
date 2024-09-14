@@ -66,7 +66,7 @@ public class UserRestController {
 		
 		if (count == 1) {
 			return ApiResponse.success();
-		} else { // 이경우는 구체적으로 언제냐
+		} else { // 암호화 실패경우
 			return ApiResponse.fail("회원가입 실패");
 		}
 		

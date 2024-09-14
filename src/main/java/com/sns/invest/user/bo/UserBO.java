@@ -50,14 +50,14 @@ public class UserBO {
 				.nickName(nickName).email(email).role("user")
 				.build();
 		
-		try {
+		try { // save는 이런식으로 처리해야하는듯 , @Transactional 추가해줘야하는거 생각해야함
 			if ( userRepository.save(user) instanceof User ) {
 				result = 1;
 				logger.info("회원가입 성공");
 			}
 		} catch (Exception e) {
 			logger.error("[UserBO signUp] save()실패");
-	        throw e; // 예외를 다시 던지거나 적절히 처리
+	        throw e;
 	    }
 		
 		return result;
