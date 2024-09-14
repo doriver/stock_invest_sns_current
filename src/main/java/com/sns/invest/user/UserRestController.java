@@ -24,6 +24,7 @@ import com.sns.invest.user.model.UserSaveForm;
 
 import lombok.extern.slf4j.Slf4j;
 
+import com.sns.invest.common.ApiResponse;
 import com.sns.invest.common.argumentResolver.UserInfo;
 import com.sns.invest.user.bo.UserBO;
 
@@ -36,7 +37,7 @@ public class UserRestController {
 	
 	// 아이디 중복확인 기능 - 입력받은id를 db에서 조회(select where) 
 	@GetMapping("/users/{loginId}")
-	public Map<String, Boolean> isDuplicateId (
+	public ApiResponse<Map<String, Boolean>> isDuplicateId (
 			@PathVariable("loginId") String loginId) {
 		
 		Map<String, Boolean> result = new HashMap<>();
@@ -47,73 +48,64 @@ public class UserRestController {
 			result.put("is_duplicate", false);
 		}
 		
-//		result.put("is_duplicate", userBO.isDuplicateId(loginId));
-		
-		return result;
+		return ApiResponse.success(result);
 	}
 	
 	
 	// 회원가입 기능 - 입력받은 정보들을 db에 저장(insert)
 	@PostMapping("/users")
-	public Map<String, String> signUp( @Validated @RequestBody UserSaveForm form
+	public ApiResponse<?> signUp( @Validated @RequestBody UserSaveForm form
 			, BindingResult bindingResult ) {
 		
 		Map<String, String> result = new HashMap<>();
 		
-		if (bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) { // 이것도 체크 해봐야함
 			log.info("회원가입 검증 오류 발생 errors={}", bindingResult);
-			result.put("result", "fail");
-			return result;
+			return ApiResponse.fail("입력값이 잘못됐습니다.");
 		}
 		
 		int count = userBO.signUp(form.getLoginId(), form.getPassword(), form.getNickName(), form.getEmail());
 		
 		if (count == 1) {
-			result.put("result", "success");
-		} else {
-			result.put("result", "fail");
+			return ApiResponse.success();
+		} else { // 이경우는 구체적으로 언제냐
+			return ApiResponse.fail("회원가입 실패");
 		}
 		
-		return result;
 	}
 	
 	// 사용자의 위치설정 기능
 	@PatchMapping("/users/location")
-	public Map<String, String> userLocation(
+	public ApiResponse<?> userLocation(
 			@RequestParam("location") String location
 			, UserInfo userInfo) {
 		
 		int count = userBO.editLocation(userInfo.getUserId(), location);
-		Map<String, String> result = new HashMap<>();
 		
 		if (count == 1) {
-			result.put("result", "success");
-		} else {
-			result.put("result", "fail");
+			return ApiResponse.success();
+		} else { // 이경우 언제냐?
+			return ApiResponse.fail("위치 설정 실패");
 		}
-		
-		return result;
+
 	}
 	
 	
 	// 사용자의 프로필 설정 기능
 	@PatchMapping("/users/profile")
-	public Map<String, String> userProfile(
+	public ApiResponse<?> userProfile(
 			@RequestParam("profileStatusMessage") String profileStatusMessage
 			, @RequestParam(value = "file", required = false) MultipartFile file
 			, UserInfo userInfo) {
 		
 		int count = userBO.editProfile(userInfo.getUserId(), file, profileStatusMessage);
-		Map<String, String> result = new HashMap<>();
 		
 		if (count == 1) {
-			result.put("result", "success");
-		} else {
-			result.put("result", "fail");
+			return ApiResponse.success();
+		} else { // 이경우 언제냐?
+			return ApiResponse.fail("프로필 설정 실패");
 		}
 		
-		return result;
-
 	}
 	
 }
