@@ -172,13 +172,12 @@
 					type:"post",
 					url:"/users",
 					data:{"loginId":loginId, "password":password, "nickName":nickName, "email":email},
-					success:function(data) {
-						if(data.result == "success") {
+					success:function(response) {
+						if(response.status == "success") {
 							alert("회원가입 성공");
 							location.href="/sign-view";
-							
 						} else {
-							alert("회원 가입 실패");
+							alert(response.message);
 						}
 					}, 
 					error:function(xhr) {
@@ -206,10 +205,10 @@
 					type:"get",
 					url:"/users/" + loginId,
 				
-					success:function(data) {
+					success:function(response) {
 						isIdCheck = true;
 						
-						if(data.is_duplicate) {
+						if(response.data.is_duplicate) {
 							isDuplicate = true;
 							$("#duplicateDiv").removeClass("d-none");
 							$("#noneDuplicateDiv").addClass("d-none");
@@ -218,8 +217,6 @@
 							$("#duplicateDiv").addClass("d-none");
 							$("#noneDuplicateDiv").removeClass("d-none");
 						}
-						//isDuplicate = data.is_duplicate;
-						
 					},
 					error:function(xhr) {
 						let response = xhr.responseJSON;

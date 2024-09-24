@@ -22,18 +22,20 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sns.invest.user.model.User;
 import com.sns.invest.user.model.UserSaveForm;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import com.sns.invest.common.ApiResponse;
 import com.sns.invest.common.argumentResolver.UserInfo;
+import com.sns.invest.post.bo.PostBO;
 import com.sns.invest.user.bo.UserBO;
 
 @RestController
 @Slf4j
+@RequiredArgsConstructor
 public class UserRestController {
 	
-	@Autowired
-	private UserBO userBO;
+	private final UserBO userBO;
 	
 	// 아이디 중복확인 기능 - 입력받은id를 db에서 조회(select where) 
 	@GetMapping("/users/{loginId}")
@@ -58,7 +60,7 @@ public class UserRestController {
 			, BindingResult bindingResult ) {
 		
 		if (bindingResult.hasErrors()) {
-			log.info("회원가입 검증 오류 발생 errors={}", bindingResult);
+//			log.info("회원가입 검증 오류 발생 errors={}", bindingResult);
 			return ApiResponse.fail("입력값이 잘못됐습니다.");
 		}
 		
@@ -67,7 +69,7 @@ public class UserRestController {
 		if (count == 1) {
 			return ApiResponse.success();
 		} else { // 암호화 실패경우
-			return ApiResponse.fail("회원가입 실패");
+			return ApiResponse.fail("비밀번호 암호화 실패");
 		}
 		
 	}
@@ -82,7 +84,7 @@ public class UserRestController {
 		
 		if (count == 1) {
 			return ApiResponse.success();
-		} else { // 이경우 언제냐?
+		} else {
 			return ApiResponse.fail("위치 설정 실패");
 		}
 
@@ -100,7 +102,7 @@ public class UserRestController {
 		
 		if (count == 1) {
 			return ApiResponse.success();
-		} else { // 이경우 언제냐?
+		} else {
 			return ApiResponse.fail("프로필 설정 실패");
 		}
 		

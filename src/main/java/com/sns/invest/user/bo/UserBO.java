@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.user.dao.UserRepository;
@@ -33,6 +34,7 @@ public class UserBO {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	@Transactional
 	public int signUp(String loginId, String password, String nickName, String email) {
 			
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -71,6 +73,7 @@ public class UserBO {
 		return userRepository.findById(userId);
 	}
 	
+	@Transactional
 	public int editLocation(int userId, String location) {
 		
 		int result = -1;
@@ -85,6 +88,7 @@ public class UserBO {
 		return result;
 	}
 
+	@Transactional
 	public int editProfile(int userId, MultipartFile file, String profileStatusMessage) {
 		
 		int result = -1;

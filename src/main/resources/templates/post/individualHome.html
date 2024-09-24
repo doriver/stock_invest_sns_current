@@ -509,16 +509,18 @@
 					type:"patch",
 					url:"/users/location",
 					data:{"location":userLocation},
-					success:function(data) {
-						if(data.result == "success") {
+					success:function(response) {
+						if(response.status == "success") {
 							alert("위치설정 성공");
 							location.reload();
 						} else {
-							alert("위치설정 실패");
+							alert(response.message);
 						}
 					},
-					error:function(e) {
-						alert("error");
+					error:function(xhr) {
+						let response = xhr.responseJSON;
+						console.log(response);
+						alert("위치설정 실패 \n" + response.message);
 					}
 				});
 			});
@@ -539,16 +541,18 @@
 					processData: false, // 필수 
 					contentType: false, // 필수
 					data:formData,
-					success:function(data) {
-						if(data.result == "success") {
+					success:function(response) {
+						if(response.status == "success") {
 							alert("프로필설정 성공");
 							location.reload();
 						} else {
-							alert("프로필설정 실패");
+							alert(response.message);
 						}
 					},
-					error:function(e) {
-						alert("error");
+					error:function(xhr) {
+						let response = xhr.responseJSON;
+						console.log(response);
+						alert("프로필 설정 실패 \n" + response.message);
 					}
 				});
 			});
