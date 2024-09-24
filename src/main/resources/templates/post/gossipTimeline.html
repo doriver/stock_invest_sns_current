@@ -192,16 +192,18 @@
 						type:"POST",
 						url:"/gossip-posts",
 						data:{"content":content, "corporation":corporationSelect},
-						success:function(data) {
-							if(data.result == "success") {
+						success:function(response) {
+							if(response.status == "success") {
 								alert("글쓰기 성공");
 								location.reload();
 							} else {
-								alert("글쓰기에 실패했습니다.");
+								alert(response.message);
 							}
 							
-						}, error:function(e) {
-							alert("error ");
+						}, error:function(xhr) {
+							let response = xhr.responseJSON;
+							console.log(response);
+							alert("게시글 작성 실패 \n" + response.message);
 						}
 					});
 					
@@ -226,15 +228,17 @@
 					type:"post",
 					url:"/comments/gossip/" + postId,
 					data:{"content":comment},
-					success:function(data) {
-						if(data.result == "success") {
+					success:function(response) {
+						if(response.status == "success") {
 							location.reload();
 						} else {
-							alert("댓글 작성 실패");
+							alert(response.message);
 						}
 					},
-					error:function(e) {
-						alert("error");
+					error:function(xhr) {
+						let response = xhr.responseJSON;
+						console.log(response);
+						alert("댓글 작성 실패 \n" + response.message);
 					}
 				});
 			});
@@ -249,10 +253,8 @@
 					type:"get",
 					url:"/likes/gossip/" + postId,
 					
-					success:function(data) {
-						// 좋아요
-						if(data.like) {
-							
+					success:function(response) {
+						if(response.data.like) {
 							$("#heartIcon-" + postId).removeClass("bi-heart");
 							$("#heartIcon-" + postId).addClass("bi-heart-fill");
 							
@@ -267,12 +269,11 @@
 						}
 						
 						$("#likeCount-" + postId).text(data.likeCount);
-						
-						//location.reload();
-							
 					},
-					error:function(e) {
-						alert("error");
+					error:function(xhr) {
+						let response = xhr.responseJSON;
+						console.log(response);
+						alert("좋아요 실패 \n" + response.message);
 					}
 					
 				});
@@ -299,16 +300,18 @@
 				$.ajax({
 					type:"delete",
 					url:"/posts/"+ type +"/" + postId,
-					success:function(data) {
-						if(data.result == "success") {
+					success:function(response) {
+						if(response.status == "success") {
 							alert("삭제됐습니다");
 							location.reload();
 						} else {
-							alert("삭제 실패");
+							alert(response.message);
 						}
 					}, 
-					error:function(e) {
-						alert("error");	
+					error:function(xhr) {
+						let response = xhr.responseJSON;
+						console.log(response);
+						alert("삭제 실패 \n" + response.message);
 					}
 				})
 			});

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sns.invest.common.ApiResponse;
+import com.sns.invest.common.argumentResolver.UserInfo;
 import com.sns.invest.post.bo.PostBO;
 import com.sns.invest.post.model.invest.InvestPostSaveForm;
 
@@ -29,83 +31,66 @@ public class PostCreateController {
 	
 	// 투자게시글 작성(투자게시판, 필터링된 투자게시판, 개인홈)
 	@PostMapping("/invest-posts")
-	public Map<String, String> investPostCreate(
+	public ApiResponse<?> investPostCreate(
 			@RequestBody @Validated InvestPostSaveForm form, BindingResult bindingResult
-			, HttpServletRequest request) {
-		
-		Map<String, String> result = new HashMap<>();
+			, UserInfo userInfo) {
 		
 		if (bindingResult.hasErrors()) {
-			log.info("투자게시글 작성 검증 오류 발생 errors={}", bindingResult);
-			result.put("result", "fail");
-			return result;
+//			log.info("투자게시글 작성 검증 오류 발생 errors={}", bindingResult);
+			return ApiResponse.fail("입력값이 잘못됐습니다.");
 		}
 		
-		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
-		String userNickName = (String)session.getAttribute("userNickName");
+		int userId = userInfo.getUserId();
+		String userNickName = userInfo.getUserNickName();
 		
 		int count = postBO.addPost(userId, userNickName
 				, form.getContent(), form.getFile(), form.getInvestStyle(), form.getStockItemName(), form.getInvestmentOpinion(), form.getInvestmentProcess());
 		
-		
 		if(count == 1) {
-			result.put("result", "success");
+			return ApiResponse.success();
 		} else {
-			result.put("result", "fail");
+			return ApiResponse.fail("게시글 작성 실패");
 		}
-		
-		return result;
 	}
 
 	
 	// 가십게시판에서 글작성
 	@PostMapping("/gossip-posts")
-	public Map<String, String> gossipPostCreate(
+	public ApiResponse<?> gossipPostCreate(
 			@RequestParam("content") String content
 			, @RequestParam("corporation") String corporation
-			, HttpServletRequest request) {
+			, UserInfo userInfo) {
 		
-		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
-		String userNickName = (String)session.getAttribute("userNickName");
+		int userId = userInfo.getUserId();
+		String userNickName = userInfo.getUserNickName();
 		
 		int count = postBO.addGossipPost(userId, userNickName, corporation, content);
 		
-		Map<String, String> result = new HashMap<>();
-		
 		if(count == 1) {
-			result.put("result", "success");
+			return ApiResponse.success();
 		} else {
-			result.put("result", "fail");
+			return ApiResponse.fail("게시글 작성 실패");
 		}
-		
-		return result;
 	}
 	
 	
 	// 지역커뮤니티에서 글작성
 	@PostMapping("/local-posts")
-	public Map<String, String> localPostCreate(
+	public ApiResponse<?> localPostCreate(
 			@RequestParam("content") String content
 			, @RequestParam(value = "file", required = false) MultipartFile file
-			, HttpServletRequest request) {
+			, UserInfo userInfo) {
 		
-		HttpSession session = request.getSession();
-		int myUserId = (Integer)session.getAttribute("userId");
-		String userNickName = (String)session.getAttribute("userNickName");
+		int myUserId = userInfo.getUserId();
+		String userNickName = userInfo.getUserNickName();
 		
 		int count = postBO.addLocalPost(myUserId, userNickName, content, file);
 		
-		Map<String, String> result = new HashMap<>();
-		
 		if(count == 1) {
-			result.put("result", "success");
+			return ApiResponse.success();
 		} else {
-			result.put("result", "fail");
+			return ApiResponse.fail("게시글 작성 실패");
 		}
-		
-		return result;
 	}
 
 }

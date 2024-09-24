@@ -24,8 +24,9 @@ public class UserInfoArgumentResolver implements HandlerMethodArgumentResolver{
 		HttpSession session = request.getSession();
 		
 		int userId = (Integer)session.getAttribute("userId");
+		String userNickName = (String)session.getAttribute("userNickName");
 		
-		return new UserInfo(userId);
+		return new UserInfo(userId,userNickName);
 	}
 
 }

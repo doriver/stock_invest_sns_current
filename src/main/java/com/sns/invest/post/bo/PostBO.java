@@ -52,6 +52,7 @@ public class PostBO {
 			filePath = fileManager.saveFile(userId, file);
 		
 			if(filePath == null) {
+				log.error("saveFile() 실패");
 				return -1;
 			}	
 		}
