@@ -13,8 +13,13 @@
 * [Nginx](https://github.com/doriver/DockerTest01/blob/master/compose/03/webServer/etcNginx/conf.d/default.conf) : nginx설정 파일( 리버스 프록시로서 로드밸런싱, 캐싱기능, 무중단 배포를 구현 )
 * [Querydsl사용 부분](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/post/dao/custom/InvestPostRepositoryCustomImpl.java)  ‘게시글 필터링 기능’에서 필터링 조건에 따라 sql문을 동적으로 처리
 ## Rest API
-
-
+#### 예외 처리 custom
+[ExControllerAdvice.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/exception/advice/ExControllerAdvice.java) : @ControllerAdvice에서 @ExceptionHandler로 공통예외처리
+#### api 응답형식
+* 예외 발생했을때 : [ErrorResult.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/exception/ErrorResult.java)
+* 정상 : [ApiResponse.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/ApiResponse.java)
+#### 컨트롤러 메서드 매개변수 custom
+[UserInfoArgumentResolver.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/argumentResolver/UserInfoArgumentResolver.java) : HandlerMethodArgumentResolver구현해서 UserInfo를 매개변수로 받을수 있게 함
 ## 인증, 권한 처리
 [SecurityConfig.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/config/SecurityConfig.java) : SecurityFilterChain을 사용해 FormLogin으로 인증처리를 함     
 [src/main/java/com/sns/invest/security](https://github.com/doriver/stock_invest_sns_current/tree/master/src/main/java/com/sns/invest/security)
@@ -29,25 +34,25 @@
 * 회원가입,로그인,로그아웃
 * 프로필설정과 프로필 이미지 반영
 <div>
-  <img src="demo_gif/회원가입,로그인,로그아웃.gif" alt="demo1" width="400" height="250">
+  <img src="demo_gif/회원가입,로그인,로그아웃.gif" alt="demo1" width="370" height="250">
   &nbsp&nbsp&nbsp
-  <img src="demo_gif/프로필설정.gif" alt="demo3" width="400" height="250">  
+  <img src="demo_gif/프로필설정.gif" alt="demo3" width="370" height="250">  
 </div>
      
 * 이미지 첨부 글쓰기, 좋아요,댓글기능, 글 삭제기능    
 * 게시글 필터링
 <div>
-  <img src="demo_gif/글쓰기,좋아요,댓글,글삭제.gif" alt="demo2" width="400" height="250">
+  <img src="demo_gif/글쓰기,좋아요,댓글,글삭제.gif" alt="demo2" width="370" height="250">
   &nbsp&nbsp&nbsp
-  <img src="demo_gif/필터링.gif" alt="demo4" width="400" height="250">  
+  <img src="demo_gif/필터링.gif" alt="demo4" width="370" height="250">  
 </div>
 
 * 위치정보 설정과 지역커뮤니티
 * 다른사람의 개인홈 , 가십게시판    
 <div>
-  <img src="demo_gif/위치설정.gif" alt="demo5" width="400" height="250">
+  <img src="demo_gif/위치설정.gif" alt="demo5" width="370" height="250">
   &nbsp&nbsp&nbsp
-  <img src="demo_gif/개인홈,가십게시판.gif" alt="demo6" width="400" height="250">  
+  <img src="demo_gif/개인홈,가십게시판.gif" alt="demo6" width="370" height="250">  
 </div>
 
 
