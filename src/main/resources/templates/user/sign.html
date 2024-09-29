@@ -185,7 +185,9 @@
 					error:function(xhr) {
 						let response = xhr.responseJSON;
 						console.log(response);
-						alert("중복확인 실패 \n" + response.message);
+						
+						let userGuide = errorMessage(response.code);
+						alert("중복확인 실패 \n" + userGuide);
 					}		
 				});
 			})
