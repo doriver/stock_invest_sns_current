@@ -26,10 +26,7 @@ public class ExControllerAdvice {
 		
 		String acceptHeader = request.getHeader("Accept");
 		String message = e.getMessage();
-		if (message == null) {
-			message = "서버 내부 오류"; 
-		}
-		
+
 		// Accept: text/html 요청에 대해 HTML 응답
         if (acceptHeader != null && acceptHeader.contains("text/html")) {
             ModelAndView mav = new ModelAndView("error/errorPage");
@@ -45,23 +42,13 @@ public class ExControllerAdvice {
 	@ExceptionHandler(BindException.class)
 	public ErrorResult bindExHandler(BindException e) {
 		log.error("[exceptionHandler] ex", e);
-
-		String message = e.getMessage();
-		if (message == null) {
-			message = "입력(요청)값 오류"; 
-		}
-		return new ErrorResult("bind", message);
+		return new ErrorResult("bind", e.getMessage());
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ErrorResult mArgExHandler(MethodArgumentNotValidException e) {
 		log.error("[exceptionHandler] ex", e);
-
-		String message = e.getMessage();
-		if (message == null) {
-			message = "입력값 오류"; 
-		}
-		return new ErrorResult("mArg", message);
+		return new ErrorResult("mArg", e.getMessage());
 	}
 }
