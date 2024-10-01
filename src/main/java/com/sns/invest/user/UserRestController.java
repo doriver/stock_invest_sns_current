@@ -1,6 +1,7 @@
 package com.sns.invest.user;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -60,8 +62,17 @@ public class UserRestController {
 			, BindingResult bindingResult ) {
 		
 		if (bindingResult.hasErrors()) {
-//			log.info("회원가입 검증 오류 발생 errors={}", bindingResult);
-			return ApiResponse.fail("입력값이 잘못됐습니다.");
+			
+			Map<String, String> validationMessage = new HashMap<>();
+			
+			List<FieldError> fieldErrorList = bindingResult.getFieldErrors();
+			FieldError tmp = null;
+			for (int i = 0; i < fieldErrorList.size(); i++) {
+				tmp = fieldErrorList.get(i);
+				validationMessage.put(tmp.getField(), tmp.getDefaultMessage());
+			}
+			
+			return ApiResponse.fail("failValidation", validationMessage);
 		}
 		
 		int count = userBO.signUp(form.getLoginId(), form.getPassword(), form.getNickName(), form.getEmail());

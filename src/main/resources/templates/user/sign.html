@@ -43,15 +43,18 @@
 			<h2>회원가입</h2>
 			<input type="text" id="loginIdInput" class="form-control" placeholder="아이디">
 			<button type="button" class="btn btn-info btn-sm" id="isDuplicateBtn">중복확인</button>
-			
+			<small id="errorLoginId" class="text-danger"></small>
 			<div id="duplicateDiv" class="d-none"><small class="text-danger">중복된 ID 입니다.</small></div>
 			<div id="noneDuplicateDiv" class="d-none"><small class="text-success">사용 가능한 ID 입니다.</small></div>
 			
 			<input type="password" id="passwordInput" class="form-control mt-3" placeholder="패스워드">
+			<small id="errorPassword" class="text-danger"></small>
 			<input type="password" id="passwordConfirmInput" class="form-control mt-3" placeholder="패스워드 확인">
-			<small id="errorPassword" class="text-danger d-none">비밀번호가 일치하지 않습니다.</small>
+			<small id="errorPasswordConfirm" class="text-danger d-none">비밀번호가 일치하지 않습니다.</small>
 			<input type="text" id="nickNameInput" class="form-control mt-3" placeholder="nickName">
+			<small id="errorNickName" class="text-danger"></small>
 			<input type="text" id="emailInput" class="form-control mt-3" placeholder="이메일">
+			<small id="errorEmail" class="text-danger"></small>
 			
 			<button type="submit" id="signUpBtn" class="btn btn-info btn-block mt-3">회원가입</button>
 		</form>
@@ -104,7 +107,7 @@
 				}
 				
 				if(password != passwordConfirm) {
-					$("#errorPassword").removeClass("d-none");
+					$("#errorPasswordConfirm").removeClass("d-none");
 					return ;
 				}
 				
@@ -130,24 +133,52 @@
 					return ;
 				}
 				
+				var params = { "loginId":loginId, "password":password
+						, "nickName":nickName, "email":email }
+				
 				$.ajax({
 					type:"post",
 					url:"/users",
-					data:{"loginId":loginId, "password":password, "nickName":nickName, "email":email},
+					data:JSON.stringify(params),
+					contentType: 'application/json;charset=utf-8',
 					success:function(response) {
 						if(response.status == "success") {
 							alert("회원가입 성공");
 							location.href="/sign-view";
 						} else {
-							alert(response.message);
+							if (response.message == "failValidation") {
+								
+								let validationMessage = response.data;
+								
+								for (let key in validationMessage) {
+									if (key == "loginId") {
+										$("#errorLoginId").text(validationMessage[key]);
+									} else if (key == "password") {
+										$("#errorPassword").text(validationMessage[key]);										
+									} else if (key == "nickName") {										
+										$("#errorNickName").text(validationMessage[key]);
+									} else if (key == "email") {
+										$("#errorEmail").text(validationMessage[key]);
+									}
+								}
+								
+							} else {
+								alert(response.message);
+							}
+							
 						}
 					}, 
 					error:function(xhr) {
 						let response = xhr.responseJSON;
 						console.log(response);
+						
+						if (response.code == "InvalidFormat") {
+							alert(response.message);
+						} else {
+							let userGuide = errorMessage(response.code);
+							alert("회원 가입 실패 \n" + userGuide);							
+						}
 			
-						let userGuide = errorMessage(response.code);
-						alert("회원 가입 실패 \n" + userGuide);
 					}
 					
 					
