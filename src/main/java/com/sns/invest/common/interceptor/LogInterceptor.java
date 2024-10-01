@@ -9,7 +9,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sns.invest.common.CommonFilterInterceptor;
+import com.sns.invest.common.CmnFilterInterceptor;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,10 +22,10 @@ public class LogInterceptor implements HandlerInterceptor {
 		String requestURI = request.getRequestURI();
 		
 		String logId = UUID.randomUUID().toString(); // 요청당 임의의 uuid를 생성
-		String ip = CommonFilterInterceptor.getClientIP(request);
+		String ip = CmnFilterInterceptor.getClientIP(request);
 		
-		request.setAttribute(CommonFilterInterceptor.LOG_ID, logId);
-		request.setAttribute(CommonFilterInterceptor.CLINET_IP, ip);
+		request.setAttribute(CmnFilterInterceptor.LOG_ID, logId);
+		request.setAttribute(CmnFilterInterceptor.CLINET_IP, ip);
 		
 		log.info("[firstInterceptor] Request in preHandle [{}][{}][{}][{}]", logId, ip, requestURI, handler);
 		
@@ -36,8 +36,8 @@ public class LogInterceptor implements HandlerInterceptor {
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		String requestURI = request.getRequestURI();
-		String logId = (String)request.getAttribute(CommonFilterInterceptor.LOG_ID);
-		String clientIp = (String)request.getAttribute(CommonFilterInterceptor.CLINET_IP);
+		String logId = (String)request.getAttribute(CmnFilterInterceptor.LOG_ID);
+		String clientIp = (String)request.getAttribute(CmnFilterInterceptor.CLINET_IP);
 		
 		log.info("[firstInterceptor] Response in afterCompletion [{}][{}][{}]", logId, clientIp, requestURI);
 		if (ex != null) {

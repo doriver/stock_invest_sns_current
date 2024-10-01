@@ -28,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import com.sns.invest.common.ApiResponse;
+import com.sns.invest.common.CmnValidation;
 import com.sns.invest.common.argumentResolver.UserInfo;
 import com.sns.invest.post.bo.PostBO;
 import com.sns.invest.user.bo.UserBO;
@@ -62,15 +63,8 @@ public class UserRestController {
 			, BindingResult bindingResult ) {
 		
 		if (bindingResult.hasErrors()) {
-			
-			Map<String, String> validationMessage = new HashMap<>();
-			
-			List<FieldError> fieldErrorList = bindingResult.getFieldErrors();
-			FieldError tmp = null;
-			for (int i = 0; i < fieldErrorList.size(); i++) {
-				tmp = fieldErrorList.get(i);
-				validationMessage.put(tmp.getField(), tmp.getDefaultMessage());
-			}
+			Map<String, String> validationMessage 
+						= CmnValidation.getValidationMessage(bindingResult);
 			
 			return ApiResponse.fail("failValidation", validationMessage);
 		}

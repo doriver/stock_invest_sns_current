@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class CommonFilterInterceptor {
+public class CmnFilterInterceptor {
 	
 	public static final String CLINET_IP = "clientIp";
 	public static final String LOG_ID = "logId"; // 요청당 마다 구분해줄 값
