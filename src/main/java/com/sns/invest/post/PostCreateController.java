@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,7 @@ public class PostCreateController {
 	// 투자게시글 작성(투자게시판, 필터링된 투자게시판, 개인홈)
 	@PostMapping("/invest-posts")
 	public ApiResponse<?> investPostCreate(
-			@RequestBody @Validated InvestPostSaveForm form, BindingResult bindingResult
+			@ModelAttribute @Validated InvestPostSaveForm form, BindingResult bindingResult
 			, UserInfo userInfo) {
 		
 		if (bindingResult.hasErrors()) {

@@ -16,6 +16,9 @@ public class WebMvcConfig implements WebMvcConfigurer{
 		registry.addResourceHandler("/images/**") // 이 패턴으로 요청시 아래 경로에서 정적 리소스를 찾아 응답  . 내가 url로 접근하고 싶은 path /images/10_1231212312/test.png
 		.addResourceLocations("file:///D:\\Sts4.14.0\\springTest\\upload\\invest\\images/");
 //		.addResourceLocations("file:/home/ec2-user/upload_images/");
+		
+		registry.addResourceHandler("/favicon.ico")
+        .addResourceLocations("classpath:/static/"); // 브라우저 탭에 표시되는 아이콘
 	}
 	
 	@Override

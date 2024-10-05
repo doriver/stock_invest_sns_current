@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import com.sns.invest.common.CmnFilterInterceptor;
 
@@ -28,6 +29,10 @@ public class LogInterceptor implements HandlerInterceptor {
 		request.setAttribute(CmnFilterInterceptor.CLINET_IP, ip);
 		
 		log.info("[firstInterceptor] Request in preHandle [{}][{}][{}][{}]", logId, ip, requestURI, handler);
+		
+//		if (handler instanceof ResourceHttpRequestHandler) {
+//			log.info("==================================" + request.getHeader("Accept"));
+//		}
 		
 		return true;
 	}
