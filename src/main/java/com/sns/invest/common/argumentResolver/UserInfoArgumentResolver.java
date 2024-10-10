@@ -4,10 +4,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.core.MethodParameter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+
+import com.sns.invest.security.CustomUserDetails;
 
 public class UserInfoArgumentResolver implements HandlerMethodArgumentResolver{
 
@@ -20,11 +24,12 @@ public class UserInfoArgumentResolver implements HandlerMethodArgumentResolver{
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 		
-		HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-		HttpSession session = request.getSession();
+		// SecurityContextHolder에서 Authentication 객체 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails userDetail = (CustomUserDetails) authentication.getPrincipal();
 		
-		int userId = (Integer)session.getAttribute("userId");
-		String userNickName = (String)session.getAttribute("userNickName");
+		int userId = userDetail.getId();
+		String userNickName = userDetail.getNickName();
 		
 		return new UserInfo(userId,userNickName);
 	}

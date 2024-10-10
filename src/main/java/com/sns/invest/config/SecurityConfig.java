@@ -30,12 +30,13 @@ public class SecurityConfig {
 						, "static/**", "/favicon.ico", "/images/**").permitAll()
 				.antMatchers("/admin-view").hasRole("ADMIN")
 				.anyRequest().authenticated()
-			)  
+			)   
         	.formLogin((form) -> form
 				.loginPage("/sign-view")
 				.permitAll()
 				.loginProcessingUrl("/users/sign-in")
-				.successHandler(new CustomAuthenticationSuccessHandler())
+				.defaultSuccessUrl("/invest-view") 
+//				.successHandler(new CustomAuthenticationSuccessHandler())
 			)           
         	.logout((logout) -> logout
         			.logoutUrl("/sign-out")  // 로그아웃 URL을 변경합니다.

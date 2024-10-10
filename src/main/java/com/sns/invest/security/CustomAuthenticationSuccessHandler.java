@@ -16,16 +16,16 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 
-		CustomUserDetails userDetail = (CustomUserDetails) authentication.getPrincipal();
-		
-		HttpSession session = request.getSession();
-
-		session.setAttribute("userId", userDetail.getId());
-		session.setAttribute("userLoginId", userDetail.getUsername());
-		session.setAttribute("userNickName", userDetail.getNickName());
-		session.setAttribute("userLocation", userDetail.getLocation());
-		
-		response.sendRedirect("/invest-view");
+//		CustomUserDetails userDetail = (CustomUserDetails) authentication.getPrincipal();
+//		
+//		HttpSession session = request.getSession();
+//
+//		session.setAttribute("userId", userDetail.getId());
+//		session.setAttribute("userLoginId", userDetail.getUsername());
+//		session.setAttribute("userNickName", userDetail.getNickName());
+//		session.setAttribute("userLocation", userDetail.getLocation());
+//		
+//		response.sendRedirect("/invest-view");
 	}
 
 }
