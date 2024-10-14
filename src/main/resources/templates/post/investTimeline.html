@@ -350,7 +350,7 @@
 							$("#heartIcon-" + postId).addClass("text-dark");
 						}
 						
-						$("#likeCount-" + postId).text(data.likeCount);
+						$("#likeCount-" + postId).text(response.data.likeCount);
 					},
 					error:function(xhr) {
 						let response = xhr.responseJSON;

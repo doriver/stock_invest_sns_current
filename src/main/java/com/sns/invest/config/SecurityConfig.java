@@ -27,7 +27,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
         	.authorizeHttpRequests((requests) -> requests
 				.antMatchers("/sign-view", "/users", "/users/*"
-						, "static/**", "/favicon.ico", "/images/**").permitAll()
+						, "static/**", "/favicon.ico", "/images/**", "/js/**").permitAll()
 				.antMatchers("/admin-view").hasRole("ADMIN")
 				.anyRequest().authenticated()
 			)   
@@ -35,8 +35,7 @@ public class SecurityConfig {
 				.loginPage("/sign-view")
 				.permitAll()
 				.loginProcessingUrl("/users/sign-in")
-				.defaultSuccessUrl("/invest-view") 
-//				.successHandler(new CustomAuthenticationSuccessHandler())
+				.defaultSuccessUrl("/invest-view")
 			)           
         	.logout((logout) -> logout
         			.logoutUrl("/sign-out")  // 로그아웃 URL을 변경합니다.
@@ -44,7 +43,6 @@ public class SecurityConfig {
                 	.deleteCookies("JSESSIONID")
         			.permitAll()
         	);
-     
         return http.build();
 	}
 	
