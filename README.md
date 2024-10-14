@@ -18,17 +18,20 @@
 #### api 응답형식
 * 예외 발생했을때 : [ErrorResult.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/exception/ErrorResult.java)
 * 정상 : [ApiResponse.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/ApiResponse.java)
+#### BeanValidation : [메서드signUp](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/user/UserRestController.java#L62)
 #### 컨트롤러 메서드 매개변수 custom
 [UserInfoArgumentResolver.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/argumentResolver/UserInfoArgumentResolver.java) : HandlerMethodArgumentResolver구현해서 UserInfo를 매개변수로 받을수 있게 함
 ## 인증, 권한 처리
 [SecurityConfig.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/config/SecurityConfig.java) : SecurityFilterChain을 사용해 FormLogin으로 인증처리를 함     
 [src/main/java/com/sns/invest/security](https://github.com/doriver/stock_invest_sns_current/tree/master/src/main/java/com/sns/invest/security)
-* UserDetailsServices를 구현해서 로그인, 권한부여를 했다.
-* AuthenticationSuccessHandler를 구현해서 HttpSession에 사용자 데이터를 담음
+* UserDetailsService를 통해 사용자 정보를 로드
 
 ## 요청마다 'ip주소'로 구분
-[CommonFilterInterceptor.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/CommonFilterInterceptor.java) : ip주소 얻는 메소드 있음    
+[CmnFilterInterceptor.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/CmnFilterInterceptor.java) : ip주소 얻는 메소드 있음    
 [LogInterceptor.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/interceptor/LogInterceptor.java) : Interceptor에서 요청마다 ip주소와 id값(UUID)을 부여하고 log로 남김
+
+## 타임라인
+[Format에 데이터들 담기](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/post/bo/PostBO.java#L79)
 
 ## 미리 보기
 * 회원가입,로그인,로그아웃
