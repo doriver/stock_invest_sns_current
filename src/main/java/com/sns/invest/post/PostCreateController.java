@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.common.ApiResponse;
+import com.sns.invest.common.CmnValidation;
 import com.sns.invest.common.argumentResolver.UserInfo;
 import com.sns.invest.post.bo.PostBO;
 import com.sns.invest.post.model.invest.InvestPostSaveForm;
@@ -37,8 +38,10 @@ public class PostCreateController {
 			, UserInfo userInfo) {
 		
 		if (bindingResult.hasErrors()) {
-//			log.info("투자게시글 작성 검증 오류 발생 errors={}", bindingResult);
-			return ApiResponse.fail("입력값이 잘못됐습니다.");
+			Map<String, String> validationMessage 
+			= CmnValidation.getValidationMessageMA(bindingResult);
+
+			return ApiResponse.fail("failValidation", validationMessage);
 		}
 		
 		int userId = userInfo.getUserId();

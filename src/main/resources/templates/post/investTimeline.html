@@ -255,14 +255,43 @@
 						alert("내용을 입력하세요");
 						return ;
 					}
+					if (investStyle == null || investStyle =="") {
+						alert("투자스타일을 선택하세요");
+						return ;						
+					}
+					if (stockItemName == null || stockItemName == "") {
+						alert("관심종목을 선택하세요");
+						return ;						
+					}
+					if (investmentOpinion == null || investmentOpinion == "") {
+						alert("투자의견을 선택하세요");
+						return ;					
+					}
+					if (investmentProcess == null || investmentProcess == "") {
+						alert("투자과정을 선택하세요");
+						return ;						
+					}
 				
 					var formData = new FormData();
-					formData.append("file", $("#fileInput")[0].files[0]);
-					formData.append("content", content);
-					formData.append("investStyle", investStyle);
-					formData.append("stockItemName", stockItemName);
-					formData.append("investmentOpinion", investmentOpinion);
-					formData.append("investmentProcess", investmentProcess);
+					
+					if ($("#fileInput")[0].files[0] != null) {
+						formData.append("file", $("#fileInput")[0].files[0]);						
+					}				
+					if (content != null) {
+						formData.append("content", content);
+					}
+					if (investStyle != null) {
+						formData.append("investStyle", investStyle);						
+					}
+					if (stockItemName != null) {
+						formData.append("stockItemName", stockItemName);						
+					}
+					if (investmentOpinion != null) {
+						formData.append("investmentOpinion", investmentOpinion);						
+					}
+					if (investmentProcess != null) {
+						formData.append("investmentProcess", investmentProcess);						
+					}
 					
 					$.ajax({
 						enctype: 'multipart/form-data', // 필수
@@ -276,7 +305,12 @@
 								alert("글쓰기 성공");
 								location.reload();
 							} else {
-								alert(response.message);
+								if (response.message == "failValidation") {
+									let validationMessage = response.data;
+									alert(JSON.stringify(validationMessage));
+								} else {									
+									alert(response.message);
+								}
 							}
 							
 						}, error:function(xhr) {

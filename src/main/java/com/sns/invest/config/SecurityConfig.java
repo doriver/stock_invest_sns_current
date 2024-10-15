@@ -27,7 +27,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
         	.authorizeHttpRequests((requests) -> requests
 				.antMatchers("/sign-view", "/users", "/users/*"
-						, "static/**", "/favicon.ico", "/images/**", "/js/**").permitAll()
+						, "static/**", "/favicon.ico", "/images/**").permitAll()
 				.antMatchers("/admin-view").hasRole("ADMIN")
 				.anyRequest().authenticated()
 			)   
