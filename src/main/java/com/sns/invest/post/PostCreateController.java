@@ -23,13 +23,17 @@ import com.sns.invest.common.argumentResolver.UserInfo;
 import com.sns.invest.post.bo.PostBO;
 import com.sns.invest.post.model.invest.InvestPostSaveForm;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
+@RequiredArgsConstructor
 public class PostCreateController {
-	@Autowired
-	private PostBO postBO;
+	
+	private final PostBO postBO;
+	private final CmnValidation cmnValidation;
+	
 	
 	// 투자게시글 작성(투자게시판, 필터링된 투자게시판, 개인홈)
 	@PostMapping("/invest-posts")
@@ -39,7 +43,7 @@ public class PostCreateController {
 		
 		if (bindingResult.hasErrors()) {
 			Map<String, String> validationMessage 
-			= CmnValidation.getValidationMessageMA(bindingResult);
+			= cmnValidation.getValidationMessageMA(bindingResult);
 
 			return ApiResponse.fail("failValidation", validationMessage);
 		}

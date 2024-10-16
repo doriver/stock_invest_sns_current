@@ -39,6 +39,7 @@ import com.sns.invest.user.bo.UserBO;
 public class UserRestController {
 	
 	private final UserBO userBO;
+	private final CmnValidation cmnValidation;
 	
 	// 아이디 중복확인 기능 - 입력받은id를 db에서 조회(select where) 
 	@GetMapping("/users/{loginId}")
@@ -64,7 +65,7 @@ public class UserRestController {
 		
 		if (bindingResult.hasErrors()) {
 			Map<String, String> validationMessage 
-						= CmnValidation.getValidationMessage(bindingResult);
+						= cmnValidation.getValidationMessage(bindingResult);
 			
 			return ApiResponse.fail("failValidation", validationMessage);
 		}
