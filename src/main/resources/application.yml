@@ -6,7 +6,7 @@ spring:
 #      suffix: .jsp
   
   messages:
-    basename: messages,errors
+    basename: messages, errors
       
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
