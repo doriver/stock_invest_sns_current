@@ -31,8 +31,8 @@
 [LogInterceptor.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/interceptor/LogInterceptor.java) : Interceptor에서 요청마다 ip주소와 id값(UUID)을 부여하고 log로 남김
 
 ## 타임라인
-[Format에 데이터들 담기](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/post/bo/PostBO.java#L79)
-
+* [Format에 데이터들 담기](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/post/bo/PostBO.java#L79)
+* 이미지 첨부 게시글 작성 : [메소드investPostCreate](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/post/PostCreateController.java#L40)
 ## 미리 보기
 * 회원가입,로그인,로그아웃
 * 프로필설정과 프로필 이미지 반영
