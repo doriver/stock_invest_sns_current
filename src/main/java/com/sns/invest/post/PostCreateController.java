@@ -50,7 +50,7 @@ public class PostCreateController {
 		
 		int userId = userInfo.getUserId();
 		String userNickName = userInfo.getUserNickName();
-		
+		 
 		int count = postBO.addPost(userId, userNickName
 				, form.getContent(), form.getFile(), form.getInvestStyle(), form.getStockItemName(), form.getInvestmentOpinion(), form.getInvestmentProcess());
 		
