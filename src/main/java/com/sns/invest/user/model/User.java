@@ -88,6 +88,8 @@ public class User {
 		this.location = location;
 	}
     
-    
+    public void updatePassword(String password) {
+    	this.password = password;
+    }
     
 }

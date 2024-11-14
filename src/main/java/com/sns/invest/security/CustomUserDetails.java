@@ -17,11 +17,15 @@ public class CustomUserDetails implements UserDetails {
 
 	private final User user;
 	
-	private final Collection<GrantedAuthority> authorities;
+	private final Collection<? extends GrantedAuthority> authorities;
 	
-	public CustomUserDetails(User user, Collection<GrantedAuthority> authorities) {
+	public CustomUserDetails(User user, Collection<? extends GrantedAuthority> authorities) {
 		this.user = user;
 		this.authorities = authorities;
+	}
+	
+	public User getUser() {
+		return user;
 	}
 
 	public int getId() {
