@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sns.invest.comment.dao.CommentRepository;
-import com.sns.invest.post.dao.RedisDAO;
+import com.sns.invest.post.dao.LikeRedisDAO;
 import com.sns.invest.user.model.User;
 
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor // final이 붙은 필드를 모아서 생성자를 만들어줌
 public class LikeBO {
 	
-	private final RedisDAO redisDAO;
+	private final LikeRedisDAO redisDAO;
 	
 	//사용자기준 좋아요 여부, 좋아요 되있으면 true, 안되있으면 false
 	public boolean existLike(int postId, int userId, String type) {

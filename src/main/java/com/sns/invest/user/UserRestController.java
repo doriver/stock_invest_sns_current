@@ -31,6 +31,7 @@ import com.sns.invest.common.ApiResponse;
 import com.sns.invest.common.CmnValidation;
 import com.sns.invest.common.argumentResolver.UserInfo;
 import com.sns.invest.post.bo.PostBO;
+import com.sns.invest.security.jwt.RedisDAO;
 import com.sns.invest.user.bo.UserBO;
 
 @RestController
@@ -40,6 +41,15 @@ public class UserRestController {
 	
 	private final UserBO userBO;
 	private final CmnValidation cmnValidation;
+	private final RedisDAO redisDao;
+	
+	@PostMapping("/users/sign-in")
+    public String signIn() {
+//		@RequestParam String username, @RequestParam String password
+		
+		
+		return redisDao.get("12");
+	}
 	
 	// 아이디 중복확인 기능 - 입력받은id를 db에서 조회(select where) 
 	@GetMapping("/users/{loginId}")

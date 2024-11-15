@@ -35,7 +35,7 @@ spring:
       enabled: false
 
 # 토큰의 암호화,복호화에 사용. HS256알고리즘을 사용하기 위해 32글자 이상으로 설정
-jwt
+jwt:
   secret: 64461f01e1af406da538b9c48d801ce59142452199ff112fb5404c8e7e98e3ff
 
 logging:

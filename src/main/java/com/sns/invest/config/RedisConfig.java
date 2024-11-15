@@ -19,18 +19,34 @@ public class RedisConfig {
     private int port;
     
     @Bean
-    public RedisConnectionFactory redisConnectionFactory() {
+    public RedisConnectionFactory redisConnectionFactory05() {
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(host, port);
         config.setDatabase(5); // 5번 DB 설정
         return new LettuceConnectionFactory(config);
     }
     
     @Bean
-    public RedisTemplate<String, Object> redisTemplate() {
+    public RedisTemplate<String, Object> redisTemplate05() {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
-        template.setConnectionFactory(redisConnectionFactory());
+        template.setConnectionFactory(redisConnectionFactory05());
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(new StringRedisSerializer());
         return template;
+    }
+
+    @Bean
+    public RedisConnectionFactory redisConnectionFactory03() {
+    	RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(host, port);
+    	config.setDatabase(3); // 3번 DB 설정
+    	return new LettuceConnectionFactory(config);
+    }
+    
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate03() {
+    	RedisTemplate<String, Object> template = new RedisTemplate<>();
+    	template.setConnectionFactory(redisConnectionFactory03());
+    	template.setKeySerializer(new StringRedisSerializer());
+    	template.setValueSerializer(new StringRedisSerializer());
+    	return template;
     }
 }
