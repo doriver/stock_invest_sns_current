@@ -14,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import com.sns.invest.common.argumentResolver.UserInfo;
 import com.sns.invest.security.CustomUserDetails;
 import com.sns.invest.user.model.User;
 
@@ -45,16 +46,14 @@ public class JwtTokenProvider {
     // authenticate()로 유저정보 확인후 얻은 Authentication로 생성
     public JwtToken generateToken(Authentication authentication) {
         
-    	// 권한 가져오기
+    	// 토큰에 넣을정보들 세팅
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
         CustomUserDetails userDetail = (CustomUserDetails) authentication.getPrincipal();
-        // 여기서 토큰에 넣을정보들 세팅 해줘야함
-        User userInfo = userDetail.getUser();
-        userInfo.updatePassword(null); 
-        
+        UserInfo userInfo = new UserInfo(userDetail.getId(), userDetail.getNickName());
+             
         long now = (new Date()).getTime();
 
         // Access Token 생성
@@ -62,13 +61,13 @@ public class JwtTokenProvider {
                 .setSubject(authentication.getName())
                 .claim("auth", authorities)
                 .claim("info", userInfo)
-                .setExpiration(new Date(now + 2 * 60000))
+                .setExpiration(new Date(now + 5 * 60000))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
         // Refresh Token 생성
         String refreshToken = Jwts.builder()
-                .setExpiration(new Date(now + 2 * 60000))
+                .setExpiration(new Date(now + 5 * 60000))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
@@ -119,12 +118,8 @@ public class JwtTokenProvider {
                 .collect(Collectors.toList());
 
         Map userInfo = (Map<String, Object>)(claims.get("info"));
-//        User user = new User();
-//        user.setAge((Integer)(userInfo.get("age")));
-//        user.setUsername((String)(userInfo.get("username")));
-        User user = null; // 이부분 수정해야해
         
-        CustomUserDetails principal = new CustomUserDetails(user ,authorities);
+        MiniUserDetails principal = new MiniUserDetails((Integer)(userInfo.get("userId")),(String)(userInfo.get("userNickName")) ,authorities);
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     }
 

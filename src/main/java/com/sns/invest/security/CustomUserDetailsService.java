@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.sns.invest.user.bo.UserBO;
+import com.sns.invest.user.dao.UserRepository;
 import com.sns.invest.user.model.User;
 
 import lombok.RequiredArgsConstructor;
@@ -20,11 +21,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-	private final UserBO userBO;
+	private final UserRepository userRepository;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userBO.signIn(username);
+		User user = userRepository.findByUsername(username);
 		
 		if (user == null) {			
 			return null;

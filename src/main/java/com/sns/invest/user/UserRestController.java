@@ -3,8 +3,11 @@ package com.sns.invest.user;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,7 @@ import com.sns.invest.common.ApiResponse;
 import com.sns.invest.common.CmnValidation;
 import com.sns.invest.common.argumentResolver.UserInfo;
 import com.sns.invest.post.bo.PostBO;
+import com.sns.invest.security.jwt.JwtToken;
 import com.sns.invest.security.jwt.RedisDAO;
 import com.sns.invest.user.bo.UserBO;
 
@@ -44,11 +48,24 @@ public class UserRestController {
 	private final RedisDAO redisDao;
 	
 	@PostMapping("/users/sign-in")
-    public String signIn() {
-//		@RequestParam String username, @RequestParam String password
-		log.info("나와야함");
-		return "asdf";
-//		return redisDao.get("12");
+    public String signIn(@RequestParam("username") String username, @RequestParam("password") String password
+    		, HttpServletResponse response) {
+		
+		JwtToken jwtToken = userBO.signIn(username, password);
+		log.info("jwtToken accessToken = {}, refreshToken = {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());
+		
+		redisDao.saveWithTTL(
+				jwtToken.getAccessToken(), jwtToken.getRefreshToken()
+        		, 5, TimeUnit.MINUTES);
+		
+		/*ACCESS TOKEN 쿠키로 발급*/
+        Cookie accessCookie = new Cookie("Authorization", jwtToken.getAccessToken());
+        accessCookie.setHttpOnly(true);
+        accessCookie.setMaxAge(90 * 60); // 90분 동안 유효
+        
+        response.addCookie(accessCookie);
+        
+		return "redirect:/invest-view";
 	}
 	
 	// 아이디 중복확인 기능 - 입력받은id를 db에서 조회(select where) 

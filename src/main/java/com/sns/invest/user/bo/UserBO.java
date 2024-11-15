@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,12 +19,16 @@ import lombok.RequiredArgsConstructor;
 
 import com.sns.invest.common.EncryptUtils;
 import com.sns.invest.common.FileManagerService;
+import com.sns.invest.security.jwt.JwtToken;
+import com.sns.invest.security.jwt.JwtTokenProvider;
 
 @Service
 @RequiredArgsConstructor // final이 붙은 필드를 모아서 생성자를 만들어줌
 public class UserBO {
 	
 	private final UserRepository userRepository; 
+	private final AuthenticationManagerBuilder authenticationManagerBuilder;
+	private final JwtTokenProvider jwtTokenProvider;
 	
 	public boolean isDuplicateId(String username) {
 		if(userRepository.countByUsername(username) == 0) {
@@ -33,6 +40,21 @@ public class UserBO {
 	}
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	public JwtToken signIn(String username, String password) {
+		// 1. username + password 를 기반으로 Authentication 객체 생성, 이때 인증여부를 확인하는 authenticated값이 false
+    	UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+    	
+    	// 2. username, password에 대한 검증, 메서드authenticate가 실행될 때 CustomUserDetailsService에서 만든 메서드loadUserByUsername 실행
+    	Authentication authentication = authenticationManagerBuilder.getObject()
+    												.authenticate(authenticationToken);
+    				// UsernamePasswordAuthenticationToken임 안에principal에 CustomUserDetails들어있음   	
+    	// 3. 인증 정보를 기반으로 JWT 토큰 생성
+    	JwtToken jwtToken = jwtTokenProvider.generateToken(authentication);   	
+    	return jwtToken;
+	}
+	
+	
 	
 	@Transactional
 	public int signUp(String loginId, String password, String nickName, String email) {
@@ -65,9 +87,7 @@ public class UserBO {
 		return result;
 	}
 	
-	public User signIn(String username) {
-		return userRepository.findByUsername(username);
-	}
+	
 	
 	public User userInformation(int userId) {
 		return userRepository.findById(userId);

@@ -62,7 +62,7 @@ public class SecurityConfig {
         	.logout((logout) -> logout
         			.logoutUrl("/sign-out")
                 	.logoutSuccessUrl("/sign-view")  // 로그아웃 성공 후 리디렉션할 URL을 설정
-                	.deleteCookies("JSESSIONID")
+                	.deleteCookies("Authorization")
         			.permitAll()
         	);
         return http.build();
