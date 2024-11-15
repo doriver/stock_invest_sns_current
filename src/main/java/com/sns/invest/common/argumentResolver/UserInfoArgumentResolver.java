@@ -12,6 +12,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.sns.invest.security.CustomUserDetails;
+import com.sns.invest.security.jwt.MiniUserDetails;
 
 public class UserInfoArgumentResolver implements HandlerMethodArgumentResolver{
 
@@ -26,7 +27,7 @@ public class UserInfoArgumentResolver implements HandlerMethodArgumentResolver{
 		
 		// SecurityContextHolder에서 Authentication 객체 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails userDetail = (CustomUserDetails) authentication.getPrincipal();
+        MiniUserDetails userDetail = (MiniUserDetails) authentication.getPrincipal();
 		
 		int userId = userDetail.getId();
 		String userNickName = userDetail.getNickName();

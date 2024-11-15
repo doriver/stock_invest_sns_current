@@ -47,26 +47,6 @@ public class UserRestController {
 	private final CmnValidation cmnValidation;
 	private final RedisDAO redisDao;
 	
-	@PostMapping("/users/sign-in")
-    public String signIn(@RequestParam("username") String username, @RequestParam("password") String password
-    		, HttpServletResponse response) {
-		
-		JwtToken jwtToken = userBO.signIn(username, password);
-		log.info("jwtToken accessToken = {}, refreshToken = {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());
-		
-		redisDao.saveWithTTL(
-				jwtToken.getAccessToken(), jwtToken.getRefreshToken()
-        		, 5, TimeUnit.MINUTES);
-		
-		/*ACCESS TOKEN 쿠키로 발급*/
-        Cookie accessCookie = new Cookie("Authorization", jwtToken.getAccessToken());
-        accessCookie.setHttpOnly(true);
-        accessCookie.setMaxAge(90 * 60); // 90분 동안 유효
-        
-        response.addCookie(accessCookie);
-        
-		return "redirect:/invest-view";
-	}
 	
 	// 아이디 중복확인 기능 - 입력받은id를 db에서 조회(select where) 
 	@GetMapping("/users/{loginId}")

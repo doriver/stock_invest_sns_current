@@ -97,6 +97,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean{
                 Cookie accessCookie = new Cookie("Authorization", accessToken);
                 accessCookie.setHttpOnly(true);
                 accessCookie.setMaxAge(90 * 60); // 90분 동안 유효
+                accessCookie.setPath("/");
                 
                 httpResponse.addCookie(accessCookie);
         	}
