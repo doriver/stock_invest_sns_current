@@ -44,7 +44,7 @@ public class SecurityConfig {
 	        // HTTP요청에 대한 권한 설정
         	.authorizeHttpRequests((requests) -> requests
 				.antMatchers("/sign-view", "/users", "/users/*"
-						, "static/**", "/favicon.ico", "/images/**","/sss").permitAll()
+						, "static/**", "/favicon.ico", "/images/**").permitAll()
 				.antMatchers("/admin-view").hasRole("ADMIN")
 				.anyRequest().authenticated()
 			)

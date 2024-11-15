@@ -46,9 +46,9 @@ public class UserRestController {
 	@PostMapping("/users/sign-in")
     public String signIn() {
 //		@RequestParam String username, @RequestParam String password
-		
-		
-		return redisDao.get("12");
+		log.info("나와야함");
+		return "asdf";
+//		return redisDao.get("12");
 	}
 	
 	// 아이디 중복확인 기능 - 입력받은id를 db에서 조회(select where) 
