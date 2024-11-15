@@ -87,7 +87,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean{
             	
             	redisDao.saveWithTTL(
             			accessToken, jwtToken.getRefreshToken()
-                		, 10, TimeUnit.MINUTES);        
+                		, 5, TimeUnit.HOURS);        
             	
             	HttpServletResponse httpResponse = (HttpServletResponse)response;
             	

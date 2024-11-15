@@ -33,6 +33,7 @@ public class UserController {
 		return "user/sign";
 	}
 
+	// 로그인
 	@PostMapping("/users/sign-in")
     public String signIn(@RequestParam("username") String username, @RequestParam("password") String password
     		, HttpServletResponse response) {
@@ -42,7 +43,7 @@ public class UserController {
 		
 		redisDao.saveWithTTL(
 				jwtToken.getAccessToken(), jwtToken.getRefreshToken()
-        		, 5, TimeUnit.MINUTES);
+        		, 5, TimeUnit.HOURS);
 		
 		/*ACCESS TOKEN 쿠키로 발급*/
         Cookie accessCookie = new Cookie("Authorization", jwtToken.getAccessToken());
