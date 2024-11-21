@@ -12,6 +12,15 @@
   * [RedisConfig.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/config/RedisConfig.java) 설정파일, [RedisDAO.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/post/dao/RedisDAO.java) 자료구조set관련 crud
 * [Nginx](https://github.com/doriver/DockerTest01/blob/master/compose/03/webServer/etcNginx/conf.d/default.conf) : nginx설정 파일( 리버스 프록시로서 로드밸런싱, 캐싱기능, 무중단 배포를 구현 )
 * [Querydsl사용 부분](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/post/dao/custom/InvestPostRepositoryCustomImpl.java)  ‘게시글 필터링 기능’에서 필터링 조건에 따라 sql문을 동적으로 처리
+
+## 인증, 권한 처리( Security + JWT + Redis )
+[SecurityConfig.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/config/SecurityConfig.java) : SecurityFilterChain을 사용해 JWT인증방식을 사용     
+[src/main/java/com/sns/invest/security](https://github.com/doriver/stock_invest_sns_current/tree/master/src/main/java/com/sns/invest/security)
+* AccessJWT는 Cookie에서, RefreshJWT는 Redis에서 관리
+* UserDetailsService를 통해 사용자 정보를 로드
+* [JwtAuthenticationFilter.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/security/jwt/JwtAuthenticationFilter.java) : JWT에따라 인증로직 처리 
+* [JwtTokenProvider.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/security/jwt/JwtTokenProvider.java) : JWT의 생성, 복호화, 검증
+
 ## Rest API
 #### 예외 처리 custom
 [ExControllerAdvice.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/exception/advice/ExControllerAdvice.java) : @ControllerAdvice에서 @ExceptionHandler로 공통예외처리
@@ -21,10 +30,6 @@
 #### BeanValidation : [메서드signUp](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/user/UserRestController.java#L62)
 #### 컨트롤러 메서드 매개변수 custom
 [UserInfoArgumentResolver.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/argumentResolver/UserInfoArgumentResolver.java) : HandlerMethodArgumentResolver구현해서 UserInfo를 매개변수로 받을수 있게 함
-## 인증, 권한 처리
-[SecurityConfig.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/config/SecurityConfig.java) : SecurityFilterChain을 사용해 FormLogin으로 인증처리를 함     
-[src/main/java/com/sns/invest/security](https://github.com/doriver/stock_invest_sns_current/tree/master/src/main/java/com/sns/invest/security)
-* UserDetailsService를 통해 사용자 정보를 로드
 
 ## 요청마다 'ip주소'로 구분
 [CmnFilterInterceptor.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/CmnFilterInterceptor.java) : ip주소 얻는 메소드 있음    
