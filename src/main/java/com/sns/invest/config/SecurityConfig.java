@@ -23,8 +23,6 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity // Spring Security를 활성화함
 @RequiredArgsConstructor
 public class SecurityConfig {
-
-	private final CustomUserDetailsService userDetailsService;
 	
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RedisDAO redisDao;
@@ -43,7 +41,7 @@ public class SecurityConfig {
 			
 	        // HTTP요청에 대한 권한 설정
         	.authorizeHttpRequests((requests) -> requests
-				.antMatchers("/sign-view", "/users", "/users/*"
+				.antMatchers("/sign-view", "/users", "/users/*","/t12/**"
 						, "static/**", "/favicon.ico", "/images/**").permitAll()
 				.antMatchers("/admin-view").hasRole("ADMIN")
 				.anyRequest().authenticated()
