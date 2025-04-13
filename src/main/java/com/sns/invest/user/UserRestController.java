@@ -31,8 +31,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import com.sns.invest.common.ApiResponse;
-import com.sns.invest.common.CmnValidation;
 import com.sns.invest.common.argumentResolver.UserInfo;
+import com.sns.invest.common.utils.CmnValidation;
 import com.sns.invest.post.bo.PostBO;
 import com.sns.invest.security.jwt.JwtToken;
 import com.sns.invest.security.jwt.RedisDAO;

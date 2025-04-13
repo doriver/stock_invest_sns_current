@@ -1,4 +1,4 @@
-package com.sns.invest.exception;
+package com.sns.invest.common.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

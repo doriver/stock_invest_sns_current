@@ -1,4 +1,4 @@
-package com.sns.invest.exception.advice;
+package com.sns.invest.common.exception.advice;
 
 import java.net.BindException;
 
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import com.sns.invest.exception.ErrorResult;
+import com.sns.invest.common.exception.ErrorResult;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.common.ApiResponse;
-import com.sns.invest.common.CmnValidation;
 import com.sns.invest.common.argumentResolver.UserInfo;
+import com.sns.invest.common.utils.CmnValidation;
 import com.sns.invest.post.bo.PostBO;
 import com.sns.invest.post.model.invest.InvestPostSaveForm;
 

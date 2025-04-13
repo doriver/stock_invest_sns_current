@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sns.invest.common.CmnValidation;
+import com.sns.invest.common.utils.CmnValidation;
 import com.sns.invest.security.jwt.JwtToken;
 import com.sns.invest.security.jwt.RedisDAO;
 import com.sns.invest.user.bo.UserBO;

@@ -1,4 +1,4 @@
-package com.sns.invest.common;
+package com.sns.invest.common.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

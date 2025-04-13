@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.sns.invest.comment.bo.CommentBO;
 import com.sns.invest.comment.dao.CommentRepository;
-import com.sns.invest.common.FileManagerService;
+import com.sns.invest.common.utils.FileManagerService;
 import com.sns.invest.post.dao.GossipPostRepository;
 import com.sns.invest.post.dao.InvestPostRepository;
 import com.sns.invest.post.dao.LocalPostRepository;

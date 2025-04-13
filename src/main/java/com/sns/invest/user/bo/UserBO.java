@@ -17,8 +17,8 @@ import com.sns.invest.user.model.User;
 
 import lombok.RequiredArgsConstructor;
 
-import com.sns.invest.common.EncryptUtils;
-import com.sns.invest.common.FileManagerService;
+import com.sns.invest.common.utils.EncryptUtils;
+import com.sns.invest.common.utils.FileManagerService;
 import com.sns.invest.security.jwt.JwtToken;
 import com.sns.invest.security.jwt.JwtTokenProvider;
 

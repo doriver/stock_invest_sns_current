@@ -1,4 +1,4 @@
-package com.sns.invest.common;
+package com.sns.invest.common.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 

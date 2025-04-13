@@ -1,4 +1,4 @@
-package com.sns.invest.common;
+package com.sns.invest.common.utils;
 
 import java.util.HashMap;
 import java.util.List;
