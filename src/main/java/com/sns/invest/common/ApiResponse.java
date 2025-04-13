@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class ApiResponse<T> {
+public class ApiResponse<T> { // 이때는 성공, 실패, 에러 3개로 나눴네
 	
     private static final String SUCCESS_STATUS = "success";
     private static final String FAIL_STATUS = "fail";
