@@ -14,14 +14,24 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.sns.invest.common.ApiResponse;
+import com.sns.invest.common.exception.ErrorCode;
 import com.sns.invest.common.exception.ErrorResult;
+import com.sns.invest.common.exception.ExpectedException;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestControllerAdvice
-public class ExControllerAdvice {
+public class GlobalExceptionHandler {
 
+	@ResponseStatus(HttpStatus.BAD_REQUEST) // 응답 헤더에는 400 코드가 가되, 실제 상태 코드는 ErrorCode의 상태 코드
+	@ExceptionHandler(ExpectedException.class)
+	public <T> ApiResponse<T> handleExpectedException(ExpectedException ex) {
+		ErrorCode errorCode = ex.getErrorCode();
+		return ApiResponse.error(errorCode);
+	}
+	
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(Exception.class)
 	public Object exHandler(Exception e, HttpServletRequest request) {

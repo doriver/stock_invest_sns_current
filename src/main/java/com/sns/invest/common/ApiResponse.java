@@ -2,6 +2,8 @@ package com.sns.invest.common;
 
 import org.springframework.http.HttpStatus;
 
+import com.sns.invest.common.exception.ErrorCode;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,12 +27,15 @@ public class ApiResponse<T> {
 	public static <T> ApiResponse<T> success(T data, HttpStatus status) {
 		return new ApiResponse<>(status.value(), data, null);
 	}
-		
-	public static <T> ApiResponse<T> fail(String message) {
-		return new ApiResponse<>(FAIL_STATUS, null, message);
+	
+	// 실패응답
+	// GlobalExceptionHandler에서 사용됨
+	public static <T> ApiResponse<T> error(ErrorCode errorCode) {
+		return new ApiResponse<>(errorCode.getHttpStatus().value(), null, errorCode.getMessage());
 	}
 	
-	public static <T> ApiResponse<T> fail(String message, T data) {
-		return new ApiResponse<>(FAIL_STATUS, data, message);
+	// 실패응답 , 에러코드 없는경우
+	public static <T> ApiResponse<T> error(HttpStatus httpStatus, String errorMessage) {
+		return new ApiResponse<>(httpStatus.value(), null, errorMessage);
 	}
 }
