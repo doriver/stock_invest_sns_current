@@ -1,24 +1,29 @@
 package com.sns.invest.common;
 
+import org.springframework.http.HttpStatus;
+
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Data
+@Getter
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class ApiResponse<T> {
 	
-    private static final String SUCCESS_STATUS = "success";
-    private static final String FAIL_STATUS = "fail";
+	private final int status;
+	private final T data;
+	private final String errorMessage;
 	
-	private String status;
-	private String message;
-	private T data;
-	
+	// 성공응답
     public static <T> ApiResponse<T> success(T data) {
-        return new ApiResponse<>(SUCCESS_STATUS, data, null);
+        return new ApiResponse<>(HttpStatus.OK.value(), data, null);
     }
     
-	public static <T> ApiResponse<T> success() {
-		return new ApiResponse<>(SUCCESS_STATUS, null, null);
+    // 성공응답, 상태코드 200아닌경우 전달받음
+	public static <T> ApiResponse<T> success(T data, HttpStatus status) {
+		return new ApiResponse<>(status.value(), data, null);
 	}
 		
 	public static <T> ApiResponse<T> fail(String message) {
@@ -28,10 +33,4 @@ public class ApiResponse<T> {
 	public static <T> ApiResponse<T> fail(String message, T data) {
 		return new ApiResponse<>(FAIL_STATUS, data, message);
 	}
-    
-    private ApiResponse(String status, T data, String message) {
-        this.status = status;
-        this.data = data;
-        this.message = message;
-    }
 }
