@@ -12,7 +12,7 @@ import com.sns.invest.post.model.gossip.GossipPostWithOthers;
 import com.sns.invest.post.model.invest.InvestPostWithOthers;
 import com.sns.invest.post.model.local.LocalPostWithOthers;
 import com.sns.invest.user.bo.UserBO;
-import com.sns.invest.user.model.User;
+import com.sns.invest.user.dao.model.User;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

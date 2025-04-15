@@ -11,7 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
-import com.sns.invest.user.model.User;
+import com.sns.invest.user.dao.model.User;
 
 public class CustomUserDetails implements UserDetails {
 

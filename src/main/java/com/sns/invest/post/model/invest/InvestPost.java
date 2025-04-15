@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.sns.invest.user.model.User;
+import com.sns.invest.user.dao.model.User;
 
 import lombok.AccessLevel;
 import lombok.Builder;

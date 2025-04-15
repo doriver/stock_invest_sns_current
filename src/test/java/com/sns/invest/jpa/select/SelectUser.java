@@ -10,7 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.sns.invest.config.QueryDslCofig;
 import com.sns.invest.user.dao.UserRepository;
-import com.sns.invest.user.model.User;
+import com.sns.invest.user.dao.model.User;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)

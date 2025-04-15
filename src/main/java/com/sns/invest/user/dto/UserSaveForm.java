@@ -1,4 +1,4 @@
-package com.sns.invest.user.model;
+package com.sns.invest.user.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

@@ -24,9 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sns.invest.user.model.User;
-import com.sns.invest.user.model.UserSaveForm;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,6 +34,8 @@ import com.sns.invest.post.bo.PostBO;
 import com.sns.invest.security.jwt.JwtToken;
 import com.sns.invest.security.jwt.RedisDAO;
 import com.sns.invest.user.bo.UserBO;
+import com.sns.invest.user.dao.model.User;
+import com.sns.invest.user.dto.UserSaveForm;
 
 @RestController
 @Slf4j
@@ -67,15 +66,7 @@ public class UserRestController {
 	
 	// 회원가입 기능 - 입력받은 정보들을 db에 저장(insert)
 	@PostMapping("/users")
-	public ApiResponse<?> signUp( @Validated @RequestBody UserSaveForm form
-			, BindingResult bindingResult ) {
-		
-		if (bindingResult.hasErrors()) {
-			Map<String, String> validationMessage 
-						= cmnValidation.getValidationMessage(bindingResult);
-			
-			return ApiResponse.fail("failValidation", validationMessage);
-		}
+	public ApiResponse<?> signUp(@Validated @RequestBody UserSaveForm form) {
 		
 		int count = userBO.signUp(form.getLoginId(), form.getPassword(), form.getNickName(), form.getEmail());
 		

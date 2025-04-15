@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sns.invest.user.dao.UserRepository;
-import com.sns.invest.user.model.User;
+import com.sns.invest.user.dao.model.User;
 
 import lombok.RequiredArgsConstructor;
 

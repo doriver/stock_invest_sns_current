@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.sns.invest.user.bo.UserBO;
 import com.sns.invest.user.dao.UserRepository;
-import com.sns.invest.user.model.User;
+import com.sns.invest.user.dao.model.User;
 
 import lombok.RequiredArgsConstructor;
 

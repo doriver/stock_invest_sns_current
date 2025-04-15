@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sns.invest.comment.dao.CommentRepository;
 import com.sns.invest.post.dao.LikeRedisDAO;
-import com.sns.invest.user.model.User;
+import com.sns.invest.user.dao.model.User;
 
 import lombok.RequiredArgsConstructor;
 

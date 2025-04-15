@@ -1,4 +1,4 @@
-package com.sns.invest.user.model;
+package com.sns.invest.user.dao.model;
 
 import java.sql.Timestamp;
 

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.sns.invest.user.model.User;
+import com.sns.invest.user.dao.model.User;
 
 public interface UserRepository extends JpaRepository<User, Integer>{
 	long countByUsername(String username); // 아이디 중복체크

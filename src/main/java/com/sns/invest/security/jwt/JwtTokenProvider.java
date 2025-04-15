@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.sns.invest.common.argumentResolver.UserInfo;
 import com.sns.invest.security.CustomUserDetails;
-import com.sns.invest.user.model.User;
+import com.sns.invest.user.dao.model.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
