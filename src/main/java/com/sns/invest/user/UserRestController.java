@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -66,15 +67,9 @@ public class UserRestController {
 	
 	// 회원가입 기능 - 입력받은 정보들을 db에 저장(insert)
 	@PostMapping("/users")
-	public ApiResponse<?> signUp(@Validated @RequestBody UserSaveForm form) {
-		
-		int count = userBO.signUp(form.getLoginId(), form.getPassword(), form.getNickName(), form.getEmail());
-		
-		if (count == 1) {
-			return ApiResponse.success();
-		} else { // 암호화 실패경우
-			return ApiResponse.fail("비밀번호 암호화 실패");
-		}
+	public void signUp(@Valid @RequestBody UserSaveForm form) {
+
+		userBO.signUp(form.getLoginId(), form.getPassword(), form.getNickName(), form.getEmail());
 		
 	}
 	

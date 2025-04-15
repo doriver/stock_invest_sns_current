@@ -17,6 +17,8 @@ import com.sns.invest.user.dao.model.User;
 
 import lombok.RequiredArgsConstructor;
 
+import com.sns.invest.common.exception.ErrorCode;
+import com.sns.invest.common.exception.ExpectedException;
 import com.sns.invest.common.utils.EncryptUtils;
 import com.sns.invest.common.utils.FileManagerService;
 import com.sns.invest.security.jwt.JwtToken;
@@ -55,18 +57,13 @@ public class UserBO {
 	}
 	
 	
-	
-	@Transactional
-	public int signUp(String loginId, String password, String nickName, String email) {
+	public void signUp(String loginId, String password, String nickName, String email) {
 			
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encryptPassword = passwordEncoder.encode(password);	
 		
-		int result = 0;
-		
 		if(encryptPassword.equals("")) {
-			logger.error("[UserBO signUP] 암호화 실패!!!!!!!!!!!!!!");
-			return result;
+			throw new ExpectedException(ErrorCode.FAIL_SIGN_UP);
 		}
 		
 		User user = User.builder()
@@ -74,17 +71,10 @@ public class UserBO {
 				.nickName(nickName).email(email).role("user")
 				.build();
 		
-		try { // save는 이런식으로 처리해야하는듯 , @Transactional 추가해줘야하는거 생각해야함
-			if ( userRepository.save(user) instanceof User ) {
-				result = 1;
-				logger.info("회원가입 성공");
-			}
-		} catch (Exception e) {
-			logger.error("[UserBO signUp] save()실패");
-	        throw e;
-	    }
-		
-		return result;
+		User savedUser = userRepository.save(user);
+		if (savedUser.getId() == null) {
+			throw new ExpectedException(ErrorCode.FAIL_SIGN_UP);			
+		}
 	}
 	
 	

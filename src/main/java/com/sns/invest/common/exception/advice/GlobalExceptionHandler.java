@@ -16,7 +16,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.sns.invest.common.ApiResponse;
 import com.sns.invest.common.exception.ErrorCode;
-import com.sns.invest.common.exception.ErrorResult;
 import com.sns.invest.common.exception.ExpectedException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,10 +34,10 @@ public class GlobalExceptionHandler {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(Exception.class)
 	public Object exHandler(Exception e, HttpServletRequest request) {
-		log.error("[exceptionHandler] ex", e);
+		log.error("Exception Handler", e);
 		
 		String acceptHeader = request.getHeader("Accept");
-		String message = e.getMessage();
+		String message = "서버 내부 오류가 발생했습니다.";
 
 		// Accept: text/html 요청에 대해 HTML 응답
         if (acceptHeader != null && acceptHeader.contains("text/html")) {
@@ -48,15 +47,8 @@ public class GlobalExceptionHandler {
         }
         
         // 그 외의 경우 JSON 응답
-		return new ErrorResult("ex", message);
+		return ApiResponse.error(HttpStatus.INTERNAL_SERVER_ERROR, message);
 	}
 
-	
-//	@ResponseStatus(HttpStatus.BAD_REQUEST)
-//	@ExceptionHandler(BindException.class)
-//	public ErrorResult bindExHandler(BindException e) {
-//		log.error("[exceptionHandler] ex", e);
-//		return new ErrorResult("bind", e.getMessage());
-//	}
 
 }

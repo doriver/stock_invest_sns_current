@@ -3,9 +3,15 @@ package com.sns.invest.user.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import lombok.AccessLevel;
 import lombok.Data;
-
-@Data
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+/*
+ * HTTP요청 JSON데이터 파징하는 DTO
+ */
+@Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserSaveForm {
 	
 	@NotBlank
