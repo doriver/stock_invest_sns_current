@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -26,16 +27,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "username", nullable = false, length = 16)
+    @NotNull
+    @Column(name = "username", length = 16)
     private String username;
 
-    @Column(name = "password", nullable = false, length = 128)
+    @NotNull
+    @Column(name = "password", length = 128)
     private String password;
 
-    @Column(name = "nickName", nullable = false, length = 16)
+    @NotNull
+    @Column(name = "nickName", length = 16)
     private String nickName;
 
-    @Column(name = "email", nullable = false, length = 64)
+    @NotNull
+    @Column(name = "email", length = 64)
     private String email;
 
     @Column(name = "profileImage", length = 128)
