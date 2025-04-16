@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.sns.invest.user.bo.UserBO;
 import com.sns.invest.user.dao.UserRepository;
+import com.sns.invest.user.dao.model.Role;
 import com.sns.invest.user.dao.model.User;
 
 import lombok.RequiredArgsConstructor;
@@ -31,14 +32,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 			return null;
 		}
 		
-		String role = user.getRole();
-		Collection<GrantedAuthority> authorities = new ArrayList();		
+		Role role = user.getRole();
 		
-		if (role.equals("user") ) {
-			authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));			
-		} else if (role.equals("master")) {
-			authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-		}
+		Collection<GrantedAuthority> authorities = new ArrayList();		
+
+		authorities.add(new SimpleGrantedAuthority(role.getValue()));			
+
 		
 		return new CustomUserDetails(user, authorities);
 	}

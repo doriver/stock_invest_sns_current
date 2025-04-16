@@ -4,12 +4,15 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -28,32 +31,40 @@ public class User {
     private Integer id;
 
     @NotNull
-    @Column(name = "username", length = 16)
+    @Size(max = 16)
+    @Column(name = "username")
     private String username;
 
     @NotNull
-    @Column(name = "password", length = 128)
+    @Size(max = 128)
+    @Column(name = "password")
     private String password;
 
     @NotNull
-    @Column(name = "nickName", length = 16)
+    @Size(max = 16)
+    @Column(name = "nickName")
     private String nickName;
 
     @NotNull
-    @Column(name = "email", length = 64)
+    @Size(max = 64)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "profileImage", length = 128)
+    @Size(max = 128)
+    @Column(name = "profileImage")
     private String profileImage;
 
-    @Column(name = "profileStatusMessage", length = 128)
+    @Size(max = 128)
+    @Column(name = "profileStatusMessage")
     private String profileStatusMessage;
 
-    @Column(name = "location", length = 64)
+    @Size(max = 64)
+    @Column(name = "location")
     private String location;
 
-    @Column(name = "role", nullable = false, length = 16)
-    private String role;
+    @Enumerated(EnumType.ORDINAL)
+    @NotNull
+    private Role role;
     
     // insertable과 updatable 속성을 false로 설정하여, 엔티티가 처음 저장될 때와 업데이트될 때 자동으로 값이 설정되도록 
     // columnDefinition을 통해 DEFAULT CURRENT_TIMESTAMP를 반영
@@ -70,7 +81,7 @@ public class User {
     
     @Builder
 	public User(String username, String password, String nickName, String email, String profileImage,
-			String profileStatusMessage, String location, String role) {
+			String profileStatusMessage, String location, Role role) {
 		this.username = username;
 		this.password = password;
 		this.nickName = nickName;

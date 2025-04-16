@@ -1,4 +1,4 @@
-package com.sns.invest.security;
+package com.sns.invest.user.dao.model;
  
 import lombok.AllArgsConstructor;
 import lombok.Getter;
