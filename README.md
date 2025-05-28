@@ -27,6 +27,13 @@
   <img src="demo_gif/필터링.gif" alt="demo4" width="370" height="250">  
 </div>
 
+* 위치정보 설정과 지역커뮤니티
+* 다른사람의 개인홈 , 가십게시판    
+<div>
+  <img src="demo_gif/위치설정.gif" alt="demo5" width="370" height="250">
+  &nbsp&nbsp&nbsp
+  <img src="demo_gif/개인홈,가십게시판.gif" alt="demo6" width="370" height="250">  
+</div>
 
 ## 인증, 권한 처리( Security + JWT + Redis )
 [SecurityConfig.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/config/SecurityConfig.java) : SecurityFilterChain을 사용해 JWT인증방식을 사용     
@@ -54,13 +61,7 @@
 * [Format에 데이터들 담기](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/post/bo/PostBO.java#L79)
 * 이미지 첨부 게시글 작성 : [메소드investPostCreate](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/post/PostCreateController.java#L40)
 
-* 위치정보 설정과 지역커뮤니티
-* 다른사람의 개인홈 , 가십게시판    
-<div>
-  <img src="demo_gif/위치설정.gif" alt="demo5" width="370" height="250">
-  &nbsp&nbsp&nbsp
-  <img src="demo_gif/개인홈,가십게시판.gif" alt="demo6" width="370" height="250">  
-</div>
+
 
 
 
