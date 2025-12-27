@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d1dd0b38-e15a-41c1-a2de-5c6b6155076c" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DDL.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/InvestApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/comment/CommentRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/comment/bo/CommentBO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/comment/dao/CommentRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/common/ApiResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/common/argumentResolver/UserInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/common/argumentResolver/UserInfoArgumentResolver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/common/exception/ErrorResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/common/exception/advice/ExControllerAdvice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/common/interceptor/CmnFilterInterceptor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/common/interceptor/LogInterceptor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/common/utils/CmnValidation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/common/utils/EncryptUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/common/utils/FileManagerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/config/InterceptorConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/config/QueryDslCofig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/config/RedisConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/config/WebMvcConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/PostController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/PostCreateController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/PostRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/bo/LikeBO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/bo/PostBO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/dao/GossipPostRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/dao/InvestPostRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/dao/LikeRedisDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/dao/LocalPostRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/dao/custom/InvestPostRepositoryCustom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/dao/custom/InvestPostRepositoryCustomImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/model/Comment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/model/gossip/GossipPost.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/model/gossip/GossipPostWithOthers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/model/invest/InvestPost.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/model/invest/InvestPostSaveForm.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/model/invest/InvestPostWithOthers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/model/local/LocalPost.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/post/model/local/LocalPostWithOthers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/security/CustomAuthenticationSuccessHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/security/CustomUserDetails.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/security/CustomUserDetailsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/security/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/security/jwt/JwtAuthenticationFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/security/jwt/JwtToken.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/security/jwt/JwtTokenProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/security/jwt/MiniUserDetails.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/security/jwt/RedisDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/user/TestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/user/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/user/UserRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/user/bo/UserBO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/user/dao/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/user/model/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sns/invest/user/model/UserSaveForm.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/errors.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/logback-spring.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/logback-variables.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/messages.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/common.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/error/4xx.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/error/5xx.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/error/errorPage.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/include/footer.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/include/userSector.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/include/viewList.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/post/filteredInvestTimeline.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/post/gossipTimeline.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/post/individualHome.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/post/investTimeline.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/post/localTimeline.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user/admin.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user/sign.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sns/invest/InvestApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sns/invest/jpa/insert/InsertInvestPost.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sns/invest/jpa/insert/InsertUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sns/invest/jpa/select/SelectInvestPost.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sns/invest/jpa/select/SelectUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sns/invest/jpa/update/UpdateUser.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="37PikjAb4vHus3XVcXMKCiKmHjB" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/devJava/stock_invest_sns_current"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="stock_invest_sns_current" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="stock_invest_sns_current" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="d1dd0b38-e15a-41c1-a2de-5c6b6155076c" name="변경" comment="" />
+      <created>1766811251981</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1766811251981</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -10,12 +10,15 @@ spring:
       
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/invest_sns_new?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/invest_sns?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
-    password: qlqjs
+    password: root
     
   data:
     redis:
+      host: localhost
+        #    host: host.docker.internal
+      port: 6379
       repositories:
         enabled: false # 이거 없으면 JPA의 repository를 Redis가 인식히려해서 콘솔창에 뭐 뜸
         
@@ -26,13 +29,6 @@ spring:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
-    
-  redis:
-    host: localhost
-#    host: host.docker.internal
-    port: 6379
-    repositories:
-      enabled: false
 
 # 토큰의 암호화,복호화에 사용. HS256알고리즘을 사용하기 위해 32글자 이상으로 설정
 jwt:
