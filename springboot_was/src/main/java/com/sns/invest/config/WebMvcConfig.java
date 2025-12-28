@@ -14,7 +14,8 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/images/**") // 이 패턴으로 요청시 아래 경로에서 정적 리소스를 찾아 응답  . 내가 url로 접근하고 싶은 path /images/10_1231212312/test.png
-		.addResourceLocations("file:///D:\\devJava\\stock_invest_sns_current\\app_images/");
+//		.addResourceLocations("file:///D:\\devJava\\stock_invest_sns_current\\app_images/");
+		.addResourceLocations("file:/upload/images/");
 //		.addResourceLocations("file:/home/ec2-user/upload_images/");
 		
 		registry.addResourceHandler("/favicon.ico")
