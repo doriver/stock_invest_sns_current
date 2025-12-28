@@ -18,6 +18,9 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx/etcNginx/nginx.conf:/etc/nginx/nginx.conf
-      - D:\dockerTest\compose\03\webServer\etcNginx\conf.d\default.conf:/etc/nginx/conf.d/default.conf
-      - D:\dockerTest\compose\03\webServer\varCacheNginx:/asdcache
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/cache:/cache/sns/data
+    depends_on:
+      - was01
+      - was02

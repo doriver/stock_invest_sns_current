@@ -5,11 +5,6 @@
 * 투자(주식)라는 주제에 집중한 SNS, 투자를 하면서 사람들과 소통하면 재밌을꺼 같아 만들었다.
 * 간단한 웹 서비스지만, 기술들을 연습하고 적용해 본다는 의의를 가지고 만들었다.
 
-## 사용된 기술들
-* [SpringBoot](https://github.com/doriver/springBootPractice01)
-* [Docker Compose](https://github.com/doriver/DockerTest01/tree/master/compose/03)
-* [Nginx](https://github.com/doriver/DockerTest01/blob/master/compose/03/webServer/etcNginx/conf.d/default.conf) 
-
 ## 미리 보기
 * 회원가입,로그인,로그아웃
 * 프로필설정과 프로필 이미지 반영
