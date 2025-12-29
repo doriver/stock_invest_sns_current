@@ -4,6 +4,11 @@
 # Invest SNS
 * 투자(주식)라는 주제에 집중한 SNS, 투자를 하면서 사람들과 소통하면 재밌을꺼 같아 만들었다.
 * 간단한 웹 서비스지만, 기술들을 연습하고 적용해 본다는 의의를 가지고 만들었다.
+## 아키텍쳐
+<img width="910" height="378" alt="image" src="https://github.com/user-attachments/assets/fbf60e82-0b2a-41af-8687-adeef7dd3b42" />
+
+* 로컬에서 docker-compose로 Nginx, SpringBoot 실행    
+MySQL은 로컬 호스트(Window)에 설치, Redis는 WSL(Windows Subsystem for Linux)에 설치
 
 ## 미리 보기
 * 회원가입,로그인,로그아웃
@@ -31,32 +36,6 @@
 </div>
 
 ## 인증, 권한 처리( Security + JWT + Redis )
-[SecurityConfig.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/config/SecurityConfig.java) : SecurityFilterChain을 사용해 JWT인증방식을 사용     
-[src/main/java/com/sns/invest/security](https://github.com/doriver/stock_invest_sns_current/tree/master/src/main/java/com/sns/invest/security)
+* SecurityFilterChain을 사용해 JWT인증방식을 사용     
 * AccessJWT는 Cookie에서, RefreshJWT는 Redis에서 관리
-* UserDetailsService를 통해 사용자 정보를 로드
-* [JwtAuthenticationFilter.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/security/jwt/JwtAuthenticationFilter.java) : JWT에따라 인증로직 처리 
-* [JwtTokenProvider.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/security/jwt/JwtTokenProvider.java) : JWT의 생성, 복호화, 검증
-
-## Rest API
-#### 예외 처리 custom
-[ExControllerAdvice.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/exception/advice/ExControllerAdvice.java) : @ControllerAdvice에서 @ExceptionHandler로 공통예외처리
-#### api 응답형식
-* 예외 발생했을때 : [ErrorResult.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/exception/ErrorResult.java)
-* 정상 : [ApiResponse.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/ApiResponse.java)
-#### BeanValidation : [메서드signUp](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/user/UserRestController.java#L62)
-#### 컨트롤러 메서드 매개변수 custom
-[UserInfoArgumentResolver.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/argumentResolver/UserInfoArgumentResolver.java) : HandlerMethodArgumentResolver구현해서 UserInfo를 매개변수로 받을수 있게 함
-
-## 요청마다 'ip주소'로 구분
-[CmnFilterInterceptor.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/CmnFilterInterceptor.java) : ip주소 얻는 메소드 있음    
-[LogInterceptor.java](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/common/interceptor/LogInterceptor.java) : Interceptor에서 요청마다 ip주소와 id값(UUID)을 부여하고 log로 남김
-
-## 타임라인
-* [Format에 데이터들 담기](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/post/bo/PostBO.java#L79)
-* 이미지 첨부 게시글 작성 : [메소드investPostCreate](https://github.com/doriver/stock_invest_sns_current/blob/master/src/main/java/com/sns/invest/post/PostCreateController.java#L40)
-
-
-
-
 
